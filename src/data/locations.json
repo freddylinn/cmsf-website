@@ -1,0 +1,7 @@
+{
+    "Lower Motor Neuron": ["Flaccid"],
+    "Upper Motor Neuron": ["UUMN","Spastic"],
+    "Basal Ganglia": ["Hypokinetic", "Hyperkinetic"],
+    "Cerebellum": ["Ataxic"],
+    "Left Hemisphere": ["Apraxia of Speech"]
+}

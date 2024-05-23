@@ -1,0 +1,40 @@
+{
+    "Rate of Speech": {
+        "Slow rate of speech": [
+            [1,"(can be compensatory or primary)"],
+            [1, "(uncommon)"],
+            [2, ""],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""]
+        ],
+        "Fast rate of speech": [
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [2, "(short rushes of speech)"],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""]
+        ],
+        "Variable rate of speech": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [1, "(unpredictable movement)"],
+            [1, ""],
+            [0, ""]
+        ],
+        "Short phrases": [
+            [2, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [1, ""]
+        ]
+    }
+}
