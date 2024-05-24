@@ -36,5 +36,417 @@
             [0, ""],
             [1, ""]
         ]
+    },
+    "Fluency & Cadence": {
+        "Abnormal noises": [
+            [-1,""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [2, ""],
+            [-1, ""],
+            [-1, ""]
+        ],
+        "Stutter-like Disfluencies": [
+            [0,""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""]
+        ],
+        "Distorted substitutions or articulatory additions": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""]
+        ],
+        "Syllable Segregation": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [1, ""]
+        ],
+        "Prolonged interword intervals": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [2, ""],
+            [0, ""],
+            [1, ""]
+        ],
+        "Prolonged phonemes": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""]
+        ]
+    },
+    "V. Loudness": {
+        "Reduced vocal loudness (<70dB)": [
+            [1, "(CN X)"],
+            [1, ""],
+            [0, ""],
+            [2, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]
+        ],
+        "Explosive loudness bursts": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [0, ""]
+        ],
+        "Monoloudness": [
+            [1, ""],
+            [0, ""],
+            [1, ""],
+            [2, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""]
+        ],
+        "Loudness decay": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""]
+        ],
+        "Excessive loudness variation": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [2, ""],
+            [0, ""]
+        ]
+    },
+    "Voice Quality and Respiration": {
+        "Breathiness": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [1, "(transient)"],
+            [0, ""],
+            [0, ""]
+        ],
+        "Aphonia": [
+            [1, "(CN X)"],
+            [0, ""],
+            [1, "(intermittent)"],
+            [0, ""],
+            [1, "(intermittent)"],
+            [0, ""],
+            [0, ""]
+        ],
+        "Hoarseness": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]
+        ],
+        "Strained, Strangled": [
+            [1, "(ex. compensatory for diaphragmatic weakness)"],
+            [1, "(uncommon)"],
+            [2, ""],
+            [0, ""],
+            [1, "(ex. adductor spasmodic dysphonia)"],
+            [-1, ""],
+            [0, ""]
+        ],
+        "Diplophonia": [
+            [2, "(CN X)"],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""]
+        ],
+        "Harshness": [
+            [0, ""],
+            [1, ""],
+            [2, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""]
+        ],
+        "Monopitch": [
+            [1, ""],
+            [0, ""],
+            [1, ""],
+            [2, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""]
+        ],
+        "Voice stoppage": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [0, ""],
+            [0, ""]
+        ],
+        "Maximum phonation time less than 9 seconds": [
+            [1, "(CN X, phrenic nerve)"],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""]
+        ],
+        "Vocal tremor": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [0, ""]
+        ],
+        "Rapid vocal flutter (i.e. rapid voice tremor)": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]
+        ]
+    },
+    "Word & Phrasal Stress": {
+        "Reduced use of stress": [
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [2, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]
+        ],
+        "Prosodic excess or scanning": [
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [1, ""]
+        ],
+        "Atypical silences / pauses": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""]
+        ],
+        "Errors marking stress": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""]
+        ]
+    },
+    "Articulation": {
+        "Imprecise consonants": [
+            [1, "(errors are typically consistent; errors reflect CNs affected)"],
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [1, "(inconsistent breakdowns)"],
+            [1, "(inconsistent breakdowns; fewer errors for automatic speech)"]
+        ],
+        "Distorted vowels": [
+            [1, "(CN V, VII, and XII)"],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [2, ""],
+            [2, ""],
+            [1, ""]
+        ],
+        "Irregular articulatory breakdown": [
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [1, "(due to unpredictable movement)"],
+            [2, ""],
+            [1, ""]
+        ],
+        "Articulatory groping": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""]
+        ],
+        "Telescoping": [
+            [0, ""],
+            [1, "(due to imprecise articulation)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, "(due to poor coordination)"],
+            [1, "(due to imprecise articulation)"]
+        ],
+        "Deterioration of speech during continuous speaking": [
+            [2, "(ex. Myasthenia Gravis: improvement after rest)"],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""]
+        ]
+    },
+    "Resonance": {
+        "Audible nasal emission or nasal snorting": [
+            [2, ""],
+            [0, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""]
+        ],
+        "Hyponasality": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, "(intermittent)"],
+            [0, ""]
+        ],
+        "Hypernasality": [
+            [1, "(CN X)"],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [1, "(intermittent)"],
+            [0, ""],
+            [0, ""]
+        ]
+    },
+    "Diadochokinetic Rate (DDK)": {
+        "Slow rate": [
+            [1, "(may be compensatory for poor articulation)"],
+            [1, ""],
+            [1, "(slow and regular AMR)"],
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""]  
+        ],
+        "Irregular rhythm": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, "(from unpredictable movement)"],
+            [2, "(irregular AMR)"],
+            [1, "(SMRs likely more irregular than AMRs)"]  
+        ],
+        "Rapid, accelerated AMRs": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]  
+        ],
+        "Overall imprecise articulation of AMRs / SMRs": [
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, "(SMRs likely less precise than AMRs)"]  
+        ],
+        "'Puh' is more imprecise/slow than 'tuh' or 'kuh'": [
+            [1, "(CN VII)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]  
+        ],
+        "'Tuh' and 'Kuh' more imprecise/slow than 'Puh'": [
+            [1, "(CN XII)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]  
+        ],
+        "'Puh-tuh-kuh' is poorly sequenced": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [2, ""]  
+        ]
+    },
+    "Expression": {
+        "Pseudobulbar Affect": [
+            [-1, ""],
+            [-1, ""],
+            [2, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""]  
+        ],
+        "Flat affect / masked facies": [
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [2, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""]  
+        ]
     }
 }

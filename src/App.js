@@ -1,22 +1,15 @@
 import charData from './data/characteristics.json';
 import locData from './data/locations.json';
 
-import Cell from './components/Cell';
 import Row from './components/Row';
 
 function App() {
 
   const characteristics = charData;
   const locations = locData;
-  console.log(Object.values(locations));
-
   const firstRow = Object.keys(locations).map(item => <th colSpan={locations[item].length} className="p-4 border border-slate-700">{item}</th>)
   const secondRow = Object.values(locations).flatMap(arr => arr).map(value => <th className="p-4 border border-slate-700">{value}</th>);
-  const temp = characteristics["Rate of Speech"]["Slow rate of speech"].map(item => <Cell checked={true} color={item[0]} notes={item[1]} />);
-  console.log(Object.entries(characteristics["Rate of Speech"]))
-  // TO-DO: Make row component that adjusts checked prop based on checkbox
-  const rows = Object.entries(characteristics["Rate of Speech"]).map(item => <Row rowData={item}/>)
-
+  const charRows = Object.keys(characteristics).map(groupName => Object.entries(characteristics[groupName]).map(item => <Row rowData={item}/>))
 
   return (
     <div className="">
@@ -33,7 +26,7 @@ function App() {
         </tr>
         </thead>
         <tbody>
-          {rows}
+          {charRows}
         </tbody>
       </table>
     </div>
