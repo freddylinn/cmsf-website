@@ -1,20 +1,23 @@
 
 function Cell({checked, color, notes}) {
 
-    let styles = "bg-default border border-slate-700";
+    let styles = "w-36 p-2 bg-default border border-slate-700";
     let checkedStyles = "";
     switch(color){
         case -1:
-            checkedStyles = "p-2 bg-red-300 border border-slate-700";
+            checkedStyles = "w-36 p-2 bg-red-300 border border-slate-700";
         break;
         case 0:
-            checkedStyles = styles
+            checkedStyles = "w-36 p-2 bg-slate-100 border border-slate-700";
         break;
         case 1:
-            checkedStyles = "p-2 bg-yellow-200 border border-slate-700";
+            checkedStyles = "w-36 p-2 bg-yellow-200 border border-slate-700";
         break;
         case 2:
-            checkedStyles = "p-2 bg-green-300 border border-slate-700";
+            checkedStyles = "w-36 p-2 bg-green-300 border border-slate-700";
+        break;
+        default:
+            checkedStyles = styles;
         break;
     }
 
