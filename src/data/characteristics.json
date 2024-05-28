@@ -448,5 +448,370 @@
             [-1, ""],
             [-1, ""]  
         ]
+    },
+    "General OME Observations": {
+        "Incoordination / dysmetria": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""],
+            [0, ""] 
+        ],
+        "Muscle atrophy": [
+            [2, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""] 
+        ],
+        "Involuntary, unpredictable movements": [
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [2, ""],
+            [-1, ""],
+            [-1, ""] 
+        ],
+        "Tremor: action-induced": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [2, "(Essential Tremor)"],
+            [1, "(terminal tremor)"],
+            [0, ""] 
+        ],
+        "Tremor: with sustained movements": [
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Tremor: at rest": [
+            [-1, ""],
+            [-1, ""],
+            [-1, ""],
+            [2, ""],
+            [0, ""],
+            [-1, ""],
+            [-1, ""] 
+        ]
+    },
+    "OME (Face)": {
+        "Drooping on entire side of face": [
+            [1, "(Bell's Palsy, CN VII)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Drooping on lower side of face": [
+            [0, ""],
+            [2, "(Droop on side opposite from the site of lesion)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""]
+        ],
+        "Bilateral facial weakness": [
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Hypotonia": [
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""] 
+        ],
+        "Muscle weakness": [
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Spasticity": [
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Drooling": [
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Nonverbal oral apraxia": [
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [2, ""] 
+        ]
+    },
+    "OME (Lips)": {
+        "Asymmetrical movement": [
+            [1, "(CN VII; ex. reduced retraction on the impaired side, contralateral to the site of lesion)"],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""] 
+        ],
+        "Weakness": [
+            [1, "(CN VII; ex. weakness on the impaired side, ipsilateral to the site of lesion)"],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""] 
+        ],
+        "Limited range of motion": [
+            [1, ""],
+            [1, "(reduced on impaired side)"],
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ]
+    },
+    "OME (Jaw)": {
+        "Jaw hangs open at rest": [
+            [1, "(CN V bilaterally)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Jaw deviation to one side": [
+            [1, "(CN V unilaterally; jaw deviates to weak side)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Decreased sensation of the face, cheek, teeth, tongue, or palate": [
+            [1, "(CN V)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
+        ],
+        "Weakness when opening or closing": [
+            [1, "(CN V)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Clonus": [
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Limited range of motion": [
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Progressive weakening of jaw movements": [
+            [1, "(associated with Myasthenia Gravis)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ]
+    },
+    "OME (Soft Palate)": {
+        "Palate hangs low in mouth": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Palate asymmetry": [
+            [1, "(CN X; hangs lower on side of lesion)"],
+            [1, "(uncommon)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Asymmetric movement on phonation": [
+            [1, "(CN X; palate moves towards nonimpaired side)"],
+            [1, "(uncommon)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Air escapes from nose when puffing cheeks": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ]
+    },
+    "OME (Tongue)": {
+        "Fasiculations": [
+            [2, "(CN XII)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Deviation to one side on protrusion": [
+            [1, "(CN XII; deviates to weak side, towards the side of lesion)"],
+            [1, "(deviates to opposite side of lesion)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Weakness": [
+            [1, "(CN XII)"],
+            [1, "(unilateral)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, "(commonly right lingual weakness)"]    
+        ],
+        "Limited range of motion": [
+            [1, "(CN XII)"],
+            [0, ""],
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Diminished ability to curl tip of tongue": [
+            [1, "(CN XII)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Slow movements": [
+            [1, "(CN XII)"],
+            [1, ""],
+            [1, ""],
+            [0, ""],
+            [0, ""],
+            [1, ""],
+            [0, ""]    
+        ]
+    },
+    "OME (Larynx)": {
+        "Weak cough*": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Weak Glottal coup*": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "Inhalatory stridor": [
+            [1, "(CN X)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [1, "(usually accompanied by hyperkinesias)"],
+            [0, ""],
+            [0, ""]    
+        ],
+        "*Weak cough but strong glottal coup": [
+            [0, "(could indicate respiratory weakness)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ],
+        "*Weak coup and weak cough": [
+            [0, "(could indicate laryngeal weakness)"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""]    
+        ]
     }
 }
