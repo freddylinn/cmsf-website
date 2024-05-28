@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/cmsf-website/static/css/main.238514e5.css",
-    "main.js": "/cmsf-website/static/js/main.1a78a534.js",
+    "main.css": "/cmsf-website/static/css/main.c3685bca.css",
+    "main.js": "/cmsf-website/static/js/main.2d734199.js",
     "index.html": "/cmsf-website/index.html",
-    "main.238514e5.css.map": "/cmsf-website/static/css/main.238514e5.css.map",
-    "main.1a78a534.js.map": "/cmsf-website/static/js/main.1a78a534.js.map"
+    "main.c3685bca.css.map": "/cmsf-website/static/css/main.c3685bca.css.map",
+    "main.2d734199.js.map": "/cmsf-website/static/js/main.2d734199.js.map"
   },
   "entrypoints": [
-    "static/css/main.238514e5.css",
-    "static/js/main.1a78a534.js"
+    "static/css/main.c3685bca.css",
+    "static/js/main.2d734199.js"
   ]
 }
