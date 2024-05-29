@@ -14,22 +14,79 @@ function Row({rowData, setCounts}){
     const checkboxDefault = "bg-slate-100 p-4 px-1 border border-slate-700"
     const checkboxChecked = "bg-white p-4 px-1 border border-slate-700"
 
-   /* const toggleCheck = () => {
-        for(val in cellValues){
-            if(val[0] == -1){
-                setCounts((prevCounts) => ({
-                    ...prevCounts,
-                    "Red": prevCounts["Red"][] + 1,
-                }));
+    const toggleCheck = (newVal) => {
+        setIsChecked(newVal)
+        if(newVal){
+            for(let i = 0; i < cellValues.length; i++){
+                if(cellValues[i][0] === -1){
+                    setCounts((prevCounts) => {
+                        const updatedRed = [...prevCounts["Red"]]
+                        const updatedTotal = [...prevCounts["Total"]]
+                        updatedRed[i]++;
+                        updatedTotal[i]--;
+                        return {...prevCounts, "Red": updatedRed, "Total": updatedTotal}
+                    });
+                }
+                else if(cellValues[i][0] === 1){
+                    setCounts((prevCounts) => {
+                        const updatedYellow = [...prevCounts["Yellow"]]
+                        const updatedTotal = [...prevCounts["Total"]]
+                        updatedYellow[i]++;
+                        updatedTotal[i]++;
+                        return {...prevCounts, "Yellow": updatedYellow, "Total": updatedTotal}
+                    });
+                }
+                else if(cellValues[i][0] === 2){
+                    setCounts((prevCounts) => {
+                        const updatedGreen = [...prevCounts["Green"]]
+                        const updatedTotal = [...prevCounts["Total"]]
+                        updatedGreen[i]++;
+                        updatedTotal[i]++;
+                        return {...prevCounts, "Green": updatedGreen, "Total": updatedTotal}
+                    });
+                }
             }
         }
-    } */
+        else{
+            for(let i = 0; i < cellValues.length; i++){
+                if(cellValues[i][0] === -1){
+                    setCounts((prevCounts) => {
+                        const updatedRed = [...prevCounts["Red"]]
+                        const updatedTotal = [...prevCounts["Total"]]
+                        updatedRed[i]--;
+                        updatedTotal[i]++;
+                        return {...prevCounts, "Red": updatedRed, "Total": updatedTotal}
+                    });
+                }
+                else if(cellValues[i][0] === 1){
+                    setCounts((prevCounts) => {
+                        const updatedYellow = [...prevCounts["Yellow"]]
+                        const updatedTotal = [...prevCounts["Total"]]
+                        updatedYellow[i]--;
+                        updatedTotal[i]--;
+                        return {...prevCounts, "Yellow": updatedYellow, "Total": updatedTotal}
+                    });
+                }
+                else if(cellValues[i][0] === 2){
+                    setCounts((prevCounts) => {
+                        const updatedGreen = [...prevCounts["Green"]]
+                        const updatedTotal = [...prevCounts["Total"]]
+                        updatedGreen[i]--;
+                        updatedTotal[i]--;
+                        return {...prevCounts, "Green": updatedGreen, "Total": updatedTotal}
+                    });
+                }
+            } 
+        }
+    }
+
+
 
 
     return(
         <tr>
             <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
-            <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" onChange={() => setIsChecked((prev) => !prev)}/></td>
+            <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" onChange={() => toggleCheck(!isChecked)}/></td>
             {cells}
         </tr>
     );

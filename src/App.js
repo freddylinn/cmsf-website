@@ -44,8 +44,7 @@ function App() {
           {charRows}
         </tbody>
       </table>
-      <h2 className="mt-8 text-center">*Count functionality still in progress</h2>
-      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-1">
+      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
         <thead>
           <tr>
             <th className="p-4 border border-slate-700"></th>
