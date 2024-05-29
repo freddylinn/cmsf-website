@@ -29,7 +29,6 @@ function App() {
   return (
     <div className="">
       <h1 className="text-3xl font-bold text-center my-6">Colorado Motor Speech Framework: Scoring Form</h1>
-      <h2>Hello World</h2>
       <table className="table-auto text-center border border-slate-700 border-collapse mx-auto">
         <thead>
         <tr>
