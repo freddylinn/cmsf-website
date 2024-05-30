@@ -23,15 +23,16 @@ function App() {
 
   const firstRow = Object.keys(locations).map(item => <th colSpan={locations[item].length} key={item} className="p-4 border border-slate-700">{item}</th>);
   const secondRow = Object.values(locations).flatMap(arr => arr).map(value => <th key={value} className="p-4 border border-slate-700">{value}</th>);
-  const charRows = Object.keys(characteristics).map(groupName => Object.entries(characteristics[groupName]).map(item => <Row key={item} rowData={item} setCounts={setCounts}/>));
+  const charRows = Object.keys(characteristics).map(groupName => Object.entries(characteristics[groupName]).map((item, index) => <Row key={item} rowData={item} group={groupName} groupLength={Object.keys(characteristics[groupName]).length} index={index} setCounts={setCounts}/>));
 
 
   return (
     <div className="">
       <h1 className="text-3xl font-bold text-center my-6">Colorado Motor Speech Framework: Scoring Form</h1>
-      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto">
+      <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
         <thead>
         <tr>
+          <th rowSpan={2} className='border border-slate-700'>Groups</th>
           <th rowSpan={2} className="p-4 border border-slate-700">Characteristics</th>
           <th rowSpan={2} className="p-4">Y/N</th>
           {firstRow}

@@ -1,7 +1,7 @@
 import Cell from "./Cell";
 import { useState } from "react";
 
-function Row({rowData, setCounts}){
+function Row({rowData, group, groupLength, index, setCounts}){
 
     const [isChecked, setIsChecked] = useState(false);
 
@@ -11,8 +11,8 @@ function Row({rowData, setCounts}){
 
     const titleDefault = "bg-slate-100 w-48 py-4 px-1 border border-slate-700"
     const titleChecked = "bg-white w-48 py-4 px-1 border border-slate-700"
-    const checkboxDefault = "bg-slate-100 p-4 px-1 border border-slate-700"
-    const checkboxChecked = "bg-white p-4 px-1 border border-slate-700"
+    const checkboxDefault = "bg-slate-100 px-4 py-6 border border-slate-700"
+    const checkboxChecked = "bg-white px-4 py-6 border border-slate-700"
 
     const toggleCheck = (newVal) => {
         setIsChecked(newVal)
@@ -85,8 +85,9 @@ function Row({rowData, setCounts}){
 
     return(
         <tr>
+            {index === 0 ? <th rowSpan={groupLength} className="w-4 border border-slate-700"><p className="-rotate-90">{group}</p></th> : <></>}
             <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
-            <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" onChange={() => toggleCheck(!isChecked)}/></td>
+            <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" onChange={() => toggleCheck(!isChecked)}/></td>
             {cells}
         </tr>
     );
