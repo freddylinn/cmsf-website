@@ -1,0 +1,20 @@
+{
+    "Self-Rating": {
+        "type": "number",
+        "max": 7,
+        "value": "number"
+    },
+    "Intelligibility": {
+        "type": "number",
+        "max": 100,
+        "value": "percentage"
+    },
+    "Naturalness": {
+        "type": "select",
+        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"]
+    },
+    "Efficiency": {
+        "type": "select",
+        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"]
+    }
+}

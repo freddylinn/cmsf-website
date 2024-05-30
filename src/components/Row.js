@@ -94,7 +94,4 @@ function Row({rowData, group, groupLength, index, setCounts}){
 }
 
 
-//const temp = rowData.map((item, index) => <Cell checked={true} color={item[0]} notes={item[1]} />);
-
-
 export default Row;

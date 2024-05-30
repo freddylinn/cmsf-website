@@ -1,5 +1,6 @@
 import charData from './data/characteristics.json';
 import locData from './data/locations.json';
+import customData from './data/custom.json';
 
 import Row from './components/Row';
 import { useState } from 'react';
@@ -8,6 +9,7 @@ function App() {
 
   const characteristics = charData;
   const locations = locData;
+  const customInputs = customData;
 
   const initialCount = Object.values(locations).flatMap(arr => arr).map(value => 0);
   const [counts, setCounts] = useState({
@@ -23,7 +25,34 @@ function App() {
 
   const firstRow = Object.keys(locations).map(item => <th colSpan={locations[item].length} key={item} className="p-4 border border-slate-700">{item}</th>);
   const secondRow = Object.values(locations).flatMap(arr => arr).map(value => <th key={value} className="p-4 border border-slate-700">{value}</th>);
-  const charRows = Object.keys(characteristics).map(groupName => Object.entries(characteristics[groupName]).map((item, index) => <Row key={item} rowData={item} group={groupName} groupLength={Object.keys(characteristics[groupName]).length} index={index} setCounts={setCounts}/>));
+
+  const charRows = Object.keys(characteristics).map(groupName => Object.entries(characteristics[groupName])
+            .map((item, index) => <Row key={item} rowData={item} group={groupName} groupLength={Object.keys(characteristics[groupName]).length} index={index} setCounts={setCounts}/>));
+
+  const customRows = Object.entries(customInputs).map(pairs => {
+    const title = pairs[0];
+    const values = pairs[1];
+    let inputVal = <></>;
+    let outOf = '';
+    if(values["type"] === "number"){
+      inputVal = <input type="number" min={0} max={values["max"]}/>
+      if(values["value"] === "number"){
+        outOf = `/ ${values["max"]}`
+      }
+      else if(values["value"] === "percentage"){
+        outOf = "%"
+      }
+    }
+    else if(values["type"] === "select"){
+      inputVal = <select>{values["options"].map(opt => <option>{opt}</option>)}</select>
+    }
+    return(
+      <tr>
+        <th className="p-4 border border-slate-700">{title}</th>
+        <td className="p-4 border border-slate-700">{inputVal} {outOf}</td>
+      </tr>
+    )
+  })
 
 
   return (
@@ -43,6 +72,11 @@ function App() {
         </thead>
         <tbody>
           {charRows}
+        </tbody>
+      </table>
+      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
+        <tbody>
+          {customRows}
         </tbody>
       </table>
       <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
