@@ -85,7 +85,7 @@ function Row({rowData, group, groupLength, index, setCounts}){
 
     return(
         <tr>
-            {index === 0 ? <th rowSpan={groupLength} className="w-4 border border-slate-700"><p className="-rotate-90">{group}</p></th> : <></>}
+            {index === 0 ? <th rowSpan={groupLength} className="w-20 border border-slate-700"><p className="rotate-180 mx-auto text-lg font-semibold" style={{ writingMode: 'vertical-rl' }}>{group}</p></th> : <></>}
             <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
             <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" onChange={() => toggleCheck(!isChecked)}/></td>
             {cells}
