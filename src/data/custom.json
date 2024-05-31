@@ -2,19 +2,23 @@
     "Self-Rating": {
         "type": "number",
         "max": 7,
-        "value": "number"
+        "value": "number",
+        "tip": "Ask the patient: 'On a scale of 1-7, 1 being the worst and 7 being the best, how would you rate your speech right now?'"
     },
     "Intelligibility": {
         "type": "number",
         "max": 100,
-        "value": "percentage"
+        "value": "percentage",
+        "tip": "Judge during running speech tasks. Estimate of the percentage of words correctly understood."
     },
     "Naturalness": {
         "type": "select",
-        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"]
+        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"],
+        "tip": "Judge during running speech  of how well speech matches normal stands of rate, pitch, and loudness."
     },
     "Efficiency": {
         "type": "select",
-        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"]
+        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"],
+        "tip": "Observe the patient's emotional state throughout the assessment. Note patient or caregiver report of uncontrolled or inappropriate emotional responses."
     }
 }

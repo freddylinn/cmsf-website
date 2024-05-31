@@ -35,7 +35,7 @@ function App() {
     let inputVal = <></>;
     let outOf = '';
     if(values["type"] === "number"){
-      inputVal = <input type="number" min={0} max={values["max"]}/>
+      inputVal = <input type="number" min={0} max={values["max"]} className="rounded m-1"/>
       if(values["value"] === "number"){
         outOf = `/ ${values["max"]}`
       }
@@ -44,11 +44,20 @@ function App() {
       }
     }
     else if(values["type"] === "select"){
-      inputVal = <select>{values["options"].map(opt => <option>{opt}</option>)}</select>
+      inputVal = <select className="rounded m-1" defaultValue="default"><option value="default" disabled defaultValue>--Select--</option>{values["options"].map(opt => <option>{opt}</option>)}</select>
     }
     return(
       <tr>
-        <th className="p-4 border border-slate-700">{title}</th>
+        <th className="px-6 border border-slate-700">
+          <div className="flex justify-center items-center gap-2">
+            <span>{title}</span>
+            
+              <div className="has-tooltip">
+              <span className="tooltip rounded shadow-lg p-1 bg-gray-100 text-slate-800 text-md font-semibold max-w-80">{values["tip"]}</span>
+              <button className="px-1 rounded bg-sky-200 text-sm text-slate-800">i</button>
+              </div>
+          </div>
+        </th>
         <td className="p-4 border border-slate-700">{inputVal} {outOf}</td>
       </tr>
     )
