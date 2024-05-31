@@ -53,8 +53,8 @@ function App() {
             <span>{title}</span>
             
               <div className="has-tooltip">
-              <span className="tooltip rounded shadow-lg p-1 bg-gray-100 text-slate-800 text-md font-semibold max-w-80">{values["tip"]}</span>
-              <button className="px-1 rounded bg-sky-200 text-sm text-slate-800">i</button>
+              <span className="tooltip rounded shadow-lg p-4 bg-gray-100 text-slate-800 text-md font-semibold max-w-96">{values["tip"]}</span>
+              <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">i</button>
               </div>
           </div>
         </th>
