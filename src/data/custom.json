@@ -14,11 +14,11 @@
     "Naturalness": {
         "type": "select",
         "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"],
-        "tip": "Judge during running speech  of how well speech matches normal stands of rate, pitch, and loudness."
+        "tip": "Judge during running speech of how well speech matches normal stands of rate, pitch, and loudness."
     },
     "Efficiency": {
         "type": "select",
         "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"],
-        "tip": "Observe the patient's emotional state throughout the assessment. Note patient or caregiver report of uncontrolled or inappropriate emotional responses."
+        "tip": "Judge during running speech tasks for how efficient message is conveyed (e.g., is it effortful? Slow?)"
     }
 }

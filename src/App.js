@@ -11,6 +11,8 @@ function App() {
   const locations = locData;
   const customInputs = customData;
 
+  const [hidden, setHidden] = useState(false);
+
   const initialCount = Object.values(locations).flatMap(arr => arr).map(value => 0);
   const [counts, setCounts] = useState({
     "Yellow": initialCount,
@@ -27,7 +29,7 @@ function App() {
   const secondRow = Object.values(locations).flatMap(arr => arr).map(value => <th key={value} className="p-4 border border-slate-700">{value}</th>);
 
   const charRows = Object.keys(characteristics).map(groupName => Object.entries(characteristics[groupName])
-            .map((item, index) => <Row key={item} rowData={item} group={groupName} groupLength={Object.keys(characteristics[groupName]).length} index={index} setCounts={setCounts}/>));
+            .map((item, index) => <Row key={item} rowData={item} group={groupName} groupLength={Object.keys(characteristics[groupName]).length} index={index} setCounts={setCounts} hidden={hidden}/>));
 
   const customRows = Object.entries(customInputs).map(pairs => {
     const title = pairs[0];
@@ -53,7 +55,7 @@ function App() {
             <span>{title}</span>
             
               <div className="has-tooltip">
-              <span className="tooltip rounded shadow-lg p-4 bg-gray-100 text-slate-800 text-md font-semibold max-w-96">{values["tip"]}</span>
+              <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">{values["tip"].split('\n').map((item, key) => {return <p className="my-2 text-left" key={key}>{item}</p>})}</span>
               <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">i</button>
               </div>
           </div>
@@ -70,7 +72,7 @@ function App() {
       <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
         <thead>
         <tr>
-          <th rowSpan={2} className='border border-slate-700'>Groups</th>
+          {!hidden ? <th rowSpan={2} className='border border-slate-700'>Groups</th> : <></>}
           <th rowSpan={2} className="p-4 border border-slate-700">Characteristics</th>
           <th rowSpan={2} className="p-4">Y/N</th>
           {firstRow}
@@ -83,12 +85,13 @@ function App() {
           {charRows}
         </tbody>
       </table>
+      <button onClick={() => setHidden(prev => !prev)} className="block print:hidden rounded-lg text-lg mx-auto px-5 py-3 mt-8 mb-12 bg-sky-400 hover:bg-sky-500 active:bg-sky-600 text-white font-semibold">{hidden ? "Show" : "Hide"} Unchecked Rows</button>
       <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
         <tbody>
           {customRows}
         </tbody>
       </table>
-      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
+      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto my-10">
         <thead>
           <tr>
             <th className="p-4 border border-slate-700"></th>

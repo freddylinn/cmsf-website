@@ -1,9 +1,12 @@
 import Cell from "./Cell";
+import taskData from '../data/tasks.json'
 import { useState } from "react";
 
-function Row({rowData, group, groupLength, index, setCounts}){
+function Row({rowData, group, groupLength, index, setCounts, hidden}){
 
     const [isChecked, setIsChecked] = useState(false);
+
+    const tasks = taskData;
 
     const title = rowData[0];
     const cellValues = rowData[1];
@@ -80,17 +83,28 @@ function Row({rowData, group, groupLength, index, setCounts}){
         }
     }
 
-
-
-
-    return(
-        <tr>
-            {index === 0 ? <th rowSpan={groupLength} className="w-20 border border-slate-700"><p className="rotate-180 mx-auto text-lg font-semibold" style={{ writingMode: 'vertical-rl' }}>{group}</p></th> : <></>}
-            <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
-            <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" onChange={() => toggleCheck(!isChecked)}/></td>
-            {cells}
-        </tr>
-    );
+    if(!hidden || isChecked){
+        return(
+            <tr>
+                {index === 0 && !hidden ? 
+                    <th rowSpan={groupLength} className="w-20 border border-slate-700">
+                        <div className="has-tooltip">
+                            <span className="tooltip leading-relaxed rounded shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-128">{tasks[group].split('\n').map((item, key) => {return <p className="my-2 text-left" key={key}>{item}</p>})}</span>
+                            <button className="-rotate-90 print:hidden px-1 mb-2 rounded bg-sky-200 text-sm text-slate-800">i</button>
+                        </div>
+                        <p className="rotate-180 mx-auto text-lg font-semibold" style={{ writingMode: 'vertical-rl' }}>
+                            {group}
+                        </p>
+                    </th> : <></>}
+                <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
+                <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" onChange={() => toggleCheck(!isChecked)}/></td>
+                {cells}
+            </tr>
+        );
+    }
+    else{
+        return(<></>);
+    }
 }
 
 
