@@ -1,9 +1,17 @@
 # Colorado Motor Speech Framework Scoring Form
 
+
+### Table of Contents
+---
+- [GitHub Structure](#github-structure)
+- [JSON Data](#json-data)
+
+
 ### GitHub Structure
 ---
 - The `main` branch contains the source code for the website that can be changed
 - The `gh-pages` branch contains the code after it is built and ready to be deployed as a webpage. This code is automatically generated  and deployed when changes to `main` are made
+
 
 ### JSON Data
 ---
@@ -14,6 +22,7 @@ The JSON data can be found at this path in the `main` branch:
 		- `custom.json` (characteristics that are more than just Yes/No)
 		- `locations.json` (physical locations and conditions for those areas)
 		- `tasks.json` (tasks for each characteristic)
+
 
 ##### `characteristics.json`
 
@@ -50,13 +59,21 @@ If adding a new **row**, it is usually easiest to copy and paste this template u
 
 ```
 	"(row name here)": [
+
 		[0,""],
+
 		[0, ""],
+
 		[0, ""],
+
 		[0, ""],
+
 		[0, ""],
+
 		[0, ""],
+
 		[0, ""]
+
 	]
 ```
 
@@ -102,3 +119,18 @@ Currently, `custom.json` handles two `type` values: `number` and `select`. `numb
 - `"options"` is an array containing each option shown to the user, each of which must be wrapped in quotes and separated by commas
 - `"tip"` has the same usage as it does for number values
 - `"options"` is exclusive to this type
+
+
+##### `locations.json`
+
+Each entry in this file maps a location to a group of conditions that apply to that location, such as `"Upper Motor Neuron": ["UUMN","Spastic"]`
+
+
+##### `tasks.json`
+
+Each entry in this file maps a group name to the tasks for that characteristic group. `\n` is used within the text to create a new line, whereas `\"` is used to add quotations, since the overall text itself is wrapped in normal double quotes. The group names MUST match the exact name in `characteristics.json`
+
+Example entry: `"OME (Larynx)": "\"Cough\" \n \"Say 'uh-oh'\" (Listen to patient inhaling)"`
+
+
+
