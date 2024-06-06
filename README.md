@@ -4,6 +4,7 @@
 ### Table of Contents
 ---
 - [GitHub Structure](#github-structure)
+- [Changing Data From GitHub](#changing-data-from-github)
 - [JSON Data](#json-data)
 
 
@@ -11,6 +12,26 @@
 ---
 - The `main` branch contains the source code for the website that can be changed
 - The `gh-pages` branch contains the code after it is built and ready to be deployed as a webpage. This code is automatically generated  and deployed when changes to `main` are made
+
+
+### Changing Data From GitHub
+---
+- Navigate to the `src` folder on the main branch in GitHub
+- From there, navigate to the `data` folder
+- Click on the JSON file you would like to edit
+- Near the top right of the page, find the pencil icon for the "**edit this file**" button
+    - Optionally, click the arrow next to this button and select "open with github.dev". This will provide extra features and show errors before they are published
+- Edit the file as needed
+- After changes have been made, click the green "**commit changes**" button in the top right
+- Change the commit message to a short summary of what was changed
+- Ensure that the "commit directly to the main branch" option is selected
+- Click the green "**commit changes**" button in the bottom right of the box to confirm
+
+##### After Committing Changes
+- Changes will automatically publish to the website after a few minutes
+- The most recent change can be reviewed by clicking on your commit message from the homepage of the github repository
+    - This can be found above all of the files and will be next to your github username in the top center of the screen
+- A list of ALL changes can be viewed by clicking the counterclockwise clock icon with the number of commits next to it
 
 
 ### JSON Data
@@ -59,21 +80,13 @@ If adding a new **row**, it is usually easiest to copy and paste this template u
 
 ```
 	"(row name here)": [
-
 		[0,""],
-
 		[0, ""],
-
 		[0, ""],
-
 		[0, ""],
-
 		[0, ""],
-
 		[0, ""],
-
 		[0, ""]
-
 	]
 ```
 
