@@ -80,7 +80,7 @@ If adding a new **row**, it is usually easiest to copy and paste this template u
 
 ```
 	"(row name here)": [
-		[0,""],
+		[0, ""],
 		[0, ""],
 		[0, ""],
 		[0, ""],

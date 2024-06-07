@@ -69,6 +69,13 @@ function App() {
   return (
     <div className="">
       <h1 className="text-3xl font-bold text-center my-6">Colorado Motor Speech Framework: Scoring Form</h1>
+      <div className="flex items-center justify-around">
+        <div className="mt-12 mb-8 w-128 flex flex-col gap-2">
+          <label htmlFor="patientName">Patient Name (optional)</label>
+          <input className="rounded w-64" type="text" id="patientName"/>
+        </div>
+        <p className="w-64 text-center p-4 bg-slate-100 rounded-lg">Contact Dr. Allison Hilger with comments or questions at <a className="underline text-blue-500" href="mailto:Allison.Hilger@colorado.edu">Allison.Hilger@colorado.edu</a></p>
+      </div>
       <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
         <thead>
         <tr>
