@@ -3,6 +3,7 @@ import locData from './data/locations.json';
 import customData from './data/custom.json';
 
 import Row from './components/Row';
+import Modal from './components/Modal';
 import { useState } from 'react';
 
 function App() {
@@ -12,6 +13,18 @@ function App() {
   const customInputs = customData;
 
   const [hidden, setHidden] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
+
+  const modalDescription = <>
+  <p className="text-lg leading-relaxed text-left indent-12 mb-8 w-11/12 mx-auto">This is a tool to help guide the assessment of motor speech disorders. There are suggested tasks to administer in the popup window if you hover over the blue “i” in the far left-hand column. 
+  Using those tasks, you will identify which characteristics you are observing with your patient by checking the yes/no box for that characteristic. The resulting boxes for that row will be highlighted to indicate if 
+  that characteristic is a highly distinguishing feature for a particular motor speech disorder subtype (green and XX), a common feature for that subtype (yellow and X), not common (blank), or would be very unexpected 
+  (red and -). As you scroll down, you can then click the box “Hide Unchecked Rows” to isolate only the observed characteristics. You will also notice a count total at the very bottom to assist your diagnostic decision 
+  making. However, remember that your clinical knowledge should be used foremost over the count of X's to make a decision. We also recommend logging participant self-rating of their speech and then your clinician estimates 
+  of intelligibility, naturalness, and efficiency in the provided box at the end. When you are completed with the assessment, you can save it as a PDF by going right clicking the window, selecting “Print,” and changing 
+  the destination to “Save as PDF.” If you have any comments or suggestions, please email Dr. Allison Hilger at <a className="underline text-blue-500" href="mailto:Allison.Hilger@colorado.edu">Allison.Hilger@colorado.edu</a></p>
+  <p className="leading-relaxed text-center mb-8 w-1/2 mx-auto text-slate-600">This tool was developed by Kylie Dunne-Platero, MA, CCC-SLP, Caitlin Cloud, MA, CCC-SLP, and Allison Hilger, PhD, CCC-SLP. This web tool was developed by Frederick Linn (<a href="mailto:frederick.linn@colorado.edu" className="underline text-blue-500">Frederick.Linn@colorado.edu.</a>)</p>
+  </>
 
   const initialCount = Object.values(locations).flatMap(arr => arr).map(value => 0);
   const [counts, setCounts] = useState({
@@ -53,7 +66,6 @@ function App() {
         <th className="px-6 border border-slate-700">
           <div className="flex justify-center items-center gap-2">
             <span>{title}</span>
-            
               <div className="has-tooltip">
               <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">{values["tip"].split('\n').map((item, key) => {return <p className="my-2 text-left" key={key}>{item}</p>})}</span>
               <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">i</button>
@@ -68,13 +80,27 @@ function App() {
 
   return (
     <div className="">
-      <h1 className="text-3xl font-bold text-center my-6">Colorado Motor Speech Framework: Scoring Form</h1>
-      <div className="flex items-center justify-around">
-        <div className="mt-12 mb-8 w-128 flex flex-col gap-2">
+      <header className="flex justify-around items-center p-4 mb-8 bg-amber-100 print:hidden">
+        <h1 className="text-2xl font-bold text-center bg-amber-100">Colorado Motor Speech Framework</h1>
+        <p className=" text-center rounded-lg">Contact Dr. Allison Hilger with comments or questions at <a className="underline text-blue-500" href="mailto:Allison.Hilger@colorado.edu">Allison.Hilger@colorado.edu</a></p>
+      </header>
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Welcome to the Colorado Motor Speech Framework!"
+        description={modalDescription}
+      >
+        <button onClick={() => setModalOpen(false)} className="px-8 py-2 text-white bg-sky-400 hover:bg-sky-500 rounded text-lg">Close</button>
+      </Modal>
+      <div className="flex items-center justify-around mb-8">
+        <div className="mt-2 w-128 flex flex-col gap-2">
           <label htmlFor="patientName">Patient Name (optional)</label>
           <input className="rounded w-64" type="text" id="patientName"/>
         </div>
-        <p className="w-64 text-center p-4 bg-slate-100 rounded-lg">Contact Dr. Allison Hilger with comments or questions at <a className="underline text-blue-500" href="mailto:Allison.Hilger@colorado.edu">Allison.Hilger@colorado.edu</a></p>
+        <div className="flex flex-col items-center gap-2">
+          <button onClick={() => setModalOpen(true)} className="px-5 py-2 mt-2 bg-sky-400 hover:bg-sky-500 rounded text-white print:bg-white">Show Instructions</button>
+          <p className="w-128 text-center print:hidden">Note: to save as a PDF, right click this webpage and select “Print” (alternatively, press ctrl + p on Windows or cmd + p on Mac) then change the printing destination to “Save as PDF.” <em>If you exit out of this page or refresh, you will lose your data.</em></p>
+        </div>
       </div>
       <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
         <thead>
@@ -122,6 +148,9 @@ function App() {
           </tr>
         </thead>
       </table>
+      <footer className="bg-amber-100 p-4">
+        <p className="pl-5 w-full md:w-1/2 text-slate-800 text-center mx-auto">Please cite this tool if you use it in your research: Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936</p>
+      </footer>
     </div>
 
   );
