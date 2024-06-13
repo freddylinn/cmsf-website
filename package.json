@@ -1,7 +1,7 @@
 {
   "name": "cmsf-website",
   "version": "0.1.0",
-  "homepage": "https://freddylinn.github.io/cmsf-website",
+  "homepage": "https://cmsf.info",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^2.0.4",
