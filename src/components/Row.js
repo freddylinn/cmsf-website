@@ -1,14 +1,15 @@
 import Cell from "./Cell";
 import taskData from '../data/tasks.json'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Row({rowData, group, groupLength, index, setCounts, hidden}){
 
     const [isChecked, setIsChecked] = useState(false);
+    const [directional, setDirectional] = useState(false);
+    const [title, setTitle] = useState(rowData[0]);
 
     const tasks = taskData;
 
-    const title = rowData[0];
     const cellValues = rowData[1];
     const cells = cellValues.map((item, index) => <Cell key={index} checked={isChecked} color={item[0]} notes={item[1]}/>)
 
@@ -16,6 +17,14 @@ function Row({rowData, group, groupLength, index, setCounts, hidden}){
     const titleChecked = "bg-white w-48 py-4 px-1 border border-slate-700"
     const checkboxDefault = "bg-slate-100 px-4 py-6 border border-slate-700"
     const checkboxChecked = "bg-white px-4 py-6 border border-slate-700"
+
+    useEffect(() => {
+        if(title.slice(-1) === "*"){ 
+            setDirectional(true);
+            setTitle(title.slice(0, -1));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const toggleCheck = (newVal) => {
         setIsChecked(newVal)
@@ -97,7 +106,19 @@ function Row({rowData, group, groupLength, index, setCounts, hidden}){
                         </p>
                     </th> : <></>}
                 <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
-                <td className={isChecked ? checkboxChecked : checkboxDefault}><input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" onChange={() => toggleCheck(!isChecked)}/></td>
+                <td className={isChecked ? checkboxChecked : checkboxDefault}>
+                    <input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" onChange={() => toggleCheck(!isChecked)}/>
+                    { isChecked && directional && <div className="flex mt-3 gap-1">
+                        <div>
+                            <input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" />
+                            <p>L</p>
+                        </div>
+                        <div>
+                            <input type="checkbox" className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50" />
+                            <p>R</p>
+                        </div>
+                    </div> }
+                </td>
                 {cells}
             </tr>
         );

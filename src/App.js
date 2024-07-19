@@ -124,7 +124,21 @@ function App() {
           {customRows}
         </tbody>
       </table>
-      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto my-10">
+      <div className='flex flex-wrap gap-4 justify-center mt-10 mb-4'>
+          <div className="flex items-center gap-1">
+              <div className="w-5 h-5 rounded-full border border-slate-700 bg-yellow-200"></div><span> = Common feature</span>
+          </div>
+          <div className="flex items-center gap-1">
+              <div className="w-5 h-5 rounded-full border border-slate-700 bg-green-300"></div><span> = Highly distinguishing feature</span>
+          </div>
+          <div className="flex items-center gap-1">
+              <div className="w-5 h-5 rounded-full border border-slate-700 bg-red-300"></div><span> = Unexpected feature</span>
+          </div>
+          <div className="flex items-center gap-1">
+              <div className="w-5 h-5 rounded-full border border-slate-700 bg-white"></div><span> = No correlation</span>
+          </div>
+      </div>
+      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mb-10">
         <thead>
           <tr>
             <th className="p-4 border border-slate-700"></th>
@@ -143,7 +157,7 @@ function App() {
             {redCells}
           </tr>
           <tr>
-            <td className="w-48 p-2 border border-slate-700 font-semibold">Total Yellow & Green Count Subtracting Red</td>
+            <td className="bg-slate-100 w-48 p-2 border border-slate-700 font-semibold">Total Yellow & Green Count Subtracting Red</td>
             {totalCells}
           </tr>
         </thead>
@@ -154,6 +168,7 @@ function App() {
     </div>
 
   );
+
 }
 
 export default App;

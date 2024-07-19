@@ -506,7 +506,7 @@
         ]
     },
     "OME (Face)": {
-        "Drooping on entire side of face": [
+        "Drooping on entire side of face*": [
             [1, "(Bell's Palsy, CN VII)"],
             [0, ""],
             [0, ""],
@@ -515,7 +515,7 @@
             [0, ""],
             [0, ""] 
         ],
-        "Drooping on lower side of face": [
+        "Drooping on lower side of face*": [
             [0, ""],
             [2, "(Droop on side opposite from the site of lesion)"],
             [0, ""],
@@ -580,7 +580,7 @@
         ]
     },
     "OME (Lips)": {
-        "Asymmetrical movement": [
+        "Asymmetrical movement*": [
             [1, "(CN VII; ex. reduced retraction on the impaired side, contralateral to the site of lesion)"],
             [1, ""],
             [0, ""],
@@ -618,7 +618,7 @@
             [0, ""],
             [0, ""] 
         ],
-        "Jaw deviation to one side": [
+        "Jaw deviation to one side*": [
             [1, "(CN V unilaterally; jaw deviates to weak side)"],
             [0, ""],
             [0, ""],
@@ -683,7 +683,7 @@
             [0, ""],
             [0, ""]    
         ],
-        "Palate asymmetry": [
+        "Palate asymmetry*": [
             [1, "(CN X; hangs lower on side of lesion)"],
             [1, "(uncommon)"],
             [0, ""],
@@ -721,7 +721,7 @@
             [0, ""],
             [0, ""]    
         ],
-        "Deviation to one side on protrusion": [
+        "Deviation to one side on protrusion*": [
             [1, "(CN XII; deviates to weak side, towards the side of lesion)"],
             [1, "(deviates to opposite side of lesion)"],
             [0, ""],
@@ -730,7 +730,7 @@
             [0, ""],
             [0, ""]    
         ],
-        "Weakness": [
+        "Weakness*": [
             [1, "(CN XII)"],
             [1, "(unilateral)"],
             [0, ""],
@@ -739,7 +739,7 @@
             [0, ""],
             [1, "(commonly right lingual weakness)"]    
         ],
-        "Limited range of motion": [
+        "Limited range of motion*": [
             [1, "(CN XII)"],
             [0, ""],
             [1, ""],
@@ -768,7 +768,7 @@
         ]
     },
     "OME (Larynx)": {
-        "Weak cough*": [
+        "Weak cough": [
             [1, "(CN X)"],
             [0, ""],
             [0, ""],
@@ -777,7 +777,7 @@
             [0, ""],
             [0, ""]    
         ],
-        "Weak Glottal coup*": [
+        "Weak Glottal coup": [
             [1, "(CN X)"],
             [0, ""],
             [0, ""],
@@ -795,7 +795,7 @@
             [0, ""],
             [0, ""]    
         ],
-        "*Weak cough but strong glottal coup": [
+        "Weak cough but strong glottal coup": [
             [0, "(could indicate respiratory weakness)"],
             [0, ""],
             [0, ""],
@@ -804,7 +804,7 @@
             [0, ""],
             [0, ""]    
         ],
-        "*Weak coup and weak cough": [
+        "Weak coup and weak cough": [
             [0, "(could indicate laryngeal weakness)"],
             [0, ""],
             [0, ""],
