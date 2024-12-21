@@ -1,7 +1,7 @@
 function NavBar() {
   return (
     <header className="flex justify-around items-center h-16 bg-amber-100 print:hidden">
-      <h1 className="text-2xl font-bold text-center bg-amber-100">
+      <h1 className="text-2xl font-bold text-center hover:underline">
         <a href="/">Colorado Motor Speech Framework</a>
       </h1>
       <div>
@@ -14,7 +14,7 @@ function NavBar() {
         >
           Downloads
         </a>
-        <a href="/tool" className="mx-6 text-xl font-semibold hover:underline">
+        <a href="/audio" className="mx-6 text-xl font-semibold hover:underline">
           Audio
         </a>
       </div>
