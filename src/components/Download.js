@@ -23,13 +23,15 @@ function Download({ name, type, alias }) {
   }
 
   return (
-    <li>
+    <li className="max-w-full">
       <a
         href={hrefString}
         download
-        className="flex items-center justify-center my-4 gap-2 bg-gray-900/70 hover:bg-gray-950/80 shadow-md w-max px-5 py-2 rounded-lg"
+        className="max-w-full flex flex-wrap items-center justify-center my-4 gap-2 bg-gray-900/70 hover:bg-gray-950/80 shadow-md px-5 mx-2 py-2 rounded-lg"
       >
-        <span className="text-blue-300 underline">{displayString}</span>
+        <span className="text-blue-300 max-w-full break-words underline text-wrap">
+          {displayString}
+        </span>
         <img className="w-8 h-8" src={icon} alt="" />
       </a>
     </li>

@@ -3,7 +3,7 @@ function Intro() {
     <>
       <div className="bg-[url('../public/images/greenmountain.webp')] bg-cover min-h-[calc(100vh-6rem)]">
         <div className="h-4"></div>
-        <h1 className="text-3xl font-bold text-center py-2 mt-4 mb-8 bg-gray-900/70 backdrop-blur-sm text-white rounded-md w-1/2 mx-auto">
+        <h1 className="text-3xl font-bold text-center py-2 px-4 mt-4 mb-8 bg-gray-900/70 backdrop-blur-sm text-white rounded-md w-11/12 md:w-1/2 mx-auto">
           Welcome to the Colorado Motor Speech Framework!
         </h1>
         <p className="text-lg leading-relaxed text-left w-11/12 lg:w-256 mx-auto bg-gray-900/70 backdrop-blur-sm text-white p-6 rounded-md">
