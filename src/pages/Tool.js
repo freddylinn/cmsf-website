@@ -140,7 +140,7 @@ function Tool() {
           <input className="rounded w-64" type="text" id="patientName" />
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p className="w-128 text-center print:hidden">
+          <p className="w-128 text-center print:hidden mt-8">
             Note: to save as a PDF, right click this webpage and select “Print”
             (alternatively, press ctrl + p on Windows or cmd + p on Mac) then
             change the printing destination to “Save as PDF.”{" "}
