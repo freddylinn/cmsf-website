@@ -333,7 +333,16 @@
             [-1, ""],
             [-1, ""],
             [-1, ""]
-        ]
+        ],
+        "Fewer Errors in Automatic Speech than Connected Speech": [
+		[-1, ""],
+		[-1, ""],
+		[-1, ""],
+		[-1, ""],
+		[-1, ""],
+		[-1, ""],
+		[2, ""]
+	]
     },
     "Resonance": {
         "Audible nasal emission or nasal snorting": [
