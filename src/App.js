@@ -5,6 +5,7 @@ import Intro from "./pages/Intro";
 import Layout from "./components/Layout";
 import Downloads from "./pages/Downloads";
 import Audio from "./pages/Audio";
+import BodyMovement from "./pages/BodyMovement";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/tool" element={<Tool />} />
           <Route path="/downloads" element={<Downloads />} />
           <Route path="/audio" element={<Audio />} />
+          <Route path="/movement" element={<BodyMovement />} />
         </Routes>
       </Layout>
     </Router>

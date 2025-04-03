@@ -12,6 +12,12 @@ function NavBar() {
           CMSF Tool
         </a>
         <a
+          href="#/movement"
+          className="mx-6 text-md md:text-xl font-semibold hover:underline"
+        >
+          Optional Additional Body Movement Form
+        </a>
+        <a
           href="#/downloads"
           className="mx-6 text-md md:text-xl font-semibold hover:underline"
         >
