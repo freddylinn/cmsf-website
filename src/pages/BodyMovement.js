@@ -126,6 +126,12 @@ function BodyMovement() {
       >
         {hidden ? "Show" : "Hide"} Unchecked Rows
       </button>
+      <div className="flex w-2/3 flex-col items-start mx-auto mb-16">
+        <h2 className="text-xl font-medium text-center mb-4">
+          Additional notes on patient observations
+        </h2>
+        <textarea className="w-full" rows="6" />
+      </div>
       <div className="flex flex-wrap gap-4 justify-center mt-10 mb-4">
         <div className="flex items-center gap-1">
           <div className="w-5 h-5 rounded-full border border-slate-700 bg-yellow-200"></div>

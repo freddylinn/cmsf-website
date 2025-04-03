@@ -175,13 +175,19 @@ function Tool() {
       </table>
       <button
         onClick={() => setHidden((prev) => !prev)}
-        className="block print:hidden rounded-lg text-lg mx-auto px-5 py-3 mt-8 mb-12 bg-sky-400 hover:bg-sky-500 active:bg-sky-600 text-white font-semibold"
+        className="block print:hidden rounded-lg text-lg mx-auto px-5 py-3 mt-8 mb-16 bg-sky-400 hover:bg-sky-500 active:bg-sky-600 text-white font-semibold"
       >
         {hidden ? "Show" : "Hide"} Unchecked Rows
       </button>
       <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
         <tbody>{customRows}</tbody>
       </table>
+      <div className="flex w-2/3 flex-col items-start mx-auto mt-12 mb-16">
+        <h2 className="text-xl font-medium text-center mb-4">
+          Additional notes on patient observations
+        </h2>
+        <textarea className="w-full" rows="6" />
+      </div>
       <div className="flex flex-wrap gap-4 justify-center mt-10 mb-4">
         <div className="flex items-center gap-1">
           <div className="w-5 h-5 rounded-full border border-slate-700 bg-yellow-200"></div>
