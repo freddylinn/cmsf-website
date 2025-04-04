@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 import taskData from "../data/tasks.json";
-import movementTaskData from "../data/movement-tasks.json";
+import charTaskData from "../data/char-tasks.json";
 import { useState, useEffect } from "react";
 
 function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
@@ -8,13 +8,8 @@ function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
   const [directional, setDirectional] = useState(false);
   const [title, setTitle] = useState(rowData[0]);
 
-  let tasks;
-  if (form === "main") {
-    tasks = taskData;
-  }
-  if (form === "movement") {
-    tasks = movementTaskData;
-  }
+  const tasks = taskData;
+  const charTasks = charTaskData;
 
   const cellValues = rowData[1];
   const cells = cellValues.map((item, index) => (
@@ -132,7 +127,27 @@ function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
         ) : (
           <></>
         )}
-        <td className={isChecked ? titleChecked : titleDefault}>{title}</td>
+        <td className={isChecked ? titleChecked : titleDefault}>
+          <div className="flex justify-center items-center gap-1 m-1">
+            <span>{title}</span>
+            {charTasks[title] && (
+              <div className="has-tooltip">
+                <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">
+                  {charTasks[title].split("\n").map((item, key) => {
+                    return (
+                      <p className="my-2 text-left" key={key}>
+                        {item}
+                      </p>
+                    );
+                  })}
+                </span>
+                <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800 font-bold">
+                  i
+                </button>
+              </div>
+            )}
+          </div>
+        </td>
         <td className={isChecked ? checkboxChecked : checkboxDefault}>
           <input
             type="checkbox"
