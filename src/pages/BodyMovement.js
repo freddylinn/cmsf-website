@@ -1,14 +1,12 @@
-import charData from "../data/characteristics.json";
+import charData from "../data/movement-characteristics.json";
 import locData from "../data/locations.json";
-import customData from "../data/custom.json";
 
 import Row from "../components/Row";
 import { useState } from "react";
 
-function Tool() {
+function BodyMovement() {
   const characteristics = charData;
   const locations = locData;
-  const customInputs = customData;
 
   const [hidden, setHidden] = useState(false);
 
@@ -69,69 +67,10 @@ function Tool() {
         index={index}
         setCounts={setCounts}
         hidden={hidden}
-        form="main"
+        form="movement"
       />
     ))
   );
-
-  const customRows = Object.entries(customInputs).map((pairs) => {
-    const title = pairs[0];
-    const values = pairs[1];
-    let inputVal = <></>;
-    let outOf = "";
-    if (values["type"] === "number") {
-      inputVal = (
-        <input
-          type="number"
-          min={0}
-          max={values["max"]}
-          className="rounded m-1"
-        />
-      );
-      if (values["value"] === "number") {
-        outOf = `/ ${values["max"]}`;
-      } else if (values["value"] === "percentage") {
-        outOf = "%";
-      }
-    } else if (values["type"] === "select") {
-      inputVal = (
-        <select className="rounded m-1" defaultValue="default">
-          <option value="default" disabled defaultValue>
-            --Select--
-          </option>
-          {values["options"].map((opt) => (
-            <option>{opt}</option>
-          ))}
-        </select>
-      );
-    }
-    return (
-      <tr>
-        <th className="px-6 border border-slate-700">
-          <div className="flex justify-center items-center gap-2">
-            <span>{title}</span>
-            <div className="has-tooltip">
-              <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">
-                {values["tip"].split("\n").map((item, key) => {
-                  return (
-                    <p className="my-2 text-left" key={key}>
-                      {item}
-                    </p>
-                  );
-                })}
-              </span>
-              <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">
-                i
-              </button>
-            </div>
-          </div>
-        </th>
-        <td className="p-4 border border-slate-700">
-          {inputVal} {outOf}
-        </td>
-      </tr>
-    );
-  });
 
   return (
     <div className="">
@@ -151,6 +90,14 @@ function Tool() {
           </p>
         </div>
       </div>
+      <p className="min-w-64 max-w-256 w-1/2 mx-auto p-6 m-12 bg-gray-100 rounded-md print:hidden">
+        This is an optional additional body movement form to document
+        confirmatory behaviors that might help support the perceptual
+        observations from the CMSF form. Note that motor speech diagnosis should
+        be made primarily based on speech and oral-motor findings, and not body
+        movement observations. However, body movement observations in this form
+        can be used as confirmatory signs of a motor speech disorder.
+      </p>
       <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
         <thead>
           <tr>
@@ -175,14 +122,11 @@ function Tool() {
       </table>
       <button
         onClick={() => setHidden((prev) => !prev)}
-        className="block print:hidden rounded-lg text-lg mx-auto px-5 py-3 mt-8 mb-16 bg-sky-400 hover:bg-sky-500 active:bg-sky-600 text-white font-semibold"
+        className="block print:hidden rounded-lg text-lg mx-auto px-5 py-3 mt-8 mb-12 bg-sky-400 hover:bg-sky-500 active:bg-sky-600 text-white font-semibold"
       >
         {hidden ? "Show" : "Hide"} Unchecked Rows
       </button>
-      <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
-        <tbody>{customRows}</tbody>
-      </table>
-      <div className="flex w-2/3 flex-col items-start mx-auto mt-12 mb-16">
+      <div className="flex w-2/3 flex-col items-start mx-auto mb-16">
         <h2 className="text-xl font-medium text-center mb-4">
           Additional notes on patient observations
         </h2>
@@ -249,4 +193,4 @@ function Tool() {
   );
 }
 
-export default Tool;
+export default BodyMovement;
