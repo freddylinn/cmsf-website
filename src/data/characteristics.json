@@ -303,7 +303,7 @@
             [1, ""],
             [1, ""],
             [1, ""],
-            [1, "(inconsistent breakdowns)"],
+            [1, "(inconsistent breakdowns from movement interruptions)"],
             [1, "(inconsistent breakdowns)"],
             [1, "(inconsistent breakdowns; fewer errors for automatic speech)"]
         ],
@@ -428,7 +428,7 @@
             [0, ""],
             [1, "(SMRs likely less precise than AMRs)"]  
         ],
-        "Poorer labial articulation (‘puh’) than lingual articulation (‘tuh’ and ‘kuh’) ": [
+        "Poorer labial articulation (‘puh’) than lingual articulation (‘tuh’ and ‘kuh’)": [
             [1, "(CN VII)"],
             [0, ""],
             [0, ""],
@@ -437,7 +437,7 @@
             [0, ""],
             [0, ""]  
         ],
-        "Poorer lingual articulation (‘tuh’ and ‘kuh’) than labial articulation (‘puh’): [
+        "Poorer lingual articulation (‘tuh’ and ‘kuh’) than labial articulation (‘puh’)": [
             [1, "(CN XII)"],
             [0, ""],
             [0, ""],
@@ -597,7 +597,7 @@
             [0, ""] 
 	],
         "Decreased sensation of the face (CN VII), cheek (CN VII), tongue (CN XII), or palate (CN X)": [
-            [1, "note which CN is affected"],
+            [1, "(note which CN is affected)"],
             [0, ""],
             [0, ""],
             [0, ""],
