@@ -72,7 +72,7 @@
             [0, ""],
             [0, ""],
             [1, ""],
-            [1, ""]
+            [2, ""]
         ],
         "Prolonged interword intervals": [
             [0, ""],
@@ -142,7 +142,7 @@
     },
     "Voice Quality and Respiration": {
         "Breathiness": [
-            [1, "(CN X)"],
+            [2, "(CN X)"],
             [0, ""],
             [0, ""],
             [1, ""],
@@ -151,7 +151,7 @@
             [0, ""]
         ],
         "Aphonia": [
-            [1, "(CN X)"],
+            [2, "(CN X)"],
             [0, ""],
             [1, "(intermittent)"],
             [0, ""],
@@ -201,7 +201,7 @@
             [2, ""],
             [0, ""],
             [1, ""],
-            [0, ""],
+            [1, ""],
             [0, ""]
         ],
         "Monopitch": [
@@ -303,7 +303,7 @@
             [1, ""],
             [1, ""],
             [1, ""],
-            [1, ""],
+            [1, "(inconsistent breakdowns)"],
             [1, "(inconsistent breakdowns)"],
             [1, "(inconsistent breakdowns; fewer errors for automatic speech)"]
         ],
@@ -318,11 +318,11 @@
         ],
         "Irregular articulatory breakdown": [
             [0, ""],
-            [1, ""],
+            [1, "(related to unilateral weakness"],
             [0, ""],
             [0, ""],
             [1, "(due to unpredictable movement)"],
-            [2, ""],
+            [2, "(due to incoordination)"],
             [1, ""]
         ],
         "Articulatory groping": [
@@ -336,14 +336,14 @@
         ],
         "Telescoping": [
             [0, ""],
-            [1, "(due to imprecise articulation)"],
+            [0, ""],
             [0, ""],
             [0, ""],
             [0, ""],
             [2, "(due to poor coordination)"],
             [1, "(due to imprecise articulation)"]
         ],
-        "Deterioration of speech during continuous speaking": [
+        "Deterioration of speech during continuous speaking and improvement with rest": [
             [2, "(ex. Myasthenia Gravis: improvement after rest)"],
             [-1, ""],
             [-1, ""],
@@ -377,13 +377,13 @@
             [0, ""],
             [0, ""],
             [0, ""],
-            [0, ""],
+            [1, "(intermittent)"],
             [1, "(intermittent)"],
             [0, ""]
         ],
         "Hypernasality": [
-            [1, "(CN X)"],
-            [0, ""],
+            [2, "(CN X)"],
+            [1, ""],
             [1, ""],
             [1, ""],
             [1, "(intermittent)"],
@@ -395,7 +395,7 @@
         "Slow rate": [
             [1, "(may be compensatory for poor articulation)"],
             [1, ""],
-            [1, "(slow and regular AMR)"],
+            [2, "(slow and regular AMR)"],
             [1, ""],
             [1, ""],
             [1, ""],
@@ -422,13 +422,13 @@
         "Overall imprecise articulation of AMRs / SMRs": [
             [1, ""],
             [1, ""],
-            [0, ""],
-            [0, ""],
+            [1, ""],
+            [1, ""],
             [0, ""],
             [0, ""],
             [1, "(SMRs likely less precise than AMRs)"]  
         ],
-        "'Puh' is more imprecise/slow than 'tuh' or 'kuh'": [
+        "Poorer labial articulation (‘puh’) than lingual articulation (‘tuh’ and ‘kuh’) ": [
             [1, "(CN VII)"],
             [0, ""],
             [0, ""],
@@ -437,7 +437,7 @@
             [0, ""],
             [0, ""]  
         ],
-        "'Tuh' and 'Kuh' more imprecise/slow than 'Puh'": [
+        "Poorer lingual articulation (‘tuh’ and ‘kuh’) than labial articulation (‘puh’): [
             [1, "(CN XII)"],
             [0, ""],
             [0, ""],
@@ -459,9 +459,9 @@
     "Expression": {
         "Pseudobulbar Affect": [
             [-1, ""],
-            [-1, ""],
+            [1, ""],
             [2, ""],
-            [-1, ""],
+            [1, ""],
             [1, ""],
             [-1, ""],
             [-1, ""]  
@@ -545,14 +545,14 @@
         "Drooping on lower side of face*": [
             [0, ""],
             [2, "(Droop on side opposite from the site of lesion)"],
+            [2, ""],
             [0, ""],
             [0, ""],
             [0, ""],
-            [0, ""],
-            [1, ""]
+            [0, ""]
         ],
         "Bilateral facial weakness": [
-            [0, ""],
+            [1, ""],
             [0, ""],
             [1, ""],
             [0, ""],
@@ -561,7 +561,7 @@
             [0, ""] 
         ],
         "Hypotonia": [
-            [1, ""],
+            [2, ""],
             [0, ""],
             [0, ""],
             [0, ""],
@@ -570,9 +570,9 @@
             [0, ""] 
         ],
         "Muscle weakness": [
+            [2, ""],
             [1, ""],
-            [0, ""],
-            [0, ""],
+            [1, ""],
             [0, ""],
             [0, ""],
             [0, ""],
@@ -580,7 +580,7 @@
         ],
         "Spasticity": [
             [0, ""],
-            [0, ""],
+            [1, ""],
             [1, ""],
             [0, ""],
             [0, ""],
@@ -595,10 +595,19 @@
             [0, ""],
             [0, ""],
             [0, ""] 
+	],
+        "Decreased sensation of the face (CN VII), cheek (CN VII), tongue (CN XII), or palate (CN X)": [
+            [1, "note which CN is affected"],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""],
+            [0, ""] 
         ],
         "Nonverbal oral apraxia": [
             [0, ""],
-            [1, ""],
+            [0, ""],
             [0, ""],
             [0, ""],
             [0, ""],
@@ -608,13 +617,13 @@
     },
     "OME (Lips)": {
         "Asymmetrical movement*": [
-            [1, "(CN VII; ex. reduced retraction on the impaired side, contralateral to the site of lesion)"],
+            [1, "(CN VII; ex. reduced retraction on impaired/ipsilateral side)"],
             [1, ""],
             [0, ""],
             [0, ""],
             [0, ""],
             [0, ""],
-            [1, ""] 
+            [0, ""] 
         ],
         "Weakness": [
             [1, "(CN VII; ex. weakness on the impaired side, ipsilateral to the site of lesion)"],
@@ -623,7 +632,7 @@
             [0, ""],
             [0, ""],
             [0, ""],
-            [1, ""] 
+            [0, ""] 
         ],
         "Limited range of motion": [
             [1, ""],
@@ -647,15 +656,6 @@
         ],
         "Jaw deviation to one side*": [
             [1, "(CN V unilaterally; jaw deviates to weak side)"],
-            [0, ""],
-            [0, ""],
-            [0, ""],
-            [0, ""],
-            [0, ""],
-            [0, ""] 
-        ],
-        "Decreased sensation of the face, cheek, teeth, tongue, or palate": [
-            [1, "(CN V)"],
             [0, ""],
             [0, ""],
             [0, ""],
@@ -731,7 +731,7 @@
         "Air escapes from nose when puffing cheeks": [
             [1, "(CN X)"],
             [0, ""],
-            [0, ""],
+            [1, ""],
             [0, ""],
             [0, ""],
             [0, ""],
@@ -760,11 +760,11 @@
         "Weakness*": [
             [1, "(CN XII)"],
             [1, "(unilateral)"],
+            [1, ""],
             [0, ""],
             [0, ""],
             [0, ""],
-            [0, ""],
-            [1, "(commonly right lingual weakness)"]    
+            [0, ""]    
         ],
         "Limited range of motion*": [
             [1, "(CN XII)"],
@@ -799,7 +799,7 @@
             [1, "(CN X)"],
             [0, ""],
             [0, ""],
-            [0, ""],
+            [1, ""],
             [0, ""],
             [0, ""],
             [0, ""]    
@@ -808,7 +808,7 @@
             [1, "(CN X)"],
             [0, ""],
             [0, ""],
-            [0, ""],
+            [1, ""],
             [0, ""],
             [0, ""],
             [0, ""]    
@@ -832,10 +832,10 @@
             [0, ""]    
         ],
         "Weak coup and weak cough": [
-            [0, "(could indicate laryngeal weakness)"],
+            [0, "(could indicate laryngeal as well as respiratory weakness)"],
             [0, ""],
             [0, ""],
-            [0, ""],
+            [1, ""],
             [0, ""],
             [0, ""],
             [0, ""]    
