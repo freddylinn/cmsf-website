@@ -21,7 +21,7 @@ function NavBar() {
           href="#/downloads"
           className="mx-6 text-md md:text-xl font-semibold hover:underline"
         >
-          Downloads
+          Downloads and Updates
         </a>
         <a
           href="#/audio"
