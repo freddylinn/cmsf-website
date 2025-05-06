@@ -19,6 +19,8 @@
 
 ### Technologies Used
 
+---
+
 - ReactJS for developing pages
 - TailwindCSS for styling
 
@@ -35,9 +37,9 @@
 function PageName() {
 	return (
 	<>
-		<h1 className="text-4xl font-bold mt-8">Header</h1>
-		<p>paragraph content</p>
-    </>
+	<h1 className="text-4xl font-bold mt-8">Header</h1>
+	<p>paragraph content</p>
+	</>
   );
 }
 
