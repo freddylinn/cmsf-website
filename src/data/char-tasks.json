@@ -1,3 +1,7 @@
 {
+  "Slow rate of speech": "Speech appears at a slower rate than expected or typical."
+  "Fast rate of speech": "Speech appears at a faster rate than expected or typical." 
   "Variable rate of speech": "Speech appears to vary between a fast and slow rate."
+  "Short phrases": "Phrases are produced with only a few words at a time."
+  "Abnormal noises": "Nonmeaningful noises interrupt the flow of speech, such as grunting, nonmeaningful vocalizations, etc."
 }
