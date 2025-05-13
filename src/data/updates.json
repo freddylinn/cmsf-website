@@ -1,7 +1,56 @@
 {
   "updates": [
-    "May 2025 – Added PDF version of CMSF documentation examples.",
-    "April 2025 – Improved mobile layout and download speeds.",
-    "March 2025 – Launched the new Downloads section."
+    {
+      "date": "May 2025",
+      "items": [
+        "Added definitions for each feature",
+        "Changed the cutoff for maximum phonation time to 15 seconds for adults less than 65 and 12 seconds for adults above 65",
+        "Added the CAPE-V sentence 'Mama makes lemon muffins' to the Resonance tasks",
+        "Revised the feature 'Strained-Strangled' to 'Strained' in Voice Quality section",
+        "Added the feature 'Pitch Instability' to the Voice Quality section",
+        "Added XX for Spastic Dysarthria for both monopitch and monoloudness features",
+        "Added the feature 'Pitch Breaks' to Vocal Quality section",
+        "Revised the feature 'Voice Stoppage' to 'Voice Stoppage/Arrests' in the Vocal Quality section",
+        "Added the feature 'Runs out of air when speaking' in the Vocal Quality and Respiration section",
+        "For fast rate of speech, removed the - indicator for hyperkinetic dysarthria because it's not a common feature but is a possible feature in hyperkinetic dysarthria",
+        "Revised the instructions for DDK performance to include getting an exact count if possible and to also consider cueing for both comfortable and maximum rates",
+        "Added X for hypokinetic dysarthria for the feature 'DDK Irregular Rhythm",
+        "Added X for body tremor for spastic dysarthria",
+        "Removed the feature 'Vocal Harshness' because of confusion with breathiness and hoarseness, as well as overlap among them all",
+        "Added XX for apraxia of speech for syllable segregation",
+        "Added XX for flaccid dysarthria for both breathiness and aphonia",
+        "Added the descriptor 'inconsistent breakdowns' for hyperkinetic dysarthria for the feature of imprecise consonants",
+        "Revised the in-box descriptors for the feature irregular articulatory breakdown as 'related to unilateral weakness for UUMN' and 'due to incoordination' for ataxic dysarthria",
+        "Removed XX for UUMN for telescoping",
+        "Revised the detioriation of speech feature to say 'Detoriation of speech during continuous speaking and improvement with rest",
+        "Added X for hyperkinetic dysarthria for intermittent hyponasality",
+        "Added XX for flaccid dysarthria for hypernasality",
+        "Added X for UUMN for hypernasality",
+        "Added XX for spastic dysarthria for slow rate of speech during the AMR",
+        "Added X for hypokinetic dysarthria and X for spastic dysarthria for overall imprecise articulation of AMRs",
+        "Revised the features in DDK for differentiating lingual vs. labial weakness",
+        "Added X for UUMN, X for hypokinetic dysarthria, and X for hyperkinetic dysarthria for pseudobulbar affect",
+        "Added XX for spastic dysarthria and removed X for apraxia of speech for drooping on lower side of the face",
+        "Added X for flaccid dysarthria for bilateral facial weakness",
+        "Added XX for flaccid dysarthria for hypotonia",
+        "Added XX for flaccid dysarthria and X for spastic dysarthria and UUMN for muscle weakness of the face",
+        "Added X for UUMN for spasticity",
+        "Removed the X for UUMN for nonverbal oral apraxia",
+        "Revised feature in lip movement section to say 'Reduced retraction of impaired/ipsilateral side",
+        "Removed X for apraxia of speech for asymmetrical movement of the lips",
+        "Removed X for apraxia of speech for lip weakness",
+        "Added a feature of reduced senesation to the face section",
+        "Added X for spastic dysarthria for air escaping from lips when puffing the cheeks",
+        "For lingual weakness, added X for spastic dysarthria and removed X for apraxia of speech",
+        "Added X for hypokinetic dysarthria for weak cough and weak glottal coup",
+        "Revised description in weak cough and weak glottal coup to include that it could indicate laryngeal and well as respiratory weakness"
+      ]
+    },
+    {
+      "date": "Coming June 2025",
+      "items": [
+        "List of citations per feature and subtype"
+      ]
+    }
   ]
 }
