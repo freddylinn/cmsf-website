@@ -1,4 +1,5 @@
 import Download from "../components/Download";
+import WebsiteUpdates from '../components/WebsiteUpdates';
 function Downloads() {
   return (
     <div className="bg-[url('../public/images/greenmountain.webp')] bg-cover min-h-[calc(100vh-4rem)] max-w-full">
@@ -31,6 +32,8 @@ function Downloads() {
         />
         <Download name="Kite_Picture.jpg" type="image" />
       </ul>
+            
+      <WebsiteUpdates />
     </div>
   );
 }
