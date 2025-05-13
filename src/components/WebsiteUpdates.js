@@ -1,5 +1,5 @@
-import React from 'react';
-import updatesData from '../data/updates.json';
+import WebsiteUpdates from "../components/WebsiteUpdates";
+import updatesData from "../data/updates.json";
 
 function WebsiteUpdates() {
   return (
