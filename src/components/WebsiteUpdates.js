@@ -1,4 +1,3 @@
-import WebsiteUpdates from "../components/WebsiteUpdates";
 import updatesData from "../data/updates.json";
 
 function WebsiteUpdates() {
