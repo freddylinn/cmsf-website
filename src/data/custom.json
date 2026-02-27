@@ -1,7 +1,7 @@
 {
     "Self-Rating": {
         "type": "number",
-        "max": 7,
+        "max": 10,
         "value": "number",
         "tip": "Ask the patient: 'On a scale of 1-7, 1 being the worst and 7 being the best, how would you rate your speech right now?'"
     },
