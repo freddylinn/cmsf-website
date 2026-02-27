@@ -21,6 +21,7 @@ function Tool() {
     Red: initialCount,
     Total: initialCount,
   });
+
   const yellowCells = counts["Yellow"].map((item, index) => (
     <td key={index} className="p-2 border border-slate-700">
       {item}
@@ -74,22 +75,34 @@ function Tool() {
     ))
   );
 
+  // --- THIS IS THE UPDATED SECTION ---
   const customRows = Object.entries(customInputs).map((pairs) => {
     const title = pairs[0];
     const values = pairs[1];
     let inputVal = <></>;
     let outOf = "";
+
     if (values["type"] === "number") {
+      const isSlider = title === "Naturalness" || title === "Efficiency";
+
       inputVal = (
-        <input
-          type="number"
-          min={0}
-          max={values["max"]}
-          className="rounded m-1"
-        />
+        <div className="flex items-center gap-3">
+          <input
+            type={isSlider ? "range" : "number"}
+            min={0}
+            max={values["max"]}
+            defaultValue={isSlider ? 50 : 0}
+            className={isSlider ? "w-48 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "rounded m-1 w-16"}
+            onChange={(e) => {
+              if (isSlider) e.target.nextSibling.innerText = e.target.value;
+            }}
+          />
+          {isSlider && <span className="font-mono text-sm w-8">50</span>}
+        </div>
       );
+
       if (values["value"] === "number") {
-        outOf = `/ ${values["max"]}`;
+        outOf = isSlider ? "" : `/ ${values["max"]}`;
       } else if (values["value"] === "percentage") {
         outOf = "%";
       }
@@ -100,25 +113,24 @@ function Tool() {
             --Select--
           </option>
           {values["options"].map((opt) => (
-            <option>{opt}</option>
+            <option key={opt}>{opt}</option>
           ))}
         </select>
       );
     }
+
     return (
-      <tr>
+      <tr key={title}>
         <th className="px-6 border border-slate-700">
           <div className="flex justify-center items-center gap-2">
             <span>{title}</span>
             <div className="has-tooltip">
               <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">
-                {values["tip"].split("\n").map((item, key) => {
-                  return (
-                    <p className="my-2 text-left" key={key}>
-                      {item}
-                    </p>
-                  );
-                })}
+                {values["tip"].split("\n").map((item, key) => (
+                  <p className="my-2 text-left" key={key}>
+                    {item}
+                  </p>
+                ))}
               </span>
               <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">
                 i
@@ -132,6 +144,7 @@ function Tool() {
       </tr>
     );
   });
+  // --- END OF UPDATED SECTION ---
 
   return (
     <div className="">
