@@ -3,7 +3,7 @@
         "type": "number",
         "max": 10,
         "value": "number",
-        "tip": "Ask the patient: 'On a scale of 1-7, 1 being the worst and 7 being the best, how would you rate your speech right now?'"
+        "tip": "Ask the patient: 'On a scale of 1-10, 1 being the worst and 10 being the best, how would you rate your speech right now?'"
     },
     "Intelligibility": {
         "type": "number",
@@ -12,13 +12,15 @@
         "tip": "Judge during running speech tasks. Estimate of the percentage of words correctly understood."
     },
     "Naturalness": {
-        "type": "select",
-        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"],
-        "tip": "Judge during running speech of how well speech matches normal stands of rate, pitch, and loudness."
+        "type": "number",
+        "max": 100,
+        "value": "number",
+        "tip": "Judge during running speech of how well speech matches normal standards of rate, pitch, and loudness (1 = Least Natural, 100 = Most Natural)."
     },
     "Efficiency": {
-        "type": "select",
-        "options": ["WFL", "Mild", "Moderate", "Severe", "Profound"],
+        "type": "number",
+        "max": 100,
+        "value": "number",
         "tip": "Judge during running speech for the rate of information conveyed (Intelligible Words Per Minute). Note if communication is slowed by effort, frequent repairs, or pauses, rather than performing a formal calculation."
     }
 }
