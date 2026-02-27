@@ -119,9 +119,10 @@ function Tool() {
       );
     }
 
-    return (
+   return (
       <tr key={title}>
-        <th className="px-6 border border-slate-700">
+        {/* We fix the width here so all labels are the same size */}
+        <th className="px-6 border border-slate-700 w-1/3">
           <div className="flex justify-center items-center gap-2">
             <span>{title}</span>
             <div className="has-tooltip">
@@ -139,7 +140,14 @@ function Tool() {
           </div>
         </th>
         <td className="p-4 border border-slate-700">
-          {inputVal} {outOf}
+          {/* This grid forces the inputs to align to the center, 
+              with the unit/number labels in a consistent second column */}
+          <div className="grid grid-cols-2 items-center gap-4 max-w-xs mx-auto">
+            <div className="flex justify-end">{inputVal}</div>
+            <div className="flex justify-start font-medium text-slate-600">
+              {outOf}
+            </div>
+          </div>
         </td>
       </tr>
     );
