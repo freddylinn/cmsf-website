@@ -118,11 +118,10 @@ function Tool() {
         </select>
       );
     }
-
-   return (
+return (
       <tr key={title}>
-        {/* We fix the width here so all labels are the same size */}
-        <th className="px-6 border border-slate-700 w-1/3">
+        {/* We use a fixed minimum width here to prevent the slider from overlapping the text */}
+        <th className="px-6 border border-slate-700 w-48 min-w-[12rem]">
           <div className="flex justify-center items-center gap-2">
             <span>{title}</span>
             <div className="has-tooltip">
@@ -140,19 +139,19 @@ function Tool() {
           </div>
         </th>
         <td className="p-4 border border-slate-700">
-          {/* This grid forces the inputs to align to the center, 
-              with the unit/number labels in a consistent second column */}
-          <div className="grid grid-cols-2 items-center gap-4 max-w-xs mx-auto">
-            <div className="flex justify-end">{inputVal}</div>
-            <div className="flex justify-start font-medium text-slate-600">
+          {/* This grid-cols-[1fr_auto] ensures the slider gets the space it needs 
+              while the number label stays neatly tucked to the right */}
+          <div className="grid grid-cols-[1fr_auto] items-center gap-4 max-w-[300px] mx-auto">
+            <div className="flex justify-center w-full">
+              {inputVal}
+            </div>
+            <div className="flex justify-start font-medium text-slate-600 min-w-[2.5rem]">
               {outOf}
             </div>
           </div>
         </td>
       </tr>
     );
-  });
-  // --- END OF UPDATED SECTION ---
 
   return (
     <div className="">
