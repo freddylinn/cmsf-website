@@ -100,17 +100,16 @@ function Tool() {
         </div>
       );
 
-      if (values["value"] === "number") {
-        outOf = isSlider ? "" : `/ ${values["max"]}`;
+if (values["value"] === "number") {
+        // This ensures the "/ 10" shows up for Self-Rating but stays hidden for others if desired
+        outOf = title === "Self-Rating" ? "/ 10" : "";
       } else if (values["value"] === "percentage") {
         outOf = "%";
       }
     } else if (values["type"] === "select") {
       inputVal = (
         <select className="rounded m-1" defaultValue="default">
-          <option value="default" disabled defaultValue>
-            --Select--
-          </option>
+          <option value="default" disabled>--Select--</option>
           {values["options"].map((opt) => (
             <option key={opt}>{opt}</option>
           ))}
@@ -126,30 +125,25 @@ function Tool() {
             <div className="has-tooltip">
               <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">
                 {values["tip"].split("\n").map((item, key) => (
-                  <p className="my-2 text-left" key={key}>
-                    {item}
-                  </p>
+                  <p className="my-2 text-left" key={key}>{item}</p>
                 ))}
               </span>
-              <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">
-                i
-              </button>
+              <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800">i</button>
             </div>
           </div>
         </th>
         <td className="p-4 border border-slate-700">
-          <div className="grid grid-cols-[1fr_auto] items-center gap-4 max-w-[300px] mx-auto">
-            <div className="flex justify-center w-full">
-              {inputVal}
-            </div>
-            <div className="flex justify-start font-medium text-slate-600 min-w-[2.5rem]">
+          {/* We switched from 'grid' to 'flex w-fit' to pull the labels closer to the sliders */}
+          <div className="flex justify-center items-center gap-4 w-fit mx-auto">
+            <div>{inputVal}</div>
+            <div className="font-medium text-slate-600 min-w-[2.5rem] text-left">
               {outOf}
             </div>
           </div>
         </td>
       </tr>
     );
-  });
+  });//
 
   return (
     <div className="">
