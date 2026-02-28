@@ -21,6 +21,6 @@
         "type": "number",
         "max": 100,
         "value": "number",
-        "tip": "Judge during running speech for the rate of information conveyed (Intelligible Words Per Minute). Note if communication is slowed by effort, frequent repairs, or pauses, rather than performing a formal calculation."
+        "tip": "Judge during running speech for the rate of information conveyed (Intelligible Words Per Minute) (1 = Least Efficient, 100 = Most Efficient). Note if communication is slowed by effort, frequent repairs, or pauses, rather than performing a formal calculation."
     }
 }
