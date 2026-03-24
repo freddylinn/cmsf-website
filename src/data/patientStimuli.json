@@ -1,0 +1,125 @@
+{
+  "Passage Reading": [
+    {
+      "header": "The Grandfather Passage",
+      "sentences": [
+        "You wish to know all about my grandfather. Well, he is nearly ninety-three years old; he dresses himself in the ancient Italian fashion each morning with some help from his son-in-law. When he speaks, his voice trembles a bit, and it has a high, thin, piping quality. He has a long, white, flowing beard, and it is a source of pride to him."
+      ]
+    },
+    {
+      "header": "The Caterpillar Passage",
+      "sentences": [
+        "Do you know the story of the very hungry caterpillar? He ate through one apple, two pears, three plums, four strawberries, and five oranges, but he was still hungry."
+      ]
+    }
+  ],
+  "Picture Description": [
+    {
+      "header": "Narrative Task",
+      "instruction": "Look at the image provided by the clinician and describe what is happening.",
+      "sentences": [
+        "The Cookie Theft Picture",
+        "The Kite Picture"
+      ]
+    }
+  ],
+  "Word & Phrasal Stress": [
+    {
+      "header": "Rhythm Metrics (Liss, 2009)",
+      "instruction": "Please read these five sentences naturally:",
+      "sentences": [
+        "The supermarket chain shut down because of poor management.",
+        "Much more money must be donated to make this department succeed.",
+        "In this famous coffee shop they serve the best doughnuts in town.",
+        "The chairman decided to pave over the shopping center garden.",
+        "The standards committee met this afternoon in an open meeting."
+      ]
+    },
+    {
+      "header": "Contrastive Stress",
+      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'",
+      "sentences": [
+        "Target Phrase: She hid his key"
+      ]
+    }
+  ],
+  "Articulation": [
+    {
+      "header": "Word Repetition",
+      "sentences": [
+        "northwest", "twist", "fused", "sleeps", "scarecrow", 
+        "playground", "lifeboat", "shipwreck", "mushroom", "woodwork"
+      ]
+    },
+    {
+      "header": "Sentence Repetition",
+      "sentences": [
+        "A strong job interview actually breathes life into my morning.",
+        "The other difficult colleague will perhaps confront my behavior and enjoy it."
+      ]
+    },
+    {
+      "header": "Automatic Speech",
+      "sentences": [
+        "Tell me the days of the week."
+      ]
+    }
+  ],
+  "Resonance": [
+    {
+      "header": "Nasal Emission Test",
+      "instruction": "Repeat these phrases while the clinician checks your breathing.",
+      "sentences": [
+        "Buy Bobby a puppy.",
+        "My mama makes lemon muffins."
+      ]
+    }
+  ],
+  "Diadochokinetic Rate (DDK)": [
+    {
+      "header": "Alternating Motion Rates (AMR)",
+      "instruction": "Repeat the sound as fast and steadily as you can until told to stop.",
+      "sentences": [
+        "puh-puh-puh-puh...",
+        "tuh-tuh-tuh-tuh...",
+        "kuh-kuh-kuh-kuh..."
+      ]
+    },
+    {
+      "header": "Sequential Motion Rates (SMR)",
+      "instruction": "Repeat these sounds in a sequence as fast as you can.",
+      "sentences": [
+        "puh-tuh-kuh",
+        "OR: buttercup"
+      ]
+    }
+  ],
+  "Voice & Respiration": [
+    {
+      "header": "Maximum Phonation Time",
+      "instruction": "Take a deep breath and hold out the sound 'ah' for as long as you can.",
+      "sentences": [
+        "aaaaahhhhhh...."
+      ]
+    }
+  ],
+  "Oral Mechanism (OME)": [
+    {
+      "header": "Jaw & Lips",
+      "sentences": [
+        "Bite down five times, like you're chewing gum.",
+        "Smile and hold for three seconds.",
+        "Squeeze your lips tightly together."
+      ]
+    },
+    {
+      "header": "Tongue & Soft Palate",
+      "sentences": [
+        "Puff your cheeks up with air.",
+        "Stick your tongue straight out. Hold for three seconds.",
+        "Curl your tongue up towards your nose, then down towards your chin.",
+        "Push your tongue into the inside of your cheek."
+      ]
+    }
+  ]
+}
