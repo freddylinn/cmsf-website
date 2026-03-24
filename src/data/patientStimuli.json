@@ -28,10 +28,10 @@
   "Picture Description": [
     {
       "header": "Narrative Task",
-      "instruction": "Look at the image provided by the clinician and describe what is happening.",
-      "sentences": [
-        "The Revised Cookie Theft Picture",
-        "The Kite Picture"
+      "instruction": "Click the text below to open the image in a new tab for the patient.",
+    "sentences": [
+      { "label": "The Revised Cookie Theft Picture", "imageUrl": "images/cookie theft.png" },
+      { "label": "The Kite Picture", "imageUrl": "images/MSF-Boulder_Kite Picture for Narrative Task.jpg" }
       ]
     }
   ],
