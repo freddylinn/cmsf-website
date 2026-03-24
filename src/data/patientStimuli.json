@@ -49,7 +49,7 @@
     },
     {
       "header": "Contrastive Stress",
-      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'. Clinician, ask 'She hid his key?' 'She hid his key?' 'She found his key?' 'Who hid his key?'",
+      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'. Clinician, ask 'She hid his pen??' 'She hid whose key?' 'She found his key?' 'Who hid his key?'",
       "sentences": [
         "Target Phrase: She hid his key"
       ]
