@@ -17,17 +17,20 @@ function NavBar() {
         >
           Optional Additional Body Movement Form
         </a>
+            <a 
+          href="#/patient-view" 
+          className="mx-6 text-md md:text-xl font-semibold hover:underline"
+        >
+          Patient View
+        </a>
+        
         <a
           href="#/downloads"
           className="mx-6 text-md md:text-xl font-semibold hover:underline"
         >
-          <a 
-            href="#/patient-view" 
-              className="mx-6 text-md md:text-xl font-semibold hover:underline">
-            Patient View
+          Downloads and Updates
         </a>
-            Downloads and Updates
-        </a>
+        
         <a
           href="#/audio"
           className="mx-6 text-md md:text-xl font-semibold hover:underline"
