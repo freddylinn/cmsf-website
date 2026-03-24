@@ -83,16 +83,24 @@ function PatientTasks() {
                     </div>
                   )}
 
-                  <ul className="space-y-6">
-                    {(section.sentences || section.stimuli).map((item, sIdx) => (
-                      <li 
-                        key={sIdx} 
-                        className="stimulus-item text-3xl leading-relaxed text-gray-900 bg-gray-50 p-6 rounded-lg border shadow-sm"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+               <ul className="space-y-6">
+  {(section.sentences || section.stimuli).map((item, sIdx) => {
+    // Check if this is the Spanish passage
+    const isSpanish = section.header.includes("Sopa de Pescado");
+
+    return (
+      <li 
+        key={sIdx} 
+        // 1. translate="no" is the HTML5 standard
+        // 2. "notranslate" is the specific class Google looks for
+        translate={isSpanish ? "no" : "yes"}
+        className={`stimulus-item text-3xl leading-relaxed text-gray-900 bg-gray-50 p-6 rounded-lg border shadow-sm ${isSpanish ? 'notranslate' : ''}`}
+      >
+        {item}
+      </li>
+    );
+  })}
+</ul>
                 </div>
               ))}
             </div>
