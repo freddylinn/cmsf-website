@@ -30,8 +30,8 @@
       "header": "Narrative Task",
       "instruction": "Click the text below to open the image in a new tab for the patient.",
     "sentences": [
-      { "label": "The Revised Cookie Theft Picture", "imageUrl": "images/cookie theft.png" },
-      { "label": "The Kite Picture", "imageUrl": "images/MSF-Boulder_Kite Picture for Narrative Task.jpg" }
+      { "label": "The Revised Cookie Theft Picture (Berube et al., 2019)", "imageUrl": "images/cookie theft.png" },
+      { "label": "The Kite Picture (Melanie Esver)", "imageUrl": "images/MSF-Boulder_Kite Picture for Narrative Task.jpg" }
       ]
     }
   ],
@@ -49,7 +49,7 @@
     },
     {
       "header": "Contrastive Stress",
-      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'. Clinician, ask 'She hid his pen?' 'She hid his key?' 'She found his key?' 'Who hid his key?'",
+      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'. Clinician, ask 'She hid his key?' 'She hid his key?' 'She found his key?' 'Who hid his key?'",
       "sentences": [
         "Target Phrase: She hid his key"
       ]
