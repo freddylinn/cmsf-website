@@ -3,22 +3,37 @@
     {
       "header": "The Grandfather Passage",
       "sentences": [
-        "You wish to know all about my grandfather. Well, he is nearly ninety-three years old; he dresses himself in the ancient Italian fashion each morning with some help from his son-in-law. When he speaks, his voice trembles a bit, and it has a high, thin, piping quality. He has a long, white, flowing beard, and it is a source of pride to him."
+        "You wished to know all about my grandfather. Well, he is nearly 93 years old; he dresses himself in an ancient black frock coat, usually minus several buttons; yet he still thinks as swiftly as ever. A long, flowing beard clings to his chin, giving those who observe him a pronounced feeling of the utmost respect. When he speaks, his voice is just a bit cracked and quivers a trifle. Twice each day he plays skilfully and with zest upon our small organ. Except in the winter when the ooze or snow or ice prevents, he slowly takes a short walk in the open air each day. We have often urged him to walk more and smoke less, but he always answers, “Banana oil!” Grandfather likes to be modern in his language."
       ]
     },
     {
-      "header": "The Caterpillar Passage",
+      "header": "The Caterpillar Passage (Patel et al., 2013)",
       "sentences": [
-        "Do you know the story of the very hungry caterpillar? He ate through one apple, two pears, three plums, four strawberries, and five oranges, but he was still hungry."
+        "Do you like amusement parks? Well, I sure do. To amuse myself, I went twice last spring. My most MEMORABLE moment was riding on the Caterpillar, which is a gigantic rollercoaster high above the ground. When I saw how high the Caterpillar rose into the bright blue sky I knew it was for me. After waiting in line for thirty minutes, I made it to the front where the man measured my height to see if I was tall enough. I gave the man my coins, asked for change, and jumped on the cart. Tick, tick, tick, the Caterpillar climbed slowly up the tracks. It went SO high I could see the parking lot. Boy was I SCARED! I thought to myself, “There’s no turning back now.” People were so scared they screamed as we swiftly zoomed fast, fast, and faster along the tracks. As quickly as it started, the Caterpillar came to a stop. Unfortunately, it was time to pack the car and drive home. That night I dreamt of the wild ride on the Caterpillar. Taking a trip to the amusement park and riding on the Caterpillar was my MOST memorable moment ever!"
       ]
-    }
+    },
+    {
+      "header": "Sopa de Pescado (Darling-White et al., nd)",
+      "sentences": [
+        "Tengo invitados que van a venir a cenar a mi casa esta noche. Quiero
+preparar mi famosa sopa de pescado y un poco de ensalada para esta ocasión
+especial. También voy a preparar un postre de frutas, pero sin manzanas verdes.
+¡No me gustan las manzanas verdes! Me gustan las manzanas rojas. Primero,
+necesito ir a la tienda. Ya tengo una lista de cosas que necesito. Voy a comprar
+huevos, pescado, ajo, aceite, lechuga, naranjas y fresas. Puedo ir a la tienda en mi
+bicicleta y así hago un poquito de ejercicio. En camino a la tienda, pasaré por la
+casa de Paula, mi tía favorita. Tal vez necesite algo de la tienda. Voy a pasar por su
+casa para preguntarle. Cuando llegue sonaré el timbre de mi bicicleta. Ella va a
+escuchar “tilín-tilín-tilín, ¡ya llegué!” Creo que le voy a pedir que nos acompañe
+esta noche a cenar. Yo sé que a ella le gusta la sopa de pescado. Será una linda
+reunión entre amigos y familia. ¿Te gustaría venir a la cena también?"
   ],
   "Picture Description": [
     {
       "header": "Narrative Task",
       "instruction": "Look at the image provided by the clinician and describe what is happening.",
       "sentences": [
-        "The Cookie Theft Picture",
+        "The Revised Cookie Theft Picture",
         "The Kite Picture"
       ]
     }
@@ -37,7 +52,7 @@
     },
     {
       "header": "Contrastive Stress",
-      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'",
+      "instruction": "Answer the clinician's questions using the phrase: 'She hid his key'. Clinician, ask 'She hid his pen?' 'She hid his key?' 'She found his key?' 'Who hid his key?'",
       "sentences": [
         "Target Phrase: She hid his key"
       ]
@@ -68,7 +83,7 @@
   "Resonance": [
     {
       "header": "Nasal Emission Test",
-      "instruction": "Repeat these phrases while the clinician checks your breathing.",
+      "instruction": "Repeat these phrases while the clinician checks your breathing. Repeat them a second time with your nostrils occluded.",
       "sentences": [
         "Buy Bobby a puppy.",
         "My mama makes lemon muffins."
@@ -94,32 +109,4 @@
       ]
     }
   ],
-  "Voice & Respiration": [
-    {
-      "header": "Maximum Phonation Time",
-      "instruction": "Take a deep breath and hold out the sound 'ah' for as long as you can.",
-      "sentences": [
-        "aaaaahhhhhh...."
-      ]
-    }
-  ],
-  "Oral Mechanism (OME)": [
-    {
-      "header": "Jaw & Lips",
-      "sentences": [
-        "Bite down five times, like you're chewing gum.",
-        "Smile and hold for three seconds.",
-        "Squeeze your lips tightly together."
-      ]
-    },
-    {
-      "header": "Tongue & Soft Palate",
-      "sentences": [
-        "Puff your cheeks up with air.",
-        "Stick your tongue straight out. Hold for three seconds.",
-        "Curl your tongue up towards your nose, then down towards your chin.",
-        "Push your tongue into the inside of your cheek."
-      ]
-    }
-  ]
 }
