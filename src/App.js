@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import Downloads from "./pages/Downloads";
 import Audio from "./pages/Audio";
 import BodyMovement from "./pages/BodyMovement";
+import PatientTasks from './pages/PatientTasks';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/downloads" element={<Downloads />} />
           <Route path="/audio" element={<Audio />} />
           <Route path="/movement" element={<BodyMovement />} />
+          <Route path="/patient-view" element={<PatientTasks />} />
         </Routes>
       </Layout>
     </Router>
