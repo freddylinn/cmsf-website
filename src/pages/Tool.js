@@ -130,6 +130,38 @@ function Tool() {
 
   return (
     <div className="p-4">
+      {/* --- PORTRAIT PRINT OPTIMIZATION --- */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media print {
+          @page { 
+            size: portrait; 
+            margin: 0.5cm; 
+          }
+          body { 
+            zoom: 58%; /* Squeezes the width to fit Portrait */
+            -webkit-print-color-adjust: exact; 
+          }
+          /* Hide the "Groups" column entirely when printing to save horizontal space if hidden is active */
+          th:first-child, td:first-child {
+            display: ${hidden ? 'none' : 'table-cell'};
+          }
+          .overflow-x-auto { 
+            overflow: visible !important; 
+          }
+          table { 
+            table-layout: auto !important; 
+            width: 100% !important;
+            font-size: 14px; 
+          }
+          /* Force colors to show in PDF */
+          .bg-yellow-200 { background-color: #fef08a !important; }
+          .bg-green-300 { background-color: #86efac !important; }
+          .bg-red-300 { background-color: #fca5a5 !important; }
+          
+          tr { page-break-inside: avoid; }
+        }
+      `}} />
+
       <div className="max-w-4xl mx-auto mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-center gap-3 print:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -147,7 +179,7 @@ function Tool() {
         <div className="flex flex-col items-center gap-2 max-w-lg">
           <p className="text-center print:hidden mt-8 text-sm text-slate-500">
             Note: To save as a PDF, click the Print to PDF button below. 
-            Change destination to “Save as PDF” and set orientation to Landscape.
+            Ensure destination is “Save as PDF” and orientation is set to Portrait.
           </p>
         </div>
       </div>
@@ -243,7 +275,7 @@ function Tool() {
 
       <footer className="bg-amber-100 p-8 rounded-t-3xl mt-12">
         <p className="w-full md:w-3/4 text-slate-800 text-center mx-auto text-sm leading-relaxed">
-          Please cite this tool if you use it in your research: Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936
+          Please cite this tool if you use it in your research: <strong>Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936</strong>
         </p>
       </footer>
     </div>
