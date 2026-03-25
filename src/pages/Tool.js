@@ -8,10 +8,8 @@ function Tool() {
   const characteristics = charData;
   const locations = locData;
   const customInputs = customData;
-
   const [hidden, setHidden] = useState(false);
 
-  // Initialize counts for the summary table based on the locations data
   const initialCount = Object.values(locations)
     .flatMap((arr) => arr)
     .map(() => 0);
@@ -23,7 +21,6 @@ function Tool() {
     Total: initialCount,
   });
 
-  // --- Summary Table Cell Mappings ---
   const yellowCells = counts["Yellow"].map((item, index) => (
     <td key={index} className="p-2 border border-slate-700">{item}</td>
   ));
@@ -37,7 +34,6 @@ function Tool() {
     <td key={index} className="p-2 border border-slate-700 font-bold">{item}</td>
   ));
 
-  // --- Header Mappings ---
   const firstRow = Object.keys(locations).map((item) => (
     <th colSpan={locations[item].length} key={item} className="p-4 border border-slate-700 bg-slate-50">
       {item}
@@ -52,7 +48,6 @@ function Tool() {
       </th>
     ));
 
-  // --- Characteristic Row Mappings ---
   const charRows = Object.keys(characteristics).map((groupName) =>
     Object.entries(characteristics[groupName]).map((item, index) => (
       <Row
@@ -68,7 +63,6 @@ function Tool() {
     ))
   );
 
-  // --- Custom Input Mappings ---
   const customRows = Object.entries(customInputs).map((pairs) => {
     const title = pairs[0];
     const values = pairs[1];
@@ -136,7 +130,6 @@ function Tool() {
 
   return (
     <div className="p-4">
-      {/* 1. Privacy Disclaimer */}
       <div className="max-w-4xl mx-auto mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-center gap-3 print:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -146,20 +139,19 @@ function Tool() {
         </p>
       </div>
 
-      {/* 2. Header: Patient Info */}
       <div className="flex flex-wrap items-center justify-around mb-8 gap-4">
-        <div className="w-full md:w-64 flex flex-col gap-2">
-          <label htmlFor="patientName" className="font-semibold text-slate-700">Patient Name (optional)</label>
-          <input className="rounded border-slate-300 w-full" type="text" id="patientName" placeholder="Enter name..." />
+        <div className="mt-2 w-full md:w-64 flex flex-col gap-2">
+          <label htmlFor="patientName" className="font-semibold">Patient Name (optional)</label>
+          <input className="rounded border-slate-300 w-full p-2" type="text" id="patientName" />
         </div>
-        <div className="max-w-md">
-          <p className="text-center text-xs text-slate-500 print:hidden">
-            To save results: Click <strong>Print to PDF</strong> below, set destination to "Save as PDF", and use <strong>Landscape</strong> orientation.
+        <div className="flex flex-col items-center gap-2 max-w-lg">
+          <p className="text-center print:hidden mt-8 text-sm text-slate-500">
+            Note: To save as a PDF, click the Print to PDF button below. 
+            Change destination to “Save as PDF” and set orientation to Landscape.
           </p>
         </div>
       </div>
 
-      {/* 3. Main Scoring Table */}
       <div className="overflow-x-auto">
         <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
           <thead>
@@ -177,11 +169,10 @@ function Tool() {
         </table>
       </div>
 
-      {/* 4. Action Buttons */}
       <div className="flex flex-wrap gap-4 justify-center mt-12 mb-12 print:hidden">
         <button
           onClick={() => setHidden((prev) => !prev)}
-          className="rounded-lg text-lg px-6 py-3 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold transition-all shadow-md"
+          className="rounded-lg text-lg px-6 py-3 bg-sky-500 hover:bg-sky-500 active:bg-sky-600 text-white font-semibold transition-all shadow-md"
         >
           {hidden ? "Show" : "Hide"} Unchecked Rows
         </button>
@@ -197,18 +188,15 @@ function Tool() {
         </button>
       </div>
 
-      {/* 5. Custom Inputs Table */}
       <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mt-10">
         <tbody>{customRows}</tbody>
       </table>
 
-      {/* 6. Clinical Notes Section */}
       <div className="flex w-full md:w-2/3 flex-col items-start mx-auto mt-12 mb-16">
-        <h2 className="text-xl font-bold text-slate-800 mb-4 text-center w-full md:text-left">Additional notes on patient observations</h2>
-        <textarea className="w-full border-2 border-slate-200 rounded-lg p-4 focus:border-sky-400 outline-none transition-all" rows="6" placeholder="Type clinical observations here..." />
+        <h2 className="text-xl font-bold text-slate-800 mb-4">Additional notes on patient observations</h2>
+        <textarea className="w-full border-2 border-slate-200 rounded-lg p-4 outline-none transition-all" rows="6" placeholder="Type notes here..." />
       </div>
 
-      {/* 7. Color Legend */}
       <div className="flex flex-wrap gap-6 justify-center mt-10 mb-8 p-4 bg-slate-50 rounded-xl border border-dashed border-slate-300">
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded-full border border-slate-700 bg-yellow-200"></div>
@@ -228,7 +216,6 @@ function Tool() {
         </div>
       </div>
 
-      {/* 8. Summary Totals Table */}
       <table className="table-auto text-center border border-slate-700 border-collapse mx-auto mb-16">
         <thead>
           <tr className="bg-slate-50">
@@ -254,10 +241,9 @@ function Tool() {
         </thead>
       </table>
 
-      {/* 9. Citation Footer */}
       <footer className="bg-amber-100 p-8 rounded-t-3xl mt-12">
         <p className="w-full md:w-3/4 text-slate-800 text-center mx-auto text-sm leading-relaxed">
-          Please cite this tool if you use it in your research: <strong>Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936</strong>
+          Please cite this tool if you use it in your research: Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936
         </p>
       </footer>
     </div>
