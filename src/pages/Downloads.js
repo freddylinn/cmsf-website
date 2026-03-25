@@ -9,19 +9,14 @@ function Downloads() {
       </h1>
       <ul className="max-w-[100vw] md:w-2/3 flex flex-col flex-wrap items-center md:mx-auto md:items-start">
         <Download
-          name="CMSF_Printable.xlsx"
+          name="CMSF_V7.xlsx"
           type="excel"
-          alias="Downloadable Excel Version of the CMSF"
+          alias="Downloadable Excel Version of the CMSF (Updated to V7 3/27/26)"
         />
         <Download
-          name="CMSF_Checkable.xlsm"
-          type="excel"
-          alias="Downloadable Excel Version of the CMSF (checkable)"
-        />
-        <Download
-          name="CMSF_Printable.pdf"
+          name="CMSF_V7.pdf"
           type="pdf"
-          alias="PDF Version of the CMSF"
+          alias="PDF Version of the CMSF (Updated to V7 3/27/26)"
         />
         <Download name="CMSF_References.pdf" type="pdf" />
         <Download name="CMSF_Documentation_Examples.pdf" type="pdf" />
