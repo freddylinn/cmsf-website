@@ -12,27 +12,24 @@ jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
-    
-    # This environment variable forces GitHub to use Node 24 for the actions
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v5 # Updated from v4
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '24' # Explicitly use Node 24
+          node-version: '24' 
+          cache: 'npm'
 
       - name: Install and Build 
         run: |
-          npm ci
+          npm install
           npm run build
 
       - name: Deploy
-        # Note: If v4.6.1 still shows warnings, check for a v5 release
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
