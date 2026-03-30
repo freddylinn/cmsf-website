@@ -1,0 +1,149 @@
+[
+  {
+    "id": "A1",
+    "description": "Group A (r, t, n, s, l, k), Tier 1 (Initial/Prevocalic)",
+    "targets": 18,
+    "phrases": [
+      { "text": "Try to decide if there's enough time.", "phonetic": "traɪ tu dɪ'saɪd ɪf ðɛrz ɪ'nʌf taɪm" },
+      { "text": "Consider whether we can return to school.", "phonetic": "kən'sɪdər 'wɛðər wi kæn rɪ'tɜrn tu skul" },
+      { "text": "Do you know if there's still snow around?", "phonetic": "du ju nou ɪf ðɛrz stɪl snou ə'raʊnd" },
+      { "text": "Look to see if this is right.", "phonetic": "lʊk tu si ɪf ðɪs ɪz raɪt" },
+      { "text": "I believe this place will also become great.", "phonetic": "aɪ bɪ'liv ðɪs pleɪs wɪl 'ɔlsoʊ bɪ'kʌm greɪt" }
+    ]
+  },
+  {
+    "id": "A2",
+    "description": "Group A, Tier 2 (Word-initial Preconsonantal)",
+    "targets": 3,
+    "phrases": [
+      { "text": "Try to go to class at school today.", "phonetic": "traɪ tu gou tu klæs æt skul tə'deɪ" }
+    ]
+  },
+  {
+    "id": "A3",
+    "description": "Group A, Tier 3 (Preconsonantal/Final)",
+    "targets": 20,
+    "phrases": [
+      { "text": "I think this child will get strong.", "phonetic": "aɪ θɪŋk ðɪs tʃaɪld wɪl gɛt strɔŋ" },
+      { "text": "The girl may want a strong phone case.", "phonetic": "ðə gərl meɪ wɑnt ə strɔŋ foʊn keɪs" },
+      { "text": "Can you learn the text just once this year?", "phonetic": "kæn ju lɜrn ðə tɛkst dʒʌst wʌns ðɪs jɪr" },
+      { "text": "It is a fact that the world turns.", "phonetic": "ɪt ɪz ə fækt ðæt ðə wɜrld tɜrnz" },
+      { "text": "He gets to look at the new screen.", "phonetic": "hi gɛts tu lʊk æt ðə nu skrin" }
+    ]
+  },
+  {
+    "id": "B1",
+    "description": "Group B (p, d, m), Tier 1",
+    "targets": 9,
+    "phrases": [
+      { "text": "Today we remember more about his condition.", "phonetic": "tə'deɪ wi rɪ'mɛmbər mɔr ə'baʊt hɪz kən'dɪʃən" },
+      { "text": "People who spend the day here appear small.", "phonetic": "'pipəl hu spɛnd ðə deɪ hɪr ə'pɪr smɔl" }
+    ]
+  },
+  {
+    "id": "B2",
+    "description": "Group B, Tier 2",
+    "targets": 3,
+    "phrases": [
+      { "text": "I'd like to drive to a place that has music.", "phonetic": "aɪd laɪk tu draɪv tu ə pleɪs ðæt hæz 'mjuzɪk" }
+    ]
+  },
+  {
+    "id": "B3",
+    "description": "Group B, Tier 3",
+    "targets": 12,
+    "phrases": [
+      { "text": "It's time to address the armed camp.", "phonetic": "ɪts taɪm tu ə'drɛs ði ɑrmd kæmp" },
+      { "text": "Help me find a good film script.", "phonetic": "hɛlp mi faɪnd ə gʊd fɪlm skrɪpt" },
+      { "text": "When she finds a good bed spread, she likes to keep it.", "phonetic": "wɛn ʃi faɪndz ə gʊd bɛd sprɛd, ʃi laɪks tu kip ɪt" }
+    ]
+  },
+  {
+    "id": "C1",
+    "description": "Group C (f, b, ʃ, v), Tier 1",
+    "targets": 12,
+    "phrases": [
+      { "text": "The effect of the performance depends on her voice.", "phonetic": "ði ɪ'fɛkt ʌv ðə pər'fɔrməns dɪ'pɛndz ɑn hər vɔɪs" },
+      { "text": "Do we need to find and provide insurance for the big machine?", "phonetic": "du wi nid tu faɪnd ænd prə'vaɪd ɪn'ʃʊrəns fɔr ðə bɪg mə'ʃin" },
+      { "text": "The show about baseball did not involve much action.", "phonetic": "ðə ʃoʊ ə'baʊt 'beɪsbɔl dɪd nɑt ɪn'vɑlv mʌtʃ 'ækʃən" }
+    ]
+  },
+  {
+    "id": "C2",
+    "description": "Group C, Tier 2",
+    "targets": 4,
+    "phrases": [
+      { "text": "My brother's view is that shrimp should be free.", "phonetic": "maɪ 'brʌðərz vju ɪz ðæt ʃrɪmp ʃʊd bi fri" }
+    ]
+  },
+  {
+    "id": "C3",
+    "description": "Group C, Tier 3",
+    "targets": 15,
+    "phrases": [
+      { "text": "Before she leaves on her trip, I will give my wife new golf clubs.", "phonetic": "bɪ'fɔr ʃi livz ɑn hər trɪp, aɪ wɪl gɪv maɪ waɪf nu gɔlf klʌbz" },
+      { "text": "For dinner we serve meat cooked in herbs and a bulb of garlic.", "phonetic": "fɔr 'dɪnər wi sɜrv mit kʊkt ɪn ɜrbz ænd ə bʌlb ʌv 'gɑrlɪk" },
+      { "text": "I always wished my job left me more time.", "phonetic": "aɪ 'ɔlweɪz wɪʃt maɪ dʒɑb lɛft mi mɔr taɪm" },
+      { "text": "Please confront my harsh boss to push to get this issue solved.", "phonetic": "pliz kən'frʌnt maɪ hɑrʃ bɔs tu pʊʃ tu gɛt ðɪs 'ɪʃu sɑlvd" }
+    ]
+  },
+  {
+    "id": "D1",
+    "description": "Group D (g, w, z, dʒ, ŋ, j, tʃ, h), Tier 1",
+    "targets": 21,
+    "phrases": [
+      { "text": "Don't forget to go exchange the pants that the child just outgrew.", "phonetic": "doʊnt fər'gɛt tu gou ɪks'tʃeɪndʒ ðə pænts ðæt ðə tʃaɪld dʒʌst aʊt'gru" },
+      { "text": "After exactly a year, I learned to enjoy living in this time zone.", "phonetic": "'æftər ɪg'zæktli ə jɪr, aɪ lɜrnd tu ɛn'dʒɔɪ 'lɪvɪŋ ɪn ðɪs taɪm zoʊn" },
+      { "text": "In my view, this singer is perhaps the best here.", "phonetic": "ɪn maɪ vju, ðɪs 'sɪŋər ɪz pər'hæps ðə bɛst hɪr" },
+      { "text": "I think the majority will achieve the result they want quite well.", "phonetic": "aɪ θɪŋk ðə mə'dʒɔrəti wɪl ə'tʃiv ðə rɪ'zʌlt ðeɪ wɑnt kwaɪt wɛl" },
+      { "text": "Let's begin by looking ahead, not away.", "phonetic": "lɛts bɪ'gɪn baɪ 'lʊkɪŋ ə'hɛd, nɑt ə'weɪ" }
+    ]
+  },
+  {
+    "id": "D2",
+    "description": "Group D, Tier 2",
+    "targets": 1,
+    "phrases": [
+      { "text": "What a great group.", "phonetic": "wʌt ə greɪt grup" }
+    ]
+  },
+  {
+    "id": "D3",
+    "description": "Group D, Tier 3",
+    "targets": 17,
+    "phrases": [
+      { "text": "We watched him get the congressional medal.", "phonetic": "wi wɑtʃt hɪm gɛt ðə kən'grɛʃənəl 'mɛdəl" },
+      { "text": "I think the dogs were pleased with the large lunch.", "phonetic": "aɪ θɪŋk ðə dɔgz wɜr plizd wɪð ðə lɑrdʒ lʌntʃ" },
+      { "text": "I searched for the page with information about the big sales.", "phonetic": "aɪ sɜrtʃt fɔr ðə peɪdʒ wɪð ɪnfər'meɪʃən ə'baʊt ðə bɪg seɪlz" },
+      { "text": "I don't think she changed much as she aged.", "phonetic": "aɪ doʊnt θɪŋk ʃi tʃeɪndʒd mʌtʃ æz ʃi eɪdʒd" },
+      { "text": "Can you bring your phone so I can use it to transmit an image?", "phonetic": "kæn ju brɪŋ jɔr foʊn soʊ aɪ kæn juz ɪt tu trænz'mɪt ən 'ɪmədʒ" }
+    ]
+  },
+  {
+    "id": "E1",
+    "description": "Group E (θ, ð, ʒ), Tier 1",
+    "targets": 8,
+    "phrases": [
+      { "text": "His enthusiasm for the northern climate is why he left the southeast.", "phonetic": "hɪz ɪn'θuziæzəm fɔr ðə 'nɔrðərn 'klaɪmət ɪz waɪ hi lɛft ðə saʊθ'ist" },
+      { "text": "Please make the decision within five minutes, then we will go.", "phonetic": "pliz meɪk ðə dɪ'sɪʒən wɪ'ðɪn faɪv 'mɪnɪts, ðɛn wi wɪl gou" },
+      { "text": "Which version do you think is better?", "phonetic": "wɪtʃ 'vɜrʒən du ju θɪŋk ɪz 'bɛtər" }
+    ]
+  },
+  {
+    "id": "E2",
+    "description": "Group E, Tier 2",
+    "targets": 1,
+    "phrases": [
+      { "text": "Don't throw that away!", "phonetic": "doʊnt θroʊ ðæt ə'weɪ" }
+    ]
+  },
+  {
+    "id": "E3",
+    "description": "Group E, Tier 3",
+    "targets": 7,
+    "phrases": [
+      { "text": "It will take me this month and both the next two months to clean the garage.", "phonetic": "ɪt wɪl teɪk mi ðɪs mʌnθ ænd boʊθ ðə nɛkst tu mʌnθs tu klin ðə gə'rɑʒ" },
+      { "text": "The athlete breathes smooth and slow breaths.", "phonetic": "ði 'æθlit briðz smuð ænd sloʊ brɛðs" }
+    ]
+  }
+]
