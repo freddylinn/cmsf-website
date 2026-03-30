@@ -5,13 +5,13 @@ function NavBar() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // The Primary Standalone Tool
-  const mainTool = { name: 'Scoring Tool', path: '/' };
+  // Matches App.js: path="/tool"
+  const mainTool = { name: 'Scoring Tool', path: '/tool' }; 
 
-  // Everything else tucked into the Menu
+  // Matches App.js for all other routes
   const otherLinks = [
     { name: 'Body Movement Form', path: '/movement' },
-    { name: 'Patient View', path: '/patient' },
+    { name: 'Patient View', path: '/patient-view' },
     { name: 'Downloads & Updates', path: '/downloads' },
     { name: 'Audio Samples', path: '/audio' },
   ];
@@ -23,7 +23,7 @@ function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           
-          {/* 1. Full Brand Name - Neutral Slate Color */}
+          {/* 1. Full Brand Name - Points to Intro (/) */}
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center group">
               <span className="text-lg md:text-xl font-bold text-slate-800 tracking-tight transition-colors group-hover:text-sky-600">
@@ -35,7 +35,7 @@ function NavBar() {
           {/* 2. Navigation Area */}
           <div className="flex items-center space-x-3 md:space-x-6">
             
-            {/* The Scoring Tool - Soft Sky Blue highlight */}
+            {/* The Scoring Tool Link */}
             <Link
               to={mainTool.path}
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
@@ -69,7 +69,7 @@ function NavBar() {
                   <div className="fixed inset-0 z-0" onClick={() => setIsMenuOpen(false)}></div>
                   
                   <div className="absolute right-0 mt-3 w-64 rounded-xl shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-10 py-2 origin-top-right overflow-hidden border border-slate-100">
-                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50">Additional Assessment Tools</p>
+                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border-b border-slate-100">Additional Assessment Tools</p>
                     {otherLinks.slice(0, 1).map((link) => (
                       <Link
                         key={link.name}
@@ -84,7 +84,7 @@ function NavBar() {
                     ))}
                     
                     <div className="border-t border-slate-100 my-1"></div>
-                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50">Patient Resources</p>
+                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border-b border-slate-100">Patient Resources</p>
                     
                     {otherLinks.slice(1).map((link) => (
                       <Link
