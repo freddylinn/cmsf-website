@@ -6,10 +6,10 @@ import Row from "../components/Row";
 function BodyMovement() {
   const [hidden, setHidden] = useState(false);
   
-  // SINGLE SOURCE OF TRUTH: Parent tracks all checked items
+  // Single Source of Truth for checkboxes
   const [checkedItems, setCheckedItems] = useState({});
 
-  // Flatten locations to get the diagnostic column keys (Flaccid, Spastic, etc.)
+  // Get diagnostic columns (Flaccid, Spastic, etc.)
   const headerKeys = Object.values(locData).flatMap((arr) => arr);
   const initialCount = headerKeys.map(() => 0);
 
@@ -20,7 +20,6 @@ function BodyMovement() {
     Total: initialCount,
   });
 
-  // HANDLER: Updates both the visual check status and the math totals
   const handleToggle = (charName, isNowChecked, cellValues) => {
     setCheckedItems((prev) => ({ ...prev, [charName]: isNowChecked }));
 
@@ -58,7 +57,7 @@ function BodyMovement() {
 
     const rows = [];
 
-    // Horizontal Section Header (Aesthetic choice to prevent "tall row" bug)
+    // Slim Horizontal Section Header
     rows.push(
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td
@@ -99,10 +98,9 @@ function BodyMovement() {
 
   return (
     <div className="p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
-      {/* Header Section */}
       <div className="flex justify-between items-end mb-8 border-b-2 border-slate-100 pb-8 text-left">
         <div className="w-80">
-          <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name (optional)</label>
+          <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
         </div>
         <div className="text-right">
@@ -112,10 +110,9 @@ function BodyMovement() {
       </div>
 
       <p className="max-w-3xl mx-auto p-6 mb-12 bg-slate-50 rounded-xl border border-slate-200 text-sm leading-relaxed text-slate-600 italic text-center">
-        Note: Motor speech diagnosis should be made primarily based on speech and oral-motor findings. Body movement observations serve as confirmatory signs.
+        Note: Body movement observations serve as confirmatory signs for a motor speech disorder.
       </p>
 
-      {/* Main Assessment Table */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-hidden">
         <table className="table-fixed text-center border-collapse w-full">
           <thead>
@@ -130,7 +127,6 @@ function BodyMovement() {
         </table>
       </div>
 
-      {/* Toggle Button */}
       <div className="flex justify-center mb-16 no-print">
         <button
           onClick={() => setHidden(!hidden)}
@@ -140,13 +136,6 @@ function BodyMovement() {
         </button>
       </div>
 
-      {/* Clinical Notes */}
-      <div className="flex w-full flex-col items-start mb-20">
-        <h2 className="text-sm font-black uppercase text-slate-400 mb-4 tracking-widest">Additional patient observations</h2>
-        <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[150px] focus:ring-2 focus:ring-sky-100" placeholder="Enter notes..." />
-      </div>
-
-      {/* Scorecard Table */}
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
         <table className="table-fixed text-center border-collapse w-full">
           <thead>
@@ -177,13 +166,13 @@ function BodyMovement() {
       </div>
 
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
-        <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold text-center">
-          Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024). © 2026 Regents of the University of Colorado.
+          © 2023-2026 Regents of the University of Colorado.
         </p>
       </footer>
     </div>
   );
 }
 
-export default Movement;
+// FIX: Matching the function name to the export
+export default BodyMovement;
