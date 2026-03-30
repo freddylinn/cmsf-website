@@ -17,6 +17,7 @@ function FitiAssessment() {
     setPhonemeScores(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
+  // Calculate Precise Score based on hierarchy of importance [cite: 384]
   const totalPossibleTargets = fitiData.reduce((sum, m) => sum + m.targets, 0);
   const currentCorrectTargets = Object.values(phonemeScores).filter(v => v === true).length;
   const percentage = totalPossibleTargets > 0 ? ((currentCorrectTargets / totalPossibleTargets) * 100).toFixed(1) : 0;
@@ -44,9 +45,18 @@ function FitiAssessment() {
 
       {showInstructions && (
         <div className="mb-8 p-6 bg-white border border-slate-200 rounded-xl shadow-inner text-sm text-slate-600 max-w-3xl mx-auto leading-relaxed">
-          <p className="mb-3"><strong>1. Start at A1:</strong> Assess the most essential functional targets first[cite: 81, 414].</p>
-          <p className="mb-3"><strong>2. The Jump Rule:</strong> If A1 is clear, jump to E2/E3 to test phonetic complexity (clusters/fricatives).</p>
-          <p><strong>Official Resource:</strong> <a href="https://sites.pfw.edu/cladlab/fiti.html" target="_blank" className="text-sky-500 font-bold underline">Clad Lab FITI Page</a></p>
+          <p className="mb-3"><strong>1. Start at A1:</strong> Assess Tier 1 prominent contexts first, as they are most essential to functional intelligibility[cite: 59, 295, 328].</p>
+          <p className="mb-3"><strong>2. The Jump Rule:</strong> If high-priority categories like A1 are clear, jump to E2/E3 to test phonetically complex elements like clusters and fricatives[cite: 398, 414].</p>
+          <p><strong>Official Resource:</strong> 
+            <a 
+              href="https://sites.pfw.edu/cladlab/fiti.html" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="text-sky-500 font-bold underline ml-1"
+            >
+              Clad Lab FITI Page
+            </a>
+          </p>
         </div>
       )}
 
@@ -59,6 +69,7 @@ function FitiAssessment() {
             </div>
 
             <div className="p-4 space-y-4 flex-grow">
+              <p className="text-[11px] text-slate-400 italic mb-1">{module.description}</p>
               {module.phrases.map((phrase, pIdx) => {
                 const isVisible = visibleTranscriptions[`${module.id}-${pIdx}`];
                 return (
