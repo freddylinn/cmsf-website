@@ -7,9 +7,6 @@ function Row({ rowData, group, isChecked, isFirstInVisibleGroup, visibleGroupSpa
   const [directional, setDirectional] = useState(false);
   const [title, setTitle] = useState(rowData[0]);
 
-  const tasks = taskData;
-  const charTasks = charTaskData;
-
   useEffect(() => {
     if (title.slice(-1) === "*") {
       setDirectional(true);
@@ -19,25 +16,25 @@ function Row({ rowData, group, isChecked, isFirstInVisibleGroup, visibleGroupSpa
 
   const cellValues = rowData[1];
   
-  // Render exactly the number of cells defined in the header to prevent misalignment
+  // FIX: strictly limit the number of cells rendered to match the header length
   const cells = Array.from({ length: headerLength }).map((_, i) => (
     <Cell key={i} checked={isChecked} color={cellValues[i]?.[0]} notes={cellValues[i]?.[1]} />
   ));
 
   return (
-    <tr className="hover:bg-slate-50/50 transition-colors">
-      {/* SUBSYSTEM GROUP COLUMN */}
+    <tr className="hover:bg-slate-50 transition-colors">
+      {/* Subsystem Group Column - Only renders once per group */}
       {isFirstInVisibleGroup && (
         <th rowSpan={visibleGroupSpan} className="w-32 border border-slate-700 bg-slate-50 p-4 align-middle">
           <div className="has-tooltip relative flex flex-col items-center">
-            {/* WIDER TOOLTIP: max-w-4xl for horizontal reading */}
+            {/* WIDER TOOLTIP: max-w-4xl for horizontal layout */}
             <span className="tooltip leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold max-w-4xl border border-slate-300 z-50 text-left">
-              {tasks[group].split("\n").map((item, key) => (
+              {taskData[group].split("\n").map((item, key) => (
                 <p className="my-3 first:mt-0" key={key}>{item}</p>
               ))}
             </span>
-            <button className="-rotate-90 print:hidden px-3 py-1 mb-2 rounded-full bg-sky-100 text-[10px] text-sky-700 font-black uppercase tracking-tighter hover:bg-sky-200 transition-colors">
-              Info
+            <button className="-rotate-90 print:hidden px-2 mb-2 rounded bg-sky-100 text-[10px] text-sky-700 font-black uppercase tracking-tighter hover:bg-sky-200 transition-colors">
+              i
             </button>
           </div>
           <p
@@ -49,20 +46,21 @@ function Row({ rowData, group, isChecked, isFirstInVisibleGroup, visibleGroupSpa
         </th>
       )}
 
-      {/* CHARACTERISTIC NAME COLUMN: Dark font restored */}
+      {/* CHARACTERISTIC NAME COLUMN - Restored Dark Bold Font */}
       <td className={`p-4 border border-slate-700 text-sm leading-snug text-left transition-all ${
         isChecked ? 'bg-white font-black text-slate-900 underline decoration-sky-100 decoration-4 underline-offset-4' : 'bg-slate-50 text-slate-900 font-semibold'
       }`}>
         <div className="flex justify-between items-center gap-4">
           <span>{title}</span>
-          {charTasks[title] && (
+          {charTaskData[title] && (
             <div className="has-tooltip relative">
+              {/* WIDER TOOLTIP: max-w-4xl */}
               <span className="tooltip rounded-2xl leading-relaxed shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold max-w-4xl text-left border border-slate-300 z-50">
-                {charTasks[title].split("\n").map((item, key) => (
+                {charTaskData[title].split("\n").map((item, key) => (
                   <p className="my-3 first:mt-0" key={key}>{item}</p>
                 ))}
               </span>
-              <button className="print:hidden px-2 py-0.5 rounded-md bg-sky-100 text-[10px] text-sky-700 font-black uppercase">Def</button>
+              <button className="print:hidden px-2 py-0.5 rounded bg-sky-100 text-[10px] text-sky-700 font-black">i</button>
             </div>
           )}
         </div>
