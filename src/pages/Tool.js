@@ -40,59 +40,59 @@ function Tool() {
     
     if (visibleItems.length === 0) return [];
 
-    const hasFitiRow = groupName === "Articulation";
-    const totalSpan = visibleItems.length + (hasFitiRow ? 1 : 0);
+    const rows = [];
 
-    const rows = visibleItems.map(([charName, data], vIndex) => (
-      <Row
-        key={`${groupName}-${charName}`}
-        rowData={[charName, data]}
-        group={groupName}
-        isChecked={!!checkedItems[charName]} 
-        isFirstInVisibleGroup={vIndex === 0} 
-        visibleGroupSpan={totalSpan}
-        onToggle={(val) => handleToggle(charName, val, data)}
-        headerLength={headerKeys.length}
-      />
-    ));
+    // SLIM HORIZONTAL SECTION HEADER
+    // This maintains the "Groups" context without forcing vertical height
+    rows.push(
+      <tr key={`section-${groupName}`} className="bg-slate-50 border-y-2 border-slate-300">
+        <td colSpan={headerKeys.length + 2} className="p-2 pl-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 bg-slate-50/50">
+          {groupName}
+        </td>
+      </tr>
+    );
 
-    if (hasFitiRow) {
+    visibleItems.forEach(([charName, data]) => {
+      rows.push(
+        <Row
+          key={`${groupName}-${charName}`}
+          rowData={[charName, data]}
+          isChecked={!!checkedItems[charName]} 
+          onToggle={(val) => handleToggle(charName, val, data)}
+          headerLength={headerKeys.length}
+        />
+      );
+    });
+
+    if (groupName === "Articulation") {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
-          <td colSpan={2} className="p-4 border border-slate-700 text-center align-middle bg-white">
+          <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
               Perform Modular FITI Assessment
             </Link>
           </td>
-          {headerKeys.map((_, i) => <td key={i} className="border border-slate-700 bg-sky-50/20"></td>)}
         </tr>
       );
     }
     return rows;
   });
 
-  // RESTORED: Custom rows with VAS Sliders for Naturalness/Efficiency
   const customRows = Object.entries(customData).map(([title, values]) => {
     const isSlider = title === "Naturalness" || title === "Efficiency";
     return (
       <tr key={title}>
-        <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-xs uppercase font-black text-slate-900 tracking-wider">
-          {title}
-        </th>
+        <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-xs uppercase font-black text-slate-900 tracking-wider">{title}</th>
         <td className="p-3 border border-slate-700 text-center">
           <div className="flex items-center justify-center gap-4">
             <input 
               type={isSlider ? "range" : (values.type === "number" ? "number" : "text")} 
               className={isSlider ? "w-48 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "border p-2 rounded w-20 text-center font-bold text-slate-900"} 
               defaultValue={isSlider ? 50 : ""}
-              onChange={(e) => {
-                if (isSlider) e.target.nextSibling.innerText = e.target.value;
-              }}
+              onChange={(e) => { if (isSlider) e.target.nextSibling.innerText = e.target.value; }}
             />
             {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600">50</span>}
-            <span className="text-xs font-bold text-slate-400">
-              {values.value === "percentage" ? "%" : (title === "Self-Rating" ? "/ 10" : "")}
-            </span>
+            <span className="text-xs font-bold text-slate-400">{values.value === "percentage" ? "%" : (title === "Self-Rating" ? "/ 10" : "")}</span>
           </div>
         </td>
       </tr>
@@ -115,23 +115,15 @@ function Tool() {
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
         </div>
-        <div className="text-right">
-          <p className="text-sm font-black text-slate-900 uppercase tracking-widest leading-none">Colorado Motor Speech Framework</p>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-8 justify-start mb-6 p-5 bg-slate-50 rounded-2xl border border-slate-200 no-print shadow-sm">
-        <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-yellow-200"></div><span className="text-xs font-black uppercase text-slate-800">Common feature</span></div>
-        <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-green-300"></div><span className="text-xs font-black uppercase text-slate-800">Highly distinguishing feature</span></div>
-        <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-red-300"></div><span className="text-xs font-black uppercase text-slate-800">Unexpected feature</span></div>
+        <div className="text-right"><p className="text-sm font-black text-slate-900 uppercase tracking-widest leading-none">Colorado Motor Speech Framework</p></div>
       </div>
 
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-hidden">
         <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
           <thead>
             <tr className="bg-slate-100">
-              <th rowSpan={2} className="border border-slate-700 w-32 text-xs font-black uppercase text-slate-900">Groups</th>
-              <th rowSpan={2} className="p-3 border border-slate-700 w-80 text-xs font-black uppercase text-slate-900">Characteristics</th>
+              {/* REMOVED: Vertical Group Column */}
+              <th rowSpan={2} className="p-3 border border-slate-700 w-80 text-xs font-black uppercase text-slate-900 text-left pl-6">Characteristics</th>
               <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase text-slate-900">Y/N</th>
               {firstRow}
             </tr>
@@ -142,42 +134,23 @@ function Tool() {
       </div>
 
       <div className="flex justify-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
-          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
-        </button>
-        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">
-          Generate PDF Report
-        </button>
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all">{hidden ? "Show All Rows" : "Hide Unchecked Rows"}</button>
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1">
-          <table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm">
-            <tbody>{customRows}</tbody>
-          </table>
-        </div>
-        <div className="lg:col-span-2">
-          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea>
-        </div>
+        <div className="lg:col-span-1"><table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm"><tbody>{customRows}</tbody></table></div>
+        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
       </div>
 
-      {/* RESTORED: Full Diagnostic Summary Scorecard with Totals Row */}
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
         <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
-          <thead>
-            <tr className="bg-slate-800 text-white text-xs font-black uppercase">
-              <th colSpan={3} className="p-4 text-left pl-8 tracking-widest border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>
-              {secondRow}
-            </tr>
-          </thead>
+          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 tracking-widest border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
-            <tr><td colSpan={3} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={3} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={3} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
-            <tr className="bg-slate-100 font-black">
-              <td colSpan={3} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase tracking-widest">Calculated Differential score</td>
-              {counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50 text-sm">{item}</td>)}
-            </tr>
+            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+            <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase tracking-widest">Calculated Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50 text-sm">{item}</td>)}</tr>
           </tbody>
         </table>
       </div>
