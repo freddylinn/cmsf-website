@@ -3,7 +3,15 @@ import taskData from "../data/tasks.json";
 import charTaskData from "../data/char-tasks.json";
 import { useState, useEffect } from "react";
 
-function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
+function Row({ 
+  rowData, 
+  group, 
+  setCounts, 
+  hidden, 
+  isFirstInVisibleGroup, // New prop
+  visibleGroupSpan,      // New prop
+  onCheck                // New prop to report back to Tool.js
+}) {
   const [isChecked, setIsChecked] = useState(false);
   const [directional, setDirectional] = useState(false);
   const [title, setTitle] = useState(rowData[0]);
@@ -31,6 +39,10 @@ function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
 
   const toggleCheck = (newVal) => {
     setIsChecked(newVal);
+    
+    // Notify Tool.js so it can recalculate row visibility and rowSpans
+    if (onCheck) onCheck(newVal);
+
     if (newVal) {
       for (let i = 0; i < cellValues.length; i++) {
         if (cellValues[i][0] === -1) {
@@ -47,11 +59,7 @@ function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
             const updatedTotal = [...prevCounts["Total"]];
             updatedYellow[i]++;
             updatedTotal[i]++;
-            return {
-              ...prevCounts,
-              Yellow: updatedYellow,
-              Total: updatedTotal,
-            };
+            return { ...prevCounts, Yellow: updatedYellow, Total: updatedTotal };
           });
         } else if (cellValues[i][0] === 2) {
           setCounts((prevCounts) => {
@@ -79,11 +87,7 @@ function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
             const updatedTotal = [...prevCounts["Total"]];
             updatedYellow[i]--;
             updatedTotal[i]--;
-            return {
-              ...prevCounts,
-              Yellow: updatedYellow,
-              Total: updatedTotal,
-            };
+            return { ...prevCounts, Yellow: updatedYellow, Total: updatedTotal };
           });
         } else if (cellValues[i][0] === 2) {
           setCounts((prevCounts) => {
@@ -98,87 +102,76 @@ function Row({ rowData, group, groupLength, index, setCounts, hidden, form }) {
     }
   };
 
-  if (!hidden || isChecked) {
-    return (
-      <tr>
-        {index === 0 && !hidden ? (
-          <th rowSpan={groupLength} className="w-20 border border-slate-700">
+  // If hidden is active, only show the row if it is checked
+  if (hidden && !isChecked) return null;
+
+  return (
+    <tr>
+      {/* CRITICAL FIX: Only render the "Groups" column header if it's the 
+          first visible row in the group, and use the dynamic visibleGroupSpan.
+      */}
+      {isFirstInVisibleGroup && (
+        <th rowSpan={visibleGroupSpan} className="w-20 border border-slate-700 bg-slate-100">
+          <div className="has-tooltip">
+            <span className="tooltip leading-relaxed rounded shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-128 z-50">
+              {tasks[group].split("\n").map((item, key) => (
+                <p className="my-2 text-left" key={key}>{item}</p>
+              ))}
+            </span>
+            <button className="-rotate-90 print:hidden px-1 mb-2 rounded bg-sky-200 text-sm text-slate-800">
+              i
+            </button>
+          </div>
+          <p
+            className="rotate-180 mx-auto text-lg font-semibold"
+            style={{ writingMode: "vertical-rl" }}
+          >
+            {group}
+          </p>
+        </th>
+      )}
+
+      <td className={isChecked ? titleChecked : titleDefault}>
+        <div className="flex justify-center items-center gap-1 m-1">
+          <span>{title}</span>
+          {charTasks[title] && (
             <div className="has-tooltip">
-              <span className="tooltip leading-relaxed rounded shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-128">
-                {tasks[group].split("\n").map((item, key) => {
-                  return (
-                    <p className="my-2 text-left" key={key}>
-                      {item}
-                    </p>
-                  );
-                })}
+              <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left z-50">
+                {charTasks[title].split("\n").map((item, key) => (
+                  <p className="my-2 text-left" key={key}>{item}</p>
+                ))}
               </span>
-              <button className="-rotate-90 print:hidden px-1 mb-2 rounded bg-sky-200 text-sm text-slate-800">
+              <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800 font-bold">
                 i
               </button>
             </div>
-            <p
-              className="rotate-180 mx-auto text-lg font-semibold"
-              style={{ writingMode: "vertical-rl" }}
-            >
-              {group}
-            </p>
-          </th>
-        ) : (
-          <></>
-        )}
-        <td className={isChecked ? titleChecked : titleDefault}>
-          <div className="flex justify-center items-center gap-1 m-1">
-            <span>{title}</span>
-            {charTasks[title] && (
-              <div className="has-tooltip">
-                <span className="tooltip rounded leading-relaxed shadow-lg p-4 bg-gray-50 text-slate-800 text-md font-semibold max-w-96 text-left">
-                  {charTasks[title].split("\n").map((item, key) => {
-                    return (
-                      <p className="my-2 text-left" key={key}>
-                        {item}
-                      </p>
-                    );
-                  })}
-                </span>
-                <button className="print:hidden px-1 rounded bg-sky-200 text-sm text-slate-800 font-bold">
-                  i
-                </button>
-              </div>
-            )}
-          </div>
-        </td>
-        <td className={isChecked ? checkboxChecked : checkboxDefault}>
-          <input
-            type="checkbox"
-            className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50"
-            onChange={() => toggleCheck(!isChecked)}
-          />
-          {isChecked && directional && (
-            <div className="flex mt-3 gap-1">
-              <div>
-                <input
-                  type="checkbox"
-                  className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50"
-                />
-                <p>L</p>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50"
-                />
-                <p>R</p>
-              </div>
-            </div>
           )}
-        </td>
-        {cells}
-      </tr>
-    );
-  } else {
-    return <></>;
-  }
+        </div>
+      </td>
+
+      <td className={isChecked ? checkboxChecked : checkboxDefault}>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          className="block my-auto mx-auto rounded text-sky-500 focus:border-sky-300 focus:ring focus:ring-offset-0 focus:ring-sky-200 focus:ring-opacity-50"
+          onChange={() => toggleCheck(!isChecked)}
+        />
+        {isChecked && directional && (
+          <div className="flex mt-3 gap-1">
+            <div className="flex flex-col items-center">
+              <input type="checkbox" className="rounded text-sky-500" />
+              <p className="text-[10px] font-bold">L</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <input type="checkbox" className="rounded text-sky-500" />
+              <p className="text-[10px] font-bold">R</p>
+            </div>
+          </div>
+        )}
+      </td>
+      {cells}
+    </tr>
+  );
 }
 
 export default Row;
