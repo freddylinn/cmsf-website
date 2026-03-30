@@ -273,10 +273,24 @@ function Tool() {
         </thead>
       </table>
 
-      <footer className="bg-amber-100 p-8 rounded-t-3xl mt-12">
-        <p className="w-full md:w-3/4 text-slate-800 text-center mx-auto text-sm leading-relaxed">
-          Please cite this tool if you use it in your research: <strong>Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936</strong>
-        </p>
+      <footer className="bg-slate-50 p-10 rounded-t-[3rem] mt-16 border-t border-slate-200 no-print">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
+          {/* Citation section */}
+          <p className="text-slate-600 text-center text-sm leading-relaxed">
+            Please cite this tool if you use it in your research: <br />
+            <span className="font-bold text-slate-800 italic">
+              Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936
+            </span>
+          </p>
+
+          {/* Copyright section */}
+          <div className="border-t border-slate-200 w-24"></div>
+          
+          <p className="text-slate-400 text-center text-xs tracking-wide">
+            © 2023 to 2026, Regents of the University of Colorado, a body corporate. <br />
+            Developed in the Colorado Motor Speech lab. All rights reserved.
+          </p>
+        </div>
       </footer>
     </div>
   );
