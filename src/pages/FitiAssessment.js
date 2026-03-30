@@ -2,22 +2,14 @@ import React, { useState } from 'react';
 import fitiData from '../data/fitiData.json';
 
 function FitiAssessment() {
-  const [visibleTranscriptions, setVisibleTranscriptions] = useState({});
   const [phonemeScores, setPhonemeScores] = useState({});
-  const [showInstructions, setShowInstructions] = useState(false);
-
-  const toggleTranscription = (moduleId, pIdx) => {
-    const key = `${moduleId}-${pIdx}`;
-    setVisibleTranscriptions(prev => ({ ...prev, [key]: !prev[key] }));
-  };
+  const [showInstructions, setShowInstructions] = useState(true); // Open by default
 
   const togglePhonemeScore = (moduleId, pIdx, partIdx, e) => {
-    e.stopPropagation();
     const key = `${moduleId}-${pIdx}-${partIdx}`;
     setPhonemeScores(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  // Helper to count correct targets for a specific module
   const getModuleScore = (moduleId) => {
     return Object.keys(phonemeScores).filter(
       (key) => key.startsWith(`${moduleId}-`) && phonemeScores[key] === true
@@ -27,18 +19,18 @@ function FitiAssessment() {
   return (
     <div className="p-6 max-w-6xl mx-auto font-sans bg-slate-50 min-h-screen">
       
-      {/* Header & Resources */}
+      {/* 1. Header & Resources */}
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-black text-slate-800 mb-2 tracking-tight">Modular FITI Assessment</h1>
         <div className="flex flex-col items-center gap-3">
           <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
             A hierarchical approach to intelligibility assessment. Track specific phonemic targets 
-            within each priority module to identify treatment goals[cite: 79, 82].
+            within each priority module to identify treatment goals.
           </p>
           <a 
             href="https://sites.pfw.edu/cladlab/fiti.html" 
             target="_blank" 
-            rel="noreferrer"
+            rel="noreferrer" // Security fix added
             className="inline-flex items-center gap-2 text-sky-600 hover:text-sky-700 font-bold text-sm bg-white px-4 py-2 rounded-full border border-sky-100 shadow-sm transition-all no-print"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +41,7 @@ function FitiAssessment() {
         </div>
       </div>
 
-      {/* Clinical Instructions Toggle */}
+      {/* 2. Clinical Instructions (Visible by default) */}
       <div className="mb-12 max-w-3xl mx-auto no-print">
         <button 
           onClick={() => setShowInstructions(!showInstructions)}
@@ -59,7 +51,7 @@ function FitiAssessment() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Clinical Progression Rules
+            Clinical Progression Instructions
           </span>
           <svg className={`h-5 w-5 text-slate-400 transition-transform ${showInstructions ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -71,22 +63,22 @@ function FitiAssessment() {
             <ul className="space-y-4">
               <li>
                 <strong className="text-slate-800 block mb-1">1. Priority Start:</strong>
-                Begin with <span className="font-bold text-sky-600">Module A1</span>. It covers high-frequency phonemes in Tier 1 prominent contexts, which are most essential to functional intelligibility[cite: 295, 414].
+                Begin with <span className="font-bold text-sky-600">Module A1</span>. It covers high-frequency phonemes in Tier 1 prominent contexts, which are most essential to functional intelligibility.
               </li>
               <li>
                 <strong className="text-slate-800 block mb-1">2. Complexity Jump:</strong>
-                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and clusters[cite: 414].
+                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and clusters.
               </li>
               <li>
                 <strong className="text-slate-800 block mb-1">3. Clinical Decision Making:</strong>
-                Use the per-module scores to identify if deficits are linked to specific phoneme groups or positional salience[cite: 415, 424].
+                Use the per-module scores to identify if deficits are linked to specific phoneme groups or positional salience.
               </li>
             </ul>
           </div>
         )}
       </div>
 
-      {/* Modules Grid */}
+      {/* 3. Modules Grid (Phonetics visible by default) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {fitiData.map((module) => {
           const moduleCorrect = getModuleScore(module.id);
@@ -95,7 +87,6 @@ function FitiAssessment() {
           return (
             <div key={module.id} className={`border rounded-2xl overflow-hidden bg-white shadow-sm flex flex-col transition-all ${isComplete ? 'border-green-200 ring-1 ring-green-100' : 'border-slate-200'}`}>
               
-              {/* Module Header with Per-Module Counter */}
               <div className={`border-b p-4 flex justify-between items-center ${isComplete ? 'bg-green-50 border-green-200' : 'bg-slate-50 border-slate-200'}`}>
                 <div className="flex items-center gap-3">
                   <span className={`flex items-center justify-center w-8 h-8 rounded-lg font-black text-xs transition-colors ${isComplete ? 'bg-green-600 text-white' : 'bg-slate-800 text-white'}`}>
@@ -104,7 +95,6 @@ function FitiAssessment() {
                   <h3 className="font-bold text-slate-800 text-sm">Module {module.id}</h3>
                 </div>
                 
-                {/* Score Counter for THIS Module */}
                 <div className="text-right">
                   <span className={`text-lg font-black leading-none ${isComplete ? 'text-green-700' : 'text-sky-600'}`}>
                     {moduleCorrect}
@@ -116,53 +106,48 @@ function FitiAssessment() {
               </div>
 
               <div className="p-4 space-y-4 flex-grow">
-                <p className="text-[11px] text-slate-400 italic mb-2 font-medium">{module.description} [cite: 299]</p>
-                {module.phrases.map((phrase, pIdx) => {
-                  const isVisible = visibleTranscriptions[`${module.id}-${pIdx}`];
-                  
-                  return (
-                    <div key={pIdx} className="border-b border-slate-50 last:border-0 pb-4">
-                      <button onClick={() => toggleTranscription(module.id, pIdx)} className="w-full text-left group">
-                        <p className="text-sm font-semibold leading-snug text-slate-700 group-hover:text-sky-600 transition-colors">
-                          {phrase.text} [cite: 396]
-                        </p>
-                        {isVisible && (
-                          <div className="mt-3 flex flex-wrap items-center gap-y-2 p-3 bg-slate-50 rounded-xl border border-slate-100 shadow-inner font-mono text-sm animate-in zoom-in-95 duration-200">
-                            <span className="mr-1 text-slate-400">[</span>
-                            {phrase.phoneticParts.map((part, partIdx) => (
-                              part.isTarget ? (
-                                <button
-                                  key={partIdx}
-                                  onClick={(e) => togglePhonemeScore(module.id, pIdx, partIdx, e)}
-                                  className={`mx-0.5 px-1.5 py-0.5 rounded border-2 transition-all font-black ${
-                                    phonemeScores[`${module.id}-${pIdx}-${partIdx}`]
-                                      ? 'bg-green-500 border-green-600 text-white'
-                                      : 'bg-white border-slate-300 text-slate-800 hover:border-sky-400'
-                                  }`}
-                                >
-                                  {part.val}
-                                </button>
-                              ) : (
-                                <span key={partIdx} className="text-slate-500">{part.val}</span>
-                              )
-                            ))}
-                            <span className="ml-1 text-slate-400">]</span>
-                          </div>
-                        )}
-                      </button>
+                <p className="text-[11px] text-slate-400 italic mb-2 font-medium">{module.description}</p>
+                {module.phrases.map((phrase, pIdx) => (
+                  <div key={pIdx} className="border-b border-slate-50 last:border-0 pb-4">
+                    <p className="text-sm font-semibold leading-snug text-slate-700 mb-3">
+                      {phrase.text}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-y-2 p-3 bg-slate-50 rounded-xl border border-slate-100 shadow-inner font-mono text-sm">
+                      <span className="mr-1 text-slate-400">[</span>
+                      {phrase.phoneticParts.map((part, partIdx) => (
+                        part.isTarget ? (
+                          <button
+                            key={partIdx}
+                            onClick={(e) => togglePhonemeScore(module.id, pIdx, partIdx, e)}
+                            className={`mx-0.5 px-1.5 py-0.5 rounded border-2 transition-all font-black ${
+                              phonemeScores[`${module.id}-${pIdx}-${partIdx}`]
+                                ? 'bg-green-500 border-green-600 text-white'
+                                : 'bg-white border-slate-300 text-slate-800 hover:border-sky-400 shadow-sm'
+                            }`}
+                          >
+                            {part.val}
+                          </button>
+                        ) : (
+                          <span key={partIdx} className="text-slate-500">{part.val}</span>
+                        )
+                      ))}
+                      <span className="ml-1 text-slate-400">]</span>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Footer */}
+      {/* 4. Footer */}
       <footer className="mt-16 pt-8 border-t border-slate-200 text-center pb-20 no-print">
+        <p className="text-[10px] text-slate-400 leading-relaxed uppercase font-bold tracking-widest">
+          © 2023 to 2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab.
+        </p>
         <p className="mt-2 text-[10px] text-slate-300 italic">
-          Gurevich, N., & Kim, H. (2024). Modular FITI Phrase List Analysis. [cite: 17, 39]
+          Gurevich, N., & Kim, H. (2024). Modular FITI Phrase List Analysis.
         </p>
       </footer>
     </div>
