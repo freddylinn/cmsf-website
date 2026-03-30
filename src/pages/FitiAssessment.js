@@ -3,7 +3,7 @@ import fitiData from '../data/fitiData.json';
 
 function FitiAssessment() {
   const [phonemeScores, setPhonemeScores] = useState({});
-  const [showInstructions, setShowInstructions] = useState(true); // Open by default
+  const [showInstructions, setShowInstructions] = useState(true);
 
   const togglePhonemeScore = (moduleId, pIdx, partIdx, e) => {
     const key = `${moduleId}-${pIdx}-${partIdx}`;
@@ -30,7 +30,7 @@ function FitiAssessment() {
           <a 
             href="https://sites.pfw.edu/cladlab/fiti.html" 
             target="_blank" 
-            rel="noreferrer" // Security fix added
+            rel="noreferrer"
             className="inline-flex items-center gap-2 text-sky-600 hover:text-sky-700 font-bold text-sm bg-white px-4 py-2 rounded-full border border-sky-100 shadow-sm transition-all no-print"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -41,7 +41,7 @@ function FitiAssessment() {
         </div>
       </div>
 
-      {/* 2. Clinical Instructions (Visible by default) */}
+      {/* 2. Revised Clinical Instructions */}
       <div className="mb-12 max-w-3xl mx-auto no-print">
         <button 
           onClick={() => setShowInstructions(!showInstructions)}
@@ -60,6 +60,10 @@ function FitiAssessment() {
 
         {showInstructions && (
           <div className="mt-2 p-6 bg-white border border-slate-200 rounded-xl text-sm text-slate-600 leading-relaxed shadow-inner animate-in fade-in slide-in-from-top-1">
+            <p className="mb-4 font-bold text-slate-800 italic">
+              Completing all of the modules is recommended to build a comprehensive picture of an individual's function. 
+              If short on time, follow the prioritized sequence described below.
+            </p>
             <ul className="space-y-4">
               <li>
                 <strong className="text-slate-800 block mb-1">1. Priority Start:</strong>
@@ -67,7 +71,7 @@ function FitiAssessment() {
               </li>
               <li>
                 <strong className="text-slate-800 block mb-1">2. Complexity Jump:</strong>
-                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and clusters.
+                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and consonant clusters.
               </li>
               <li>
                 <strong className="text-slate-800 block mb-1">3. Clinical Decision Making:</strong>
@@ -78,7 +82,7 @@ function FitiAssessment() {
         )}
       </div>
 
-      {/* 3. Modules Grid (Phonetics visible by default) */}
+      {/* 3. Modules Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {fitiData.map((module) => {
           const moduleCorrect = getModuleScore(module.id);
@@ -141,7 +145,6 @@ function FitiAssessment() {
         })}
       </div>
 
-      {/* 4. Footer */}
       <footer className="mt-16 pt-8 border-t border-slate-200 text-center pb-20 no-print">
         <p className="text-[10px] text-slate-400 leading-relaxed uppercase font-bold tracking-widest">
           © 2023 to 2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab.
