@@ -9,7 +9,7 @@ function Tool() {
   const [hidden, setHidden] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
 
-  // Flatten locations to get accurate column count
+  // Get exact count of diagnostic columns from locations.json
   const headerKeys = Object.values(locData).flatMap(arr => arr);
   const initialCount = headerKeys.map(() => 0);
   
@@ -44,6 +44,7 @@ function Tool() {
     if (visibleItems.length === 0) return [];
 
     const hasFitiRow = groupName === "Articulation";
+    // FITI link counts as 1 row in the group's rowSpan
     const totalSpan = visibleItems.length + (hasFitiRow ? 1 : 0);
 
     const rows = visibleItems.map(([charName, data], vIndex) => (
@@ -62,8 +63,8 @@ function Tool() {
     if (hasFitiRow) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
-          <td className="border border-slate-700 bg-slate-50"></td>
-          <td colSpan={2} className="p-3 border border-slate-700 text-center">
+          {/* FIX: We DO NOT add a first <td> here because the rowSpan from the first row in the group already covers column 1 */}
+          <td colSpan={2} className="p-4 border border-slate-700 text-center">
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -117,7 +118,7 @@ function Tool() {
     <th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>
   ));
   const secondRow = headerKeys.map(val => (
-    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-xs min-w-[4rem] uppercase font-bold text-slate-700">{val}</th>
+    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
   ));
 
   const yellowCells = counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-bold bg-yellow-200">{item}</td>);
@@ -126,7 +127,7 @@ function Tool() {
   const totalCells = counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-black bg-slate-50">{item}</td>);
 
   return (
-    <div className="p-10 max-w-[1500px] mx-auto min-h-screen bg-white font-sans text-slate-900">
+    <div className="p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
       <style dangerouslySetInnerHTML={{ __html: `@media print { @page { size: portrait; margin: 0.5cm; } body { zoom: 60%; } .no-print { display: none !important; } table { table-layout: fixed !important; width: 100% !important; border-collapse: collapse; } }` }} />
 
       <div className="flex justify-between items-end mb-8 no-print border-b-2 border-slate-100 pb-8">
@@ -140,7 +141,6 @@ function Tool() {
         </div>
       </div>
 
-      {/* VIVID KEY */}
       <div className="flex flex-wrap gap-8 justify-start mb-6 p-5 bg-slate-50 rounded-2xl border border-slate-200 no-print shadow-sm">
         <div className="flex items-center gap-3">
           <div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-yellow-200"></div>
@@ -156,7 +156,7 @@ function Tool() {
         </div>
       </div>
 
-      <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-hidden">
+      <div className="mb-10 shadow-lg rounded-xl border border-slate-300">
         <table className="table-fixed text-center border-collapse w-full">
           <thead>
             <tr className="bg-slate-100">
@@ -212,7 +212,7 @@ function Tool() {
 
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
         <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
-        <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic font-bold">
+        <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold">
           © 2023-2026 Regents of the University of Colorado.
         </p>
       </footer>
