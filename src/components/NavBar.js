@@ -12,6 +12,7 @@ function NavBar() {
   const otherLinks = [
     { name: 'Body Movement Form', path: '/movement' },
     { name: 'Patient View', path: '/patient-view' },
+    { name: 'Modular FITI Phrases for Additional Articulation Testing', path: '/fiti' },
     { name: 'Downloads & Updates', path: '/downloads' },
     { name: 'Audio Samples', path: '/audio' },
   ];
