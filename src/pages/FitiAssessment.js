@@ -16,16 +16,30 @@ function FitiAssessment() {
     ).length;
   };
 
+  // NEW: Function to clear scores for a specific module only
+  const clearModuleScore = (moduleId, e) => {
+    e.stopPropagation();
+    setPhonemeScores(prev => {
+      const newScores = { ...prev };
+      Object.keys(newScores).forEach(key => {
+        if (key.startsWith(`${moduleId}-`)) {
+          delete newScores[key];
+        }
+      });
+      return newScores;
+    });
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto font-sans bg-slate-50 min-h-screen">
       
-      {/* 1. Header & Resources */}
+      {/* Header & Resources */}
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-black text-slate-800 mb-2 tracking-tight">Modular FITI Assessment</h1>
         <div className="flex flex-col items-center gap-3">
           <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
             A hierarchical approach to intelligibility assessment. Track specific phonemic targets 
-            within each priority module to identify treatment goals.
+            within each priority module to identify treatment goals.  Gurevich, N., & Kim, H. (2024). Modular FITI Phrase List Analysis.
           </p>
           <a 
             href="https://sites.pfw.edu/cladlab/fiti.html" 
@@ -41,7 +55,7 @@ function FitiAssessment() {
         </div>
       </div>
 
-      {/* 2. Revised Clinical Instructions */}
+      {/* Clinical Instructions (Visible by default) */}
       <div className="mb-12 max-w-3xl mx-auto no-print">
         <button 
           onClick={() => setShowInstructions(!showInstructions)}
@@ -71,7 +85,7 @@ function FitiAssessment() {
               </li>
               <li>
                 <strong className="text-slate-800 block mb-1">2. Complexity Jump:</strong>
-                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and consonant clusters.
+                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and clusters.
               </li>
               <li>
                 <strong className="text-slate-800 block mb-1">3. Clinical Decision Making:</strong>
@@ -82,7 +96,7 @@ function FitiAssessment() {
         )}
       </div>
 
-      {/* 3. Modules Grid */}
+      {/* Modules Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {fitiData.map((module) => {
           const moduleCorrect = getModuleScore(module.id);
@@ -96,7 +110,16 @@ function FitiAssessment() {
                   <span className={`flex items-center justify-center w-8 h-8 rounded-lg font-black text-xs transition-colors ${isComplete ? 'bg-green-600 text-white' : 'bg-slate-800 text-white'}`}>
                     {module.id}
                   </span>
-                  <h3 className="font-bold text-slate-800 text-sm">Module {module.id}</h3>
+                  <div className="flex flex-col">
+                    <h3 className="font-bold text-slate-800 text-sm leading-none">Module {module.id}</h3>
+                    {/* NEW: Small Clear Link */}
+                    <button 
+                      onClick={(e) => clearModuleScore(module.id, e)}
+                      className="text-[10px] font-bold text-slate-400 hover:text-red-500 uppercase tracking-widest mt-1 text-left"
+                    >
+                      Clear Module
+                    </button>
+                  </div>
                 </div>
                 
                 <div className="text-right">
@@ -146,9 +169,6 @@ function FitiAssessment() {
       </div>
 
       <footer className="mt-16 pt-8 border-t border-slate-200 text-center pb-20 no-print">
-        <p className="text-[10px] text-slate-400 leading-relaxed uppercase font-bold tracking-widest">
-          © 2023 to 2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab.
-        </p>
         <p className="mt-2 text-[10px] text-slate-300 italic">
           Gurevich, N., & Kim, H. (2024). Modular FITI Phrase List Analysis.
         </p>
