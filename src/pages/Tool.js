@@ -9,7 +9,6 @@ function Tool() {
   const [hidden, setHidden] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
 
-  // Get exact count of diagnostic columns from locations.json
   const headerKeys = Object.values(locData).flatMap(arr => arr);
   const initialCount = headerKeys.map(() => 0);
   
@@ -19,14 +18,12 @@ function Tool() {
 
   const handleToggle = (charName, isNowChecked, cellValues) => {
     setCheckedItems(prev => ({ ...prev, [charName]: isNowChecked }));
-
     const multiplier = isNowChecked ? 1 : -1;
     setCounts(prevCounts => {
       const updated = {
         Red: [...prevCounts.Red], Yellow: [...prevCounts.Yellow],
         Green: [...prevCounts.Green], Total: [...prevCounts.Total]
       };
-
       headerKeys.forEach((_, i) => {
         const type = cellValues[i]?.[0];
         if (type === -1) { updated.Red[i] += multiplier; updated.Total[i] -= multiplier; }
@@ -39,17 +36,18 @@ function Tool() {
 
   const charRows = Object.keys(charData).flatMap((groupName) => {
     const groupItems = Object.entries(charData[groupName]);
+    
+    // CRITICAL: Filter here so unchecked rows never even get to the Row component
     const visibleItems = groupItems.filter(([name]) => !hidden || checkedItems[name]);
     
     if (visibleItems.length === 0) return [];
 
     const hasFitiRow = groupName === "Articulation";
-    // FITI link counts as 1 row in the group's rowSpan
     const totalSpan = visibleItems.length + (hasFitiRow ? 1 : 0);
 
     const rows = visibleItems.map(([charName, data], vIndex) => (
       <Row
-        key={charName} 
+        key={`${groupName}-${charName}`} // Combined key for better stability
         rowData={[charName, data]}
         group={groupName}
         isChecked={!!checkedItems[charName]} 
@@ -63,62 +61,26 @@ function Tool() {
     if (hasFitiRow) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
-          {/* FIX: We DO NOT add a first <td> here because the rowSpan from the first row in the group already covers column 1 */}
-          <td colSpan={2} className="p-4 border border-slate-700 text-center">
+          <td colSpan={2} className="p-4 border border-slate-700 text-center align-middle bg-white">
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-              Perform Modular FITI Assessment for detailed phonetic coverage
+              Perform Modular FITI Assessment
             </Link>
           </td>
-          {headerKeys.map((_, i) => <td key={i} className="border border-slate-700 bg-sky-50/30"></td>)}
+          {headerKeys.map((_, i) => <td key={i} className="border border-slate-700 bg-sky-50/20"></td>)}
         </tr>
       );
     }
     return rows;
   });
 
-  const customRows = Object.entries(customData).map(([title, values]) => {
-    let inputVal = <></>;
-    let outOf = "";
-    if (values["type"] === "number") {
-      const isSlider = title === "Naturalness" || title === "Efficiency";
-      inputVal = (
-        <div className="flex items-center gap-3">
-          <input
-            type={isSlider ? "range" : "number"}
-            min={0} max={values["max"]} defaultValue={isSlider ? 50 : 0}
-            className={isSlider ? "w-48 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "rounded w-16 border p-1 text-sm"}
-            onChange={(e) => { if (isSlider) e.target.nextSibling.innerText = e.target.value; }}
-          />
-          {isSlider && <span className="font-mono text-sm w-8 text-slate-600">50</span>}
-        </div>
-      );
-      outOf = values["value"] === "percentage" ? "%" : (title === "Self-Rating" ? "/ 10" : "");
-    } else if (values["type"] === "select") {
-      inputVal = (
-        <select className="rounded border p-1 text-sm bg-white" defaultValue="default">
-          <option value="default" disabled>--Select--</option>
-          {values["options"].map((opt) => <option key={opt} value={opt}>{opt}</option>)}
-        </select>
-      );
-    }
-    return (
-      <tr key={title}>
-        <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-xs uppercase font-black text-slate-800 tracking-wider">{title}</th>
-        <td className="p-3 border border-slate-700 text-center">
-          <div className="flex justify-center items-center gap-2">{inputVal} <span className="text-xs text-slate-400 font-bold">{outOf}</span></div>
-        </td>
-      </tr>
-    );
-  });
-
   const firstRow = Object.keys(locData).map(item => (
     <th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>
   ));
   const secondRow = headerKeys.map(val => (
-    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
+    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-xs min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
   ));
 
   const yellowCells = counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-bold bg-yellow-200">{item}</td>);
@@ -138,21 +100,6 @@ function Tool() {
         <div className="text-right">
           <p className="text-sm font-black text-slate-900 uppercase tracking-widest leading-none">Colorado Motor Speech Framework</p>
           <p className="text-xs text-slate-500 uppercase mt-2 font-bold tracking-tighter">Diagnostic Assessment Tool</p>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-8 justify-start mb-6 p-5 bg-slate-50 rounded-2xl border border-slate-200 no-print shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-yellow-200"></div>
-          <span className="text-xs font-black uppercase text-slate-800">Common feature</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-green-300"></div>
-          <span className="text-xs font-black uppercase text-slate-800">Highly distinguishing feature</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-red-300"></div>
-          <span className="text-xs font-black uppercase text-slate-800">Unexpected feature</span>
         </div>
       </div>
 
@@ -180,19 +127,6 @@ function Tool() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1">
-          <table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm">
-            <tbody>{customRows}</tbody>
-          </table>
-        </div>
-        <div className="lg:col-span-2">
-          <div className="bg-slate-50 p-1 rounded-2xl border border-slate-200 shadow-sm h-full">
-            <textarea className="w-full h-full bg-white border-none rounded-xl p-6 text-base outline-none focus:ring-2 focus:ring-sky-100 min-h-[220px]" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea>
-          </div>
-        </div>
-      </div>
-
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
         <table className="table-fixed text-center border-collapse w-full">
           <thead>
@@ -202,20 +136,13 @@ function Tool() {
             </tr>
           </thead>
           <tbody>
-            <tr><td colSpan={3} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Common Feature Count</td>{yellowCells}</tr>
-            <tr><td colSpan={3} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Highly Distinguishing Total</td>{greenCells}</tr>
-            <tr><td colSpan={3} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Unexpected Feature Total</td>{redCells}</tr>
+            <tr><td colSpan={3} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-800">Common Feature Count</td>{yellowCells}</tr>
+            <tr><td colSpan={3} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-800">Highly Distinguishing Total</td>{greenCells}</tr>
+            <tr><td colSpan={3} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-800">Unexpected Feature Total</td>{redCells}</tr>
             <tr className="bg-slate-100 font-black"><td colSpan={3} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase tracking-widest">Net Differential score</td>{totalCells}</tr>
           </tbody>
         </table>
       </div>
-
-      <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
-        <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
-        <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold">
-          © 2023-2026 Regents of the University of Colorado.
-        </p>
-      </footer>
     </div>
   );
 }
