@@ -44,7 +44,7 @@ function Tool() {
   const secondRow = Object.values(locations)
     .flatMap((arr) => arr)
     .map((value) => (
-      <th key={value} className="p-4 border border-slate-700 bg-slate-50">
+      <th key={value} className="p-4 border border-slate-700 bg-slate-50 min-w-[5rem]">
         {value}
       </th>
     ));
@@ -63,13 +63,13 @@ function Tool() {
       />
     ));
 
-    // Integration: Add FITI Deep-Dive Link within the Articulation section
     if (groupName === "Articulation") {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50/50 print:hidden">
-          {!hidden && <td className="border border-slate-700 bg-slate-50"></td>}
+          {/* REMOVED !hidden check: Placeholder for Groups column is now always visible */}
+          <td className="border border-slate-700 bg-slate-50"></td>
           <td colSpan={2} className="p-3 border border-slate-700 text-center">
-            <Link to="/fiti" className="text-xs font-bold text-sky-700 hover:underline flex items-center justify-center gap-2">
+            <Link to="/fiti" className="text-[11px] font-bold text-sky-700 hover:underline flex items-center justify-center gap-2">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -154,25 +154,11 @@ function Tool() {
     <div className="p-4">
       <style dangerouslySetInnerHTML={{ __html: `
         @media print {
-          @page { 
-            size: portrait; 
-            margin: 0.5cm; 
-          }
-          body { 
-            zoom: 58%;
-            -webkit-print-color-adjust: exact; 
-          }
-          th:first-child, td:first-child {
-            display: ${hidden ? 'none' : 'table-cell'};
-          }
-          .overflow-x-auto { 
-            overflow: visible !important; 
-          }
-          table { 
-            table-layout: auto !important; 
-            width: 100% !important;
-            font-size: 14px; 
-          }
+          @page { size: portrait; margin: 0.5cm; }
+          body { zoom: 58%; -webkit-print-color-adjust: exact; }
+          /* REMOVED conditional display: First column now always displays in print */
+          .overflow-x-auto { overflow: visible !important; }
+          table { table-layout: auto !important; width: 100% !important; font-size: 14px; }
           .bg-yellow-200 { background-color: #fef08a !important; }
           .bg-green-300 { background-color: #86efac !important; }
           .bg-red-300 { background-color: #fca5a5 !important; }
@@ -205,12 +191,11 @@ function Tool() {
       <div className="overflow-x-auto">
         <table className="table-fixed text-center border border-slate-700 border-collapse mx-auto">
           <thead>
-            <tr>
-              {!hidden && (
-                <th rowSpan={2} className="border border-slate-700 bg-slate-100">Groups</th>
-              )}
-              <th rowSpan={2} className="p-4 border border-slate-700 bg-slate-100">Characteristics</th>
-              <th rowSpan={2} className="p-4 border border-slate-700 bg-slate-100">Y/N</th>
+            <tr className="bg-slate-100">
+              {/* REMOVED !hidden check: Groups header is now always visible */}
+              <th rowSpan={2} className="border border-slate-700 w-32 min-w-[8rem]">Groups</th>
+              <th rowSpan={2} className="p-4 border border-slate-700 w-80 min-w-[20rem]">Characteristics</th>
+              <th rowSpan={2} className="p-4 border border-slate-700 w-20 min-w-[5rem]">Y/N</th>
               {firstRow}
             </tr>
             <tr>{secondRow}</tr>
