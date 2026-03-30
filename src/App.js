@@ -19,6 +19,7 @@ function App() {
           <Route path="/audio" element={<Audio />} />
           <Route path="/movement" element={<BodyMovement />} />
           <Route path="/patient-view" element={<PatientTasks />} />
+          <Route path="/fiti" element={<FitiAssessment />} />
         </Routes>
       </Layout>
     </Router>
