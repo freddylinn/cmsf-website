@@ -5,10 +5,10 @@ function NavBar() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // The ONE visible link
+  // The Primary Standalone Tool
   const mainTool = { name: 'Scoring Tool', path: '/' };
 
-  // Everything else goes in the dropdown
+  // Everything else tucked into the Menu
   const otherLinks = [
     { name: 'Body Movement Form', path: '/movement' },
     { name: 'Patient View', path: '/patient' },
@@ -19,42 +19,42 @@ function NavBar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 no-print shadow-sm">
-      <div className="max-w-5xl mx-auto px-4 lg:px-8">
+    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 no-print shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           
-          {/* Logo / Brand */}
+          {/* 1. Full Brand Name - Neutral Slate Color */}
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center group">
-              <span className="text-2xl font-black text-blue-900 tracking-tighter transition-colors group-hover:text-blue-600">
-                CMSF
+              <span className="text-lg md:text-xl font-bold text-slate-800 tracking-tight transition-colors group-hover:text-sky-600">
+                Colorado <span className="font-medium text-slate-500">Motor Speech Framework</span>
               </span>
             </Link>
           </div>
 
-          {/* Navigation Items */}
-          <div className="flex items-center space-x-6">
+          {/* 2. Navigation Area */}
+          <div className="flex items-center space-x-3 md:space-x-6">
             
-            {/* 1. The Only Standalone Tool */}
+            {/* The Scoring Tool - Soft Sky Blue highlight */}
             <Link
               to={mainTool.path}
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                 isActive(mainTool.path) 
-                  ? 'bg-blue-600 text-white shadow-md' 
-                  : 'text-gray-500 hover:text-blue-600 hover:bg-gray-50'
+                  ? 'bg-sky-500 text-white shadow-sm' 
+                  : 'text-slate-500 hover:text-sky-600 hover:bg-slate-50'
               }`}
             >
               {mainTool.name}
             </Link>
 
-            {/* 2. The Everything Dropdown */}
+            {/* The Menu Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`flex items-center px-4 py-2 rounded-lg text-sm font-bold transition-all border ${
                   otherLinks.some(link => isActive(link.path))
-                    ? 'border-blue-200 bg-blue-50 text-blue-700'
-                    : 'border-transparent text-gray-500 hover:text-blue-600 hover:bg-gray-50'
+                    ? 'border-sky-200 bg-sky-50 text-sky-700'
+                    : 'border-transparent text-slate-500 hover:text-sky-600 hover:bg-slate-50'
                 }`}
               >
                 Menu
@@ -65,26 +65,26 @@ function NavBar() {
 
               {isMenuOpen && (
                 <>
-                  {/* Overlay to close menu on click-away */}
+                  {/* Click-away backdrop */}
                   <div className="fixed inset-0 z-0" onClick={() => setIsMenuOpen(false)}></div>
                   
-                  <div className="absolute right-0 mt-3 w-64 rounded-xl shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-10 py-2 origin-top-right overflow-hidden border border-gray-100">
-                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-gray-400 bg-gray-50">Additional Assessment Tools</p>
+                  <div className="absolute right-0 mt-3 w-64 rounded-xl shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-10 py-2 origin-top-right overflow-hidden border border-slate-100">
+                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50">Additional Assessment Tools</p>
                     {otherLinks.slice(0, 1).map((link) => (
                       <Link
                         key={link.name}
                         to={link.path}
                         onClick={() => setIsMenuOpen(false)}
                         className={`block px-4 py-3 text-sm transition-colors ${
-                          isActive(link.path) ? 'bg-blue-50 text-blue-700 font-bold' : 'text-gray-700 hover:bg-gray-100'
+                          isActive(link.path) ? 'bg-sky-50 text-sky-700 font-bold' : 'text-slate-700 hover:bg-slate-100'
                         }`}
                       >
                         {link.name}
                       </Link>
                     ))}
                     
-                    <div className="border-t border-gray-100 my-1"></div>
-                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-gray-400 bg-gray-50">Patient Resources</p>
+                    <div className="border-t border-slate-100 my-1"></div>
+                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50">Patient Resources</p>
                     
                     {otherLinks.slice(1).map((link) => (
                       <Link
@@ -92,7 +92,7 @@ function NavBar() {
                         to={link.path}
                         onClick={() => setIsMenuOpen(false)}
                         className={`block px-4 py-3 text-sm transition-colors ${
-                          isActive(link.path) ? 'bg-blue-50 text-blue-700 font-bold' : 'text-gray-700 hover:bg-gray-100'
+                          isActive(link.path) ? 'bg-sky-50 text-sky-700 font-bold' : 'text-slate-700 hover:bg-slate-100'
                         }`}
                       >
                         {link.name}
