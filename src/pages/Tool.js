@@ -11,12 +11,15 @@ function Tool() {
   const customInputs = customData;
   const [hidden, setHidden] = useState(false);
   
-  // SINGLE SOURCE OF TRUTH: Parent tracks all checked items
+  // SINGLE SOURCE OF TRUTH: Parent tracks all checked items to prevent ghost rows
   const [checkedItems, setCheckedItems] = useState({});
 
   const initialCount = Object.values(locations).flatMap(arr => arr).map(() => 0);
   const [counts, setCounts] = useState({
-    Yellow: initialCount, Green: initialCount, Red: initialCount, Total: initialCount,
+    Yellow: initialCount, 
+    Green: initialCount, 
+    Red: initialCount, 
+    Total: initialCount,
   });
 
   const handleToggle = (charName, isNowChecked, cellValues) => {
@@ -27,14 +30,24 @@ function Tool() {
     const multiplier = isNowChecked ? 1 : -1;
     setCounts(prevCounts => {
       const updated = {
-        Red: [...prevCounts.Red], Yellow: [...prevCounts.Yellow],
-        Green: [...prevCounts.Green], Total: [...prevCounts.Total]
+        Red: [...prevCounts.Red], 
+        Yellow: [...prevCounts.Yellow],
+        Green: [...prevCounts.Green], 
+        Total: [...prevCounts.Total]
       };
+
       cellValues.forEach((item, i) => {
         const type = item[0];
-        if (type === -1) { updated.Red[i] += multiplier; updated.Total[i] -= multiplier; }
-        else if (type === 1) { updated.Yellow[i] += multiplier; updated.Total[i] += multiplier; }
-        else if (type === 2) { updated.Green[i] += multiplier; updated.Total[i] += multiplier; }
+        if (type === -1) { 
+          updated.Red[i] += multiplier; 
+          updated.Total[i] -= multiplier; 
+        } else if (type === 1) { 
+          updated.Yellow[i] += multiplier; 
+          updated.Total[i] += multiplier; 
+        } else if (type === 2) { 
+          updated.Green[i] += multiplier; 
+          updated.Total[i] += multiplier; 
+        }
       });
       return updated;
     });
@@ -52,10 +65,10 @@ function Tool() {
 
     const rows = visibleItems.map(([charName, data], vIndex) => (
       <Row
-        key={charName} // Unique key prevents "ghost row" rendering bugs
+        key={charName} // Unique key is critical for React list stability
         rowData={[charName, data]}
         group={groupName}
-        isChecked={!!checkedItems[charName]} // Controlled by parent state
+        isChecked={!!checkedItems[charName]} 
         isFirstInVisibleGroup={vIndex === 0} 
         visibleGroupSpan={totalSpan}
         onToggle={(val) => handleToggle(charName, val, data)}
@@ -65,9 +78,10 @@ function Tool() {
     if (hasFitiRow) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
+          {/* Vertical alignment cell for the group column */}
           <td className="border border-slate-700 bg-slate-50"></td>
           <td colSpan={2} className="p-2 border border-slate-700 text-center">
-            <Link to="/fiti" className="text-[10px] font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase">
+            <Link to="/fiti" className="text-[10px] font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-tight">
               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -109,7 +123,7 @@ function Tool() {
     return (
       <tr key={title}>
         <th className="px-4 py-3 border border-slate-700 w-48 bg-slate-50 text-center text-[10px] uppercase font-black text-slate-600">{title}</th>
-        <td className="p-2 border border-slate-700 text-center">
+        <td className="p-2 border border-slate-700 text-center text-sm">
           <div className="flex justify-center items-center gap-2">{inputVal} <span className="text-[10px] text-slate-400 font-bold">{outOf}</span></div>
         </td>
       </tr>
@@ -159,8 +173,9 @@ function Tool() {
         </div>
       </div>
 
-      <div className="overflow-x-auto mb-8 shadow-sm rounded-lg border border-slate-300">
-        <table className="table-fixed text-center border-collapse w-full">
+      <div className="mb-8 shadow-sm rounded-lg border border-slate-300 bg-white">
+        {/* We use standard width here; horizontal scroll is handled by the page if needed */}
+        <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
           <thead>
             <tr className="bg-slate-100">
               <th rowSpan={2} className="border border-slate-700 w-28 text-[11px] font-black uppercase text-slate-700">Groups</th>
@@ -175,10 +190,10 @@ function Tool() {
       </div>
 
       <div className="flex justify-center gap-4 mb-12 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-8 py-3 bg-sky-500 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg hover:bg-sky-600 transition-all">
+        <button onClick={() => setHidden(!hidden)} className="px-8 py-3 bg-sky-500 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg hover:bg-sky-600 active:scale-95 transition-all">
           {hidden ? "Show All Rows" : "Hide Unchecked"}
         </button>
-        <button onClick={() => window.print()} className="px-8 py-3 bg-slate-800 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg hover:bg-slate-900 transition-all">
+        <button onClick={() => window.print()} className="px-8 py-3 bg-slate-800 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg hover:bg-slate-900 active:scale-95 transition-all">
           Print PDF Report
         </button>
       </div>
@@ -198,7 +213,7 @@ function Tool() {
 
       {/* VIVID SUMMARY SCORECARD */}
       <div className="mt-12 overflow-x-auto border border-slate-300 rounded-xl overflow-hidden shadow-md">
-        <table className="table-fixed text-center border-collapse w-full">
+        <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
           <thead>
             <tr className="bg-slate-800 text-white text-[10px] font-black uppercase">
               <th className="p-3 w-52 text-left pl-6 tracking-widest border border-slate-700">Diagnostic Scorecard</th>
