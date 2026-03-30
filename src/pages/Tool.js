@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
 import customData from "../data/custom.json";
@@ -48,8 +49,8 @@ function Tool() {
       </th>
     ));
 
-  const charRows = Object.keys(characteristics).map((groupName) =>
-    Object.entries(characteristics[groupName]).map((item, index) => (
+  const charRows = Object.keys(characteristics).map((groupName) => {
+    const rows = Object.entries(characteristics[groupName]).map((item, index) => (
       <Row
         key={item[0]}
         rowData={item}
@@ -60,8 +61,29 @@ function Tool() {
         hidden={hidden}
         form="main"
       />
-    ))
-  );
+    ));
+
+    // Integration: Add FITI Deep-Dive Link within the Articulation section
+    if (groupName === "Articulation") {
+      rows.push(
+        <tr key="fiti-link" className="bg-sky-50/50 print:hidden">
+          {!hidden && <td className="border border-slate-700 bg-slate-50"></td>}
+          <td colSpan={2} className="p-3 border border-slate-700 text-center">
+            <Link to="/fiti" className="text-xs font-bold text-sky-700 hover:underline flex items-center justify-center gap-2">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+              Perform Modular FITI Assessment for detailed phonetic coverage
+            </Link>
+          </td>
+          {initialCount.map((_, i) => (
+            <td key={i} className="border border-slate-700 bg-slate-50/30"></td>
+          ))}
+        </tr>
+      );
+    }
+    return rows;
+  });
 
   const customRows = Object.entries(customInputs).map((pairs) => {
     const title = pairs[0];
@@ -130,7 +152,6 @@ function Tool() {
 
   return (
     <div className="p-4">
-      {/* --- PORTRAIT PRINT OPTIMIZATION --- */}
       <style dangerouslySetInnerHTML={{ __html: `
         @media print {
           @page { 
@@ -138,10 +159,9 @@ function Tool() {
             margin: 0.5cm; 
           }
           body { 
-            zoom: 58%; /* Squeezes the width to fit Portrait */
+            zoom: 58%;
             -webkit-print-color-adjust: exact; 
           }
-          /* Hide the "Groups" column entirely when printing to save horizontal space if hidden is active */
           th:first-child, td:first-child {
             display: ${hidden ? 'none' : 'table-cell'};
           }
@@ -153,11 +173,9 @@ function Tool() {
             width: 100% !important;
             font-size: 14px; 
           }
-          /* Force colors to show in PDF */
           .bg-yellow-200 { background-color: #fef08a !important; }
           .bg-green-300 { background-color: #86efac !important; }
           .bg-red-300 { background-color: #fca5a5 !important; }
-          
           tr { page-break-inside: avoid; }
         }
       `}} />
@@ -275,17 +293,13 @@ function Tool() {
 
       <footer className="bg-slate-50 p-10 rounded-t-[3rem] mt-16 border-t border-slate-200 no-print">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
-          {/* Citation section */}
           <p className="text-slate-600 text-center text-sm leading-relaxed">
             Please cite this tool if you use it in your research: <br />
             <span className="font-bold text-slate-800 italic">
               Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024, May 8). Colorado Motor Speech Framework. https://doi.org/10.17605/OSF.IO/PM936
             </span>
           </p>
-
-          {/* Copyright section */}
           <div className="border-t border-slate-200 w-24"></div>
-          
           <p className="text-slate-400 text-center text-xs tracking-wide">
             © 2023 to 2026, Regents of the University of Colorado, a body corporate. <br />
             Developed in the Colorado Motor Speech lab. All rights reserved.
