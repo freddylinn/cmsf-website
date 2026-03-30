@@ -11,43 +11,26 @@ function Tool() {
   const customInputs = customData;
   const [hidden, setHidden] = useState(false);
   
-  // SINGLE SOURCE OF TRUTH: Parent tracks all checked items to prevent ghost rows
   const [checkedItems, setCheckedItems] = useState({});
 
   const initialCount = Object.values(locations).flatMap(arr => arr).map(() => 0);
   const [counts, setCounts] = useState({
-    Yellow: initialCount, 
-    Green: initialCount, 
-    Red: initialCount, 
-    Total: initialCount,
+    Yellow: initialCount, Green: initialCount, Red: initialCount, Total: initialCount,
   });
 
   const handleToggle = (charName, isNowChecked, cellValues) => {
-    // 1. Update the check status for filtering
     setCheckedItems(prev => ({ ...prev, [charName]: isNowChecked }));
-
-    // 2. Update the diagnostic counts
     const multiplier = isNowChecked ? 1 : -1;
     setCounts(prevCounts => {
       const updated = {
-        Red: [...prevCounts.Red], 
-        Yellow: [...prevCounts.Yellow],
-        Green: [...prevCounts.Green], 
-        Total: [...prevCounts.Total]
+        Red: [...prevCounts.Red], Yellow: [...prevCounts.Yellow],
+        Green: [...prevCounts.Green], Total: [...prevCounts.Total]
       };
-
       cellValues.forEach((item, i) => {
         const type = item[0];
-        if (type === -1) { 
-          updated.Red[i] += multiplier; 
-          updated.Total[i] -= multiplier; 
-        } else if (type === 1) { 
-          updated.Yellow[i] += multiplier; 
-          updated.Total[i] += multiplier; 
-        } else if (type === 2) { 
-          updated.Green[i] += multiplier; 
-          updated.Total[i] += multiplier; 
-        }
+        if (type === -1) { updated.Red[i] += multiplier; updated.Total[i] -= multiplier; }
+        else if (type === 1) { updated.Yellow[i] += multiplier; updated.Total[i] += multiplier; }
+        else if (type === 2) { updated.Green[i] += multiplier; updated.Total[i] += multiplier; }
       });
       return updated;
     });
@@ -55,8 +38,6 @@ function Tool() {
 
   const charRows = Object.keys(characteristics).flatMap((groupName) => {
     const groupItems = Object.entries(characteristics[groupName]);
-    
-    // Filter rows based on "Hide Unchecked" toggle
     const visibleItems = groupItems.filter(([name]) => !hidden || checkedItems[name]);
     if (visibleItems.length === 0) return [];
 
@@ -65,7 +46,7 @@ function Tool() {
 
     const rows = visibleItems.map(([charName, data], vIndex) => (
       <Row
-        key={charName} // Unique key is critical for React list stability
+        key={charName}
         rowData={[charName, data]}
         group={groupName}
         isChecked={!!checkedItems[charName]} 
@@ -78,14 +59,13 @@ function Tool() {
     if (hasFitiRow) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
-          {/* Vertical alignment cell for the group column */}
           <td className="border border-slate-700 bg-slate-50"></td>
-          <td colSpan={2} className="p-2 border border-slate-700 text-center">
-            <Link to="/fiti" className="text-[10px] font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-tight">
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <td colSpan={2} className="p-3 border border-slate-700 text-center">
+            <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-              Perform Modular FITI Assessment
+              Perform Modular FITI Assessment for detailed phonetic coverage
             </Link>
           </td>
           {initialCount.map((_, i) => <td key={i} className="border border-slate-700 bg-sky-50/30"></td>)}
@@ -105,10 +85,10 @@ function Tool() {
           <input
             type={isSlider ? "range" : "number"}
             min={0} max={values["max"]} defaultValue={isSlider ? 50 : 0}
-            className={isSlider ? "w-40 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "rounded w-16 border p-1 text-sm"}
+            className={isSlider ? "w-48 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "rounded w-16 border p-1 text-sm"}
             onChange={(e) => { if (isSlider) e.target.nextSibling.innerText = e.target.value; }}
           />
-          {isSlider && <span className="font-mono text-xs w-6 text-slate-600">50</span>}
+          {isSlider && <span className="font-mono text-sm w-8 text-slate-600">50</span>}
         </div>
       );
       outOf = values["value"] === "percentage" ? "%" : (title === "Self-Rating" ? "/ 10" : "");
@@ -122,65 +102,64 @@ function Tool() {
     }
     return (
       <tr key={title}>
-        <th className="px-4 py-3 border border-slate-700 w-48 bg-slate-50 text-center text-[10px] uppercase font-black text-slate-600">{title}</th>
-        <td className="p-2 border border-slate-700 text-center text-sm">
-          <div className="flex justify-center items-center gap-2">{inputVal} <span className="text-[10px] text-slate-400 font-bold">{outOf}</span></div>
+        <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-xs uppercase font-black text-slate-700 tracking-wider">{title}</th>
+        <td className="p-3 border border-slate-700 text-center">
+          <div className="flex justify-center items-center gap-2">{inputVal} <span className="text-xs text-slate-400 font-bold">{outOf}</span></div>
         </td>
       </tr>
     );
   });
 
   const firstRow = Object.keys(locations).map(item => (
-    <th colSpan={locations[item].length} key={item} className="p-2 border border-slate-700 bg-slate-100 text-[10px] uppercase font-black">{item}</th>
+    <th colSpan={locations[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>
   ));
   const secondRow = Object.values(locations).flatMap(arr => arr).map(val => (
-    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[9px] min-w-[3.2rem] uppercase font-bold">{val}</th>
+    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-xs min-w-[3.5rem] uppercase font-bold text-slate-600">{val}</th>
   ));
 
-  const yellowCells = counts.Yellow.map((item, i) => <td key={i} className="p-1 border border-slate-700 text-[10px] font-bold">{item}</td>);
-  const greenCells = counts.Green.map((item, i) => <td key={i} className="p-1 border border-slate-700 text-[10px] font-bold">{item}</td>);
-  const redCells = counts.Red.map((item, i) => <td key={i} className="p-1 border border-slate-700 text-[10px] font-bold">{item}</td>);
-  const totalCells = counts.Total.map((item, i) => <td key={i} className="p-1 border border-slate-700 text-[10px] font-black bg-white">{item}</td>);
+  const yellowCells = counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-bold">{item}</td>);
+  const greenCells = counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-bold">{item}</td>);
+  const redCells = counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-bold">{item}</td>);
+  const totalCells = counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 text-sm font-black bg-white">{item}</td>);
 
   return (
-    <div className="p-8 max-w-[1400px] mx-auto min-h-screen bg-white font-sans text-slate-800">
-      <style dangerouslySetInnerHTML={{ __html: `@media print { @page { size: portrait; margin: 0.5cm; } body { zoom: 62%; } .no-print { display: none !important; } table { table-layout: fixed !important; width: 100% !important; border-collapse: collapse; } }` }} />
+    <div className="p-10 max-w-[1500px] mx-auto min-h-screen bg-white font-sans text-slate-800">
+      <style dangerouslySetInnerHTML={{ __html: `@media print { @page { size: portrait; margin: 0.5cm; } body { zoom: 60%; } .no-print { display: none !important; } table { table-layout: fixed !important; width: 100% !important; border-collapse: collapse; } }` }} />
 
-      <div className="flex justify-between items-end mb-6 no-print border-b-2 border-slate-100 pb-6">
-        <div className="w-72">
-          <label className="block text-[10px] font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
-          <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-base font-bold transition-colors" type="text" placeholder="Enter name..." />
+      <div className="flex justify-between items-end mb-8 no-print border-b-2 border-slate-100 pb-8">
+        <div className="w-80">
+          <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
+          <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold" type="text" placeholder="Enter name..." />
         </div>
         <div className="text-right">
-          <p className="text-xs font-black text-slate-800 uppercase tracking-widest leading-none">Colorado Motor Speech Framework</p>
-          <p className="text-[10px] text-slate-400 uppercase mt-1 font-bold">Diagnostic Assessment Tool</p>
+          <p className="text-sm font-black text-slate-800 uppercase tracking-widest leading-none">Colorado Motor Speech Framework</p>
+          <p className="text-xs text-slate-400 uppercase mt-2 font-bold tracking-tighter">Diagnostic Assessment Tool</p>
         </div>
       </div>
 
-      {/* VIVID KEY POSITIONED OVER THE TABLE */}
-      <div className="flex flex-wrap gap-6 justify-start mb-4 p-4 bg-slate-50 rounded-xl border border-slate-200 no-print">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded shadow-sm border border-slate-600 bg-yellow-200"></div>
-          <span className="text-[11px] font-black uppercase text-slate-600">Common feature</span>
+      {/* VIVID KEY */}
+      <div className="flex flex-wrap gap-8 justify-start mb-6 p-5 bg-slate-50 rounded-2xl border border-slate-200 no-print shadow-sm">
+        <div className="flex items-center gap-3">
+          <div className="w-5 h-5 rounded shadow border border-slate-600 bg-yellow-200"></div>
+          <span className="text-xs font-black uppercase text-slate-700">Common feature</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded shadow-sm border border-slate-600 bg-green-300"></div>
-          <span className="text-[11px] font-black uppercase text-slate-600">Highly distinguishing feature</span>
+        <div className="flex items-center gap-3">
+          <div className="w-5 h-5 rounded shadow border border-slate-600 bg-green-300"></div>
+          <span className="text-xs font-black uppercase text-slate-700">Highly distinguishing feature</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded shadow-sm border border-slate-600 bg-red-300"></div>
-          <span className="text-[11px] font-black uppercase text-slate-600">Unexpected feature</span>
+        <div className="flex items-center gap-3">
+          <div className="w-5 h-5 rounded shadow border border-slate-600 bg-red-300"></div>
+          <span className="text-xs font-black uppercase text-slate-700">Unexpected feature</span>
         </div>
       </div>
 
-      <div className="mb-8 shadow-sm rounded-lg border border-slate-300 bg-white">
-        {/* We use standard width here; horizontal scroll is handled by the page if needed */}
+      <div className="mb-10 shadow-md rounded-xl border border-slate-300 overflow-hidden">
         <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
           <thead>
             <tr className="bg-slate-100">
-              <th rowSpan={2} className="border border-slate-700 w-28 text-[11px] font-black uppercase text-slate-700">Groups</th>
-              <th rowSpan={2} className="p-2 border border-slate-700 w-72 text-[11px] font-black uppercase text-slate-700">Characteristics</th>
-              <th rowSpan={2} className="p-2 border border-slate-700 w-12 text-[11px] font-black uppercase text-slate-700">Y/N</th>
+              <th rowSpan={2} className="border border-slate-700 w-32 text-xs font-black uppercase text-slate-800">Groups</th>
+              <th rowSpan={2} className="p-3 border border-slate-700 w-80 text-xs font-black uppercase text-slate-800">Characteristics</th>
+              <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase text-slate-800">Y/N</th>
               {firstRow}
             </tr>
             <tr>{secondRow}</tr>
@@ -189,49 +168,49 @@ function Tool() {
         </table>
       </div>
 
-      <div className="flex justify-center gap-4 mb-12 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-8 py-3 bg-sky-500 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg hover:bg-sky-600 active:scale-95 transition-all">
-          {hidden ? "Show All Rows" : "Hide Unchecked"}
+      <div className="flex justify-center gap-6 mb-16 no-print">
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 hover:-translate-y-0.5 active:scale-95 transition-all">
+          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
         </button>
-        <button onClick={() => window.print()} className="px-8 py-3 bg-slate-800 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg hover:bg-slate-900 active:scale-95 transition-all">
-          Print PDF Report
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 hover:-translate-y-0.5 active:scale-95 transition-all">
+          Generate PDF Report
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
         <div className="lg:col-span-1">
-          <table className="table-fixed border border-slate-700 w-full border-collapse rounded-lg overflow-hidden shadow-sm">
+          <table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm">
             <tbody>{customRows}</tbody>
           </table>
         </div>
         <div className="lg:col-span-2">
-          <div className="bg-slate-50 p-1 rounded-xl border border-slate-200 shadow-sm h-full">
-            <textarea className="w-full h-full bg-white border-none rounded-lg p-4 text-sm outline-none focus:ring-2 focus:ring-sky-100 min-h-[180px]" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea>
+          <div className="bg-slate-50 p-1 rounded-2xl border border-slate-200 shadow-sm h-full">
+            <textarea className="w-full h-full bg-white border-none rounded-xl p-6 text-base outline-none focus:ring-2 focus:ring-sky-100 min-h-[220px]" placeholder="Enter clinical observations & differential diagnosis notes here..."></textarea>
           </div>
         </div>
       </div>
 
-      {/* VIVID SUMMARY SCORECARD */}
-      <div className="mt-12 overflow-x-auto border border-slate-300 rounded-xl overflow-hidden shadow-md">
+      {/* SUMMARY TABLE */}
+      <div className="mt-16 border border-slate-400 rounded-2xl overflow-hidden shadow-lg">
         <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
           <thead>
-            <tr className="bg-slate-800 text-white text-[10px] font-black uppercase">
-              <th className="p-3 w-52 text-left pl-6 tracking-widest border border-slate-700">Diagnostic Scorecard</th>
+            <tr className="bg-slate-800 text-white text-xs font-black uppercase">
+              <th className="p-4 w-64 text-left pl-8 tracking-widest border border-slate-700">Diagnostic Summary Scorecard</th>
               {secondRow}
             </tr>
           </thead>
           <tbody>
-            <tr><td className="bg-yellow-200 p-2 border border-slate-700 text-[10px] font-black text-left pl-6 uppercase text-slate-700">Common Feature Count</td>{yellowCells}</tr>
-            <tr><td className="bg-green-300 p-2 border border-slate-700 text-[10px] font-black text-left pl-6 uppercase text-slate-700">Distinguishing Feature Count</td>{greenCells}</tr>
-            <tr><td className="bg-red-300 p-2 border border-slate-700 text-[10px] font-black text-left pl-6 uppercase text-slate-700">Unexpected Feature Count</td>{redCells}</tr>
-            <tr className="bg-slate-100 font-black"><td className="p-3 border border-slate-700 text-xs text-left pl-6 uppercase tracking-wider">Net Differential Diagnostic Score</td>{totalCells}</tr>
+            <tr><td className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-800">Common Feature Count</td>{yellowCells}</tr>
+            <tr><td className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-800">Highly Distinguishing Count</td>{greenCells}</tr>
+            <tr><td className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-800">Unexpected Feature Count</td>{redCells}</tr>
+            <tr className="bg-slate-100 font-black"><td className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase tracking-widest">Calculated Differential Diagnostic Score</td>{totalCells}</tr>
           </tbody>
         </table>
       </div>
 
-      <footer className="mt-20 pt-10 border-t border-slate-100 text-center pb-12 no-print">
-        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-4">Colorado Motor Speech Framework</p>
-        <p className="text-[10px] text-slate-400 max-w-2xl mx-auto leading-relaxed italic">
+      <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
+        <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
+        <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic">
           Dunne-Platero, K., Cloud, C. S., & Hilger, A. (2024). Colorado Motor Speech Framework. © 2026 Regents of the University of Colorado.
         </p>
       </footer>
