@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
-import taskData from "../data/tasks.json"; // Restored for subsystem tooltips
+import taskData from "../data/tasks.json";
 import customData from "../data/custom.json";
 import Row from "../components/Row";
 
@@ -43,7 +43,7 @@ function Tool() {
 
     const rows = [];
 
-    // LEFT-ALIGNED HORIZONTAL HEADER WITH TASK TOOLTIP
+    // Left-aligned header with task tooltip
     rows.push(
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
@@ -51,9 +51,8 @@ function Tool() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
               {groupName}
             </span>
-            {/* Subsystem Task Information Pop-up */}
             <div className="has-tooltip relative flex items-center">
-              <span className="tooltip absolute left-full top-0 ml-6 leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[600px] border border-slate-300 z-50 text-left whitespace-normal ring-1 ring-slate-200">
+              <span className="tooltip absolute left-full top-0 ml-6 leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[300px] md:w-[600px] border border-slate-300 z-50 text-left whitespace-normal ring-1 ring-slate-200">
                 <p className="mb-2 text-[10px] font-black uppercase text-sky-700 tracking-widest">Recommended Tasks:</p>
                 {taskData[groupName].split("\n").map((item, key) => (
                   <p className="my-2 first:mt-0 font-medium" key={key}>{item}</p>
@@ -83,7 +82,7 @@ function Tool() {
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
           <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
-              Perform Modular FITI Assessment
+             For more in depth articulation testing, perform the Modular FITI Assessment here
             </Link>
           </td>
         </tr>
@@ -101,7 +100,7 @@ function Tool() {
           <div className="flex items-center justify-center gap-4">
             <input 
               type={isSlider ? "range" : (values.type === "number" ? "number" : "text")} 
-              className={isSlider ? "w-48 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "border p-2 rounded w-20 text-center font-bold text-slate-900"} 
+              className={isSlider ? "w-32 md:w-48 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "border p-2 rounded w-20 text-center font-bold text-slate-900"} 
               defaultValue={isSlider ? 50 : ""}
               onChange={(e) => { if (isSlider) e.target.nextSibling.innerText = e.target.value; }}
             />
@@ -121,22 +120,32 @@ function Tool() {
   ));
 
   return (
-    <div className="p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
+    <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
       <style dangerouslySetInnerHTML={{ __html: `@media print { @page { size: portrait; margin: 0.5cm; } body { zoom: 60%; } .no-print { display: none !important; } table { table-layout: fixed !important; width: 100% !important; border-collapse: collapse; } }` }} />
 
-      <div className="flex justify-between items-end mb-8 no-print border-b-2 border-slate-100 pb-8 text-left">
-        <div className="w-80">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 no-print border-b-2 border-slate-100 pb-8 gap-6 text-left">
+        <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
+          <p className="mt-4 text-[10px] font-bold text-slate-400 uppercase tracking-tight italic">
+            Note: To respect patient privacy, no input data are stored or transmitted.
+          </p>
         </div>
-        <div className="text-right"><p className="text-sm font-black text-slate-900 uppercase tracking-widest leading-none">Colorado Motor Speech Framework</p></div>
+        <div className="text-left md:text-right">
+          {/* FONT STYLE MATCHED TO NAVBAR */}
+          <p className="text-lg md:text-xl leading-none tracking-tight">
+            <span className="font-bold text-slate-900">Colorado</span>{" "}
+            <span className="font-normal text-slate-400">Motor Speech Framework</span>
+          </p>
+          <p className="text-[10px] text-slate-400 uppercase mt-2 font-black tracking-widest">Diagnostic Assessment Tool</p>
+        </div>
       </div>
 
-      <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-hidden">
-        <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
+      <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
+        <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
             <tr className="bg-slate-100">
-              <th rowSpan={2} className="p-3 border border-slate-700 w-80 text-xs font-black uppercase text-slate-900 text-left pl-6">Characteristics</th>
+              <th rowSpan={2} className="sticky left-0 z-20 p-3 border border-slate-700 bg-slate-100 w-64 md:w-80 text-xs font-black uppercase text-slate-900 text-left pl-6">Characteristics</th>
               <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase text-slate-900">Y/N</th>
               {firstRow}
             </tr>
@@ -146,18 +155,18 @@ function Tool() {
         </table>
       </div>
 
-      <div className="flex justify-center gap-6 mb-16 no-print">
+      <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 mb-16 no-print">
         <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all">{hidden ? "Show All Rows" : "Hide Unchecked Rows"}</button>
         <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
         <div className="lg:col-span-1"><table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm"><tbody>{customRows}</tbody></table></div>
-        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
+        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea></div>
       </div>
 
-      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-        <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
+      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
+        <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
             <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
@@ -167,6 +176,13 @@ function Tool() {
           </tbody>
         </table>
       </div>
+
+      <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
+        <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
+        <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold text-center">
+          © 2024-2026 Regents of the University of Colorado. Dunne-Platero, K., Cloud, C. S., & Hilger, A. Colorado Motor Speech Framework.
+        </p>
+      </footer>
     </div>
   );
 }
