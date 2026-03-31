@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.c645069f.css",
-    "main.js": "/static/js/main.612ac44b.js",
+    "main.css": "/static/css/main.4f4b313a.css",
+    "main.js": "/static/js/main.63e46e29.js",
     "static/media/greenmountain.webp": "/static/media/greenmountain.344cc910e26508442220.webp",
     "index.html": "/index.html",
-    "main.c645069f.css.map": "/static/css/main.c645069f.css.map",
-    "main.612ac44b.js.map": "/static/js/main.612ac44b.js.map"
+    "main.4f4b313a.css.map": "/static/css/main.4f4b313a.css.map",
+    "main.63e46e29.js.map": "/static/js/main.63e46e29.js.map"
   },
   "entrypoints": [
-    "static/css/main.c645069f.css",
-    "static/js/main.612ac44b.js"
+    "static/css/main.4f4b313a.css",
+    "static/js/main.63e46e29.js"
   ]
 }
