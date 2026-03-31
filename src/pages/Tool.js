@@ -4,19 +4,16 @@ import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
 import taskData from "../data/tasks.json";
 import customData from "../data/custom.json";
-import defData from "../data/char-tasks.json"; // UPDATE 1: Import definitions
+import charTasksData from "../data/char-tasks.json"; // Definitions file
 import Row from "../components/Row";
 
 function Tool() {
   const [hidden, setHidden] = useState(false);
-  const [showHighlights, setShowHighlights] = useState(false); 
+  const [showHighlights, setShowHighlights] = useState(false); // Default to Blind Mode
   const [checkedItems, setCheckedItems] = useState({});
   
   const [customValues, setCustomValues] = useState({
-    "Self-Rating": "",
-    "Intelligibility": "",
-    "Naturalness": "50",
-    "Efficiency": "50"
+    "Self-Rating": "", "Intelligibility": "", "Naturalness": "50", "Efficiency": "50"
   });
 
   const headerKeys = Object.values(locData).flatMap(arr => arr);
@@ -55,7 +52,7 @@ function Tool() {
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
           <div className="flex items-center gap-3">
-            <span className="text-[18px] font-black capitalize tracking-normal text-slate-500">
+            <span className="text-[12px] font-black capitalize tracking-normal text-slate-500">
               {groupName.toLowerCase()}
             </span>
             <div className="has-tooltip relative flex items-center">
@@ -78,23 +75,10 @@ function Tool() {
           isChecked={!!checkedItems[charName]} 
           onToggle={(val) => handleToggle(charName, val, data)} 
           showHighlights={showHighlights}
-          definition={defData[charName]} // UPDATE 2: Pass definition to Row
+          definition={charTasksData[charName]}
         />
       );
     });
-
-    if (groupName === "Articulation") {
-      rows.push(
-        <tr key="fiti-link" className="bg-sky-50 print:hidden">
-          <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
-            <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
-              Perform Modular FITI Assessment
-            </Link>
-          </td>
-        </tr>
-      );
-    }
-
     return rows;
   });
 
@@ -106,40 +90,16 @@ function Tool() {
         <td className="p-3 border border-slate-700 text-center">
           <div className="flex items-center justify-center gap-4">
             <input 
-              type={isSlider ? "range" : (values.type === "number" ? "number" : "text")} 
-              className={isSlider ? "w-32 md:w-48 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" : "border p-2 rounded w-20 text-center font-bold text-slate-900"} 
+              type={isSlider ? "range" : "text"} 
+              className="border p-2 rounded w-full font-bold text-slate-900" 
               value={customValues[title] || ""}
               onChange={(e) => setCustomValues(prev => ({ ...prev, [title]: e.target.value }))}
             />
-            {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600">{customValues[title]}</span>}
           </div>
         </td>
       </tr>
     );
   });
-
-  // UPDATE 3: Polished Clinical Smart Phrase logic
-  const generateSmartPhrase = () => {
-    const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
-    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
-    text += `Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
-    
-    text += `Clinical Ratings:\n`;
-    text += `- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n`;
-    text += `- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n`;
-    text += `- Naturalness Rating (VAS): ${customValues["Naturalness"]}/100\n`;
-    text += `- Efficiency Rating (VAS): ${customValues["Efficiency"]}/100\n\n`;
-
-    text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
-    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]}`).join('\n');
-    
-    text += `\n\nOverall Impressions:\n`;
-    text += `Speech features observed during this evaluation suggest possible involvement of [Neural Area].\n`;
-    text += `Primary motor speech disorder classification: [MSD Type].\n`;
-    text += `Perceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
-    
-    return text;
-  };
 
   const RevealToggle = () => (
     <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-slate-200 shadow-sm">
@@ -151,6 +111,12 @@ function Tool() {
       <span className={`text-[10px] font-black uppercase tracking-widest ${showHighlights ? 'text-amber-600' : 'text-slate-300'}`}>Reveal Results</span>
     </div>
   );
+
+  const generateSmartPhrase = () => {
+    const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
+    let text = `Evaluation: CMSF\nObservations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "None.");
+    return text;
+  };
 
   const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black">{item}</th>));
   const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">{val}</th>));
@@ -166,23 +132,19 @@ function Tool() {
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
         </div>
         <div className="text-left md:text-right">
-          <p className="text-lg md:text-xl leading-none tracking-tight mb-2 font-bold text-slate-900">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
-          <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Diagnostic Assessment Tool</p>
+          <p className="text-lg md:text-xl font-bold tracking-tight mb-2">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
         </div>
       </div>
 
       {/* TOP TOGGLE */}
       <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
         <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-center gap-4">
-          <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200">i</div>
-          <p className="text-xs font-bold text-sky-800 leading-relaxed uppercase tracking-wide">
-            Toggle to hide or reveal the highlighted results during administration of the tasks.
-          </p>
+          <p className="text-xs font-bold text-sky-800 uppercase tracking-wide">Toggle to hide or reveal results during administration.</p>
         </div>
         <RevealToggle />
       </div>
 
-      {/* MAIN TABLE */}
+      {/* TABLE */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -197,25 +159,13 @@ function Tool() {
         </table>
       </div>
 
-      {/* ACTION BUTTONS */}
+      {/* BOTTOM ACTIONS */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
           {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
         </button>
         <RevealToggle />
-        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
-      </div>
-
-      {/* RATINGS & OBSERVATIONS */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1">
-          <table className="table-fixed border border-slate-700 w-full rounded-xl overflow-hidden">
-            <tbody>{customRows}</tbody>
-          </table>
-        </div>
-        <div className="lg:col-span-2">
-          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea>
-        </div>
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF</button>
       </div>
 
       {/* SCORECARD */}
@@ -236,16 +186,11 @@ function Tool() {
         </table>
       </div>
 
-      {/* EPIC SMART PHRASE */}
+      {/* SMART PHRASE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
           <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
-          <button 
-            onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} 
-            className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all"
-          >
-            Copy Smart Phrase
-          </button>
+          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all">Copy Smart Phrase</button>
         </div>
         <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
           <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
