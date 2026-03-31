@@ -82,7 +82,7 @@ function Tool() {
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
           <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
-             For more in depth articulation testing, perform the Modular FITI Assessment here
+              Perform Modular FITI Assessment
             </Link>
           </td>
         </tr>
@@ -127,18 +127,31 @@ function Tool() {
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
-          <p className="mt-4 text-[10px] font-bold text-slate-400 uppercase tracking-tight italic">
+          <p className="mt-4 text-[10px] font-bold text-slate-400 uppercase tracking-tight italic leading-relaxed">
             Note: To respect patient privacy, no input data are stored or transmitted.
           </p>
         </div>
         <div className="text-left md:text-right">
-          {/* FONT STYLE MATCHED TO NAVBAR */}
-          <p className="text-lg md:text-xl leading-none tracking-tight">
+          <p className="text-lg md:text-xl leading-none tracking-tight mb-2">
             <span className="font-bold text-slate-900">Colorado</span>{" "}
             <span className="font-normal text-slate-400">Motor Speech Framework</span>
           </p>
-          <p className="text-[10px] text-slate-400 uppercase mt-2 font-black tracking-widest">Diagnostic Assessment Tool</p>
+          <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Diagnostic Assessment Tool</p>
         </div>
+      </div>
+
+      {/* NEW INSTRUCTION LINE */}
+      <div className="mb-6 p-4 bg-sky-50 rounded-2xl border border-sky-100 no-print flex items-center gap-4">
+        <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200">i</div>
+        <p className="text-xs font-black text-sky-800 uppercase tracking-wide">
+          Hover over the blue "i's" for suggested tasks and feature definitions.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-8 justify-start mb-6 p-5 bg-slate-50 rounded-2xl border border-slate-200 no-print shadow-sm">
+        <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-yellow-200"></div><span className="text-xs font-black uppercase text-slate-800 tracking-tight">Common feature</span></div>
+        <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-green-300"></div><span className="text-xs font-black uppercase text-slate-800 tracking-tight">Highly distinguishing feature</span></div>
+        <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-red-300"></div><span className="text-xs font-black uppercase text-slate-800 tracking-tight">Unexpected feature</span></div>
       </div>
 
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
@@ -162,26 +175,26 @@ function Tool() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
         <div className="lg:col-span-1"><table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm"><tbody>{customRows}</tbody></table></div>
-        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea></div>
+        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px] focus:ring-2 focus:ring-sky-100 transition-all" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea></div>
       </div>
 
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
-            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
-            <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Calculated Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50 text-sm">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+            <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase tracking-widest">Calculated Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50 text-sm">{item}</td>)}</tr>
           </tbody>
         </table>
       </div>
 
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
-        <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
+        <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4 text-center">Colorado Motor Speech Framework</p>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold text-center">
-          For questions, email Dr. Allison Hilger at allison.hilger@colorado.edu
-              © 2024-2026, Regents of the University of Colorado, a body corporate. Developed in the Colorado Motor Speech lab. All rights reserved.
+          © 2023-2026, Regents of the University of Colorado, a body corporate. <br />
+          Developed in the Colorado Motor Speech lab. All rights reserved.
         </p>
       </footer>
     </div>
