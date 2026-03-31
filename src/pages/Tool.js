@@ -42,8 +42,6 @@ function Tool() {
     if (visibleItems.length === 0) return [];
 
     const rows = [];
-
-    // Left-aligned header with task tooltip
     rows.push(
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
@@ -119,10 +117,41 @@ function Tool() {
     <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
   ));
 
+  // --- EPIC SMART PHRASE LOGIC (Moved above the return) ---
+  const generateSmartPhrase = () => {
+    const checkedNames = Object.keys(checkedItems).filter(key => checkedItems[key]);
+    let phrase = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
+    phrase += `The CMSF is an assessment tool for efficient assessment of motor speech disorders (Dunne-Platero, Cloud, & Hilger, 2024).\n\n`;
+
+    if (checkedNames.length > 0) {
+      phrase += `Observations:\n`;
+      checkedNames.forEach(name => { phrase += `- ${name}\n`; });
+    } else {
+      phrase += `Observations: No deviant features were clearly present during this assessment.\n`;
+    }
+
+    phrase += `\nDiagnostic Summary:\n`;
+    headerKeys.forEach((key, i) => {
+      phrase += `${key}: Net Score ${counts.Total[i]} (Common: ${counts.Yellow[i]}, Distinguishing: ${counts.Green[i]}, Unexpected: ${counts.Red[i]})\n`;
+    });
+
+    phrase += `\nOverall Impressions:\n`;
+    phrase += `Patient presents with a pattern of speech features that indicate involvement of [Neural Area]. Primary MSD clinical classification: [MSD Type]. Severity: [Mild/Mod/Severe].\n`;
+    return phrase;
+  };
+
+  const copyToClipboard = () => {
+    const text = generateSmartPhrase();
+    navigator.clipboard.writeText(text);
+    alert("EPIC Smart Phrase copied to clipboard!");
+  };
+
+  // --- SINGLE RETURN BLOCK ---
   return (
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
       <style dangerouslySetInnerHTML={{ __html: `@media print { @page { size: portrait; margin: 0.5cm; } body { zoom: 60%; } .no-print { display: none !important; } table { table-layout: fixed !important; width: 100% !important; border-collapse: collapse; } }` }} />
 
+      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 no-print border-b-2 border-slate-100 pb-8 gap-6 text-left">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
@@ -140,7 +169,7 @@ function Tool() {
         </div>
       </div>
 
-      {/* NEW INSTRUCTION LINE */}
+      {/* Instruction and Legends */}
       <div className="mb-6 p-4 bg-sky-50 rounded-2xl border border-sky-100 no-print flex items-center gap-4">
         <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200">i</div>
         <p className="text-xs font-black text-sky-800 uppercase tracking-wide">
@@ -154,6 +183,7 @@ function Tool() {
         <div className="flex items-center gap-3"><div className="w-5 h-5 rounded shadow-sm border border-slate-600 bg-red-300"></div><span className="text-xs font-black uppercase text-slate-800 tracking-tight">Unexpected feature</span></div>
       </div>
 
+      {/* Main Table */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -168,16 +198,19 @@ function Tool() {
         </table>
       </div>
 
+      {/* Action Buttons */}
       <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 mb-16 no-print">
         <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all">{hidden ? "Show All Rows" : "Hide Unchecked Rows"}</button>
         <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
       </div>
 
+      {/* Observations and Custom Metrics */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
         <div className="lg:col-span-1"><table className="table-fixed border border-slate-700 w-full border-collapse rounded-xl overflow-hidden shadow-sm"><tbody>{customRows}</tbody></table></div>
         <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px] focus:ring-2 focus:ring-sky-100 transition-all" placeholder="Clinical Observations & Differential Diagnosis Notes..."></textarea></div>
       </div>
 
+      {/* Scorecard */}
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
@@ -190,47 +223,7 @@ function Tool() {
         </table>
       </div>
 
-              // Helper to generate the text for EPIC
-  const generateSmartPhrase = () => {
-    const checkedNames = Object.keys(checkedItems).filter(key => checkedItems[key]);
-    
-    // Header based on Page 105 of the tutorial
-    let phrase = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
-    phrase += `The CMSF is an assessment tool for efficient assessment of motor speech disorders (Dunne-Platero, Cloud, & Hilger, 2024).\n\n`;
-
-    // Add observations grouped by checked features
-    if (checkedNames.length > 0) {
-      phrase += `Observations:\n`;
-      checkedNames.forEach(name => {
-        phrase += `- ${name}\n`;
-      });
-    } else {
-      phrase += `Observations: No deviant features were clearly present during this assessment.\n`;
-    }
-
-    // Add the Scorecard summary
-    phrase += `\nDiagnostic Summary:\n`;
-    headerKeys.forEach((key, i) => {
-      phrase += `${key}: Net Score ${counts.Total[i]} (Common: ${counts.Yellow[i]}, Distinguishing: ${counts.Green[i]}, Unexpected: ${counts.Red[i]})\n`;
-    });
-
-    phrase += `\nOverall Impressions:\n`;
-    phrase += `Patient presents with a pattern of speech features that indicate involvement of [Neural Area]. Primary MSD clinical classification: [MSD Type]. Severity: [Mild/Mod/Severe].\n`;
-    
-    return phrase;
-  };
-
-  const copyToClipboard = () => {
-    const text = generateSmartPhrase();
-    navigator.clipboard.writeText(text);
-    alert("EPIC Smart Phrase copied to clipboard!");
-  };
-
-  return (
-    <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
-      {/* ... existing table and scorecard code ... */}
-
-      {/* NEW: EPIC SMART PHRASE MODULE */}
+      {/* EPIC SMART PHRASE MODULE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
           <div className="text-left">
@@ -241,13 +234,9 @@ function Tool() {
             onClick={copyToClipboard}
             className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all flex items-center gap-3"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-            </svg>
             Copy Smart Phrase
           </button>
         </div>
-
         <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
           <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700 leading-relaxed">
             {generateSmartPhrase()}
@@ -255,11 +244,13 @@ function Tool() {
         </div>
       </div>
 
+      {/* Footer */}
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
         <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4 text-center">Colorado Motor Speech Framework</p>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold text-center">
           © 2023-2026, Regents of the University of Colorado, a body corporate. <br />
-          Developed in the Colorado Motor Speech lab. All rights reserved.
+          Developed in the Colorado Motor Speech lab. All rights reserved. <br />
+          Website by Frederick Linn (Frederick.Linn@colorado.edu).
         </p>
       </footer>
     </div>
