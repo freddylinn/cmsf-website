@@ -51,7 +51,7 @@ function Tool() {
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
           <div className="flex items-center gap-3">
-            <span className="text-[12px] font-black capitalize tracking-normal text-slate-500">
+            <span className="text-[18px] font-black capitalize tracking-normal text-slate-500">
               {groupName.toLowerCase()}
             </span>
             <div className="has-tooltip relative flex items-center">
