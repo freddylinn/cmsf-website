@@ -53,7 +53,7 @@ function Tool() {
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">{groupName}</span>
+            <span className="text-[12px] font-black capitalize tracking-normal text-slate-500">{groupName}</span>
             <div className="has-tooltip relative flex items-center">
               <span className="tooltip absolute left-full top-0 ml-6 leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[300px] md:w-[600px] border border-slate-300 z-50 text-left whitespace-normal ring-1 ring-slate-200">
                 <p className="mb-2 text-[10px] font-black uppercase text-sky-700 tracking-widest">Recommended Tasks:</p>
@@ -148,7 +148,7 @@ function Tool() {
         </div>
         <div className="text-left md:text-right">
           <p className="text-lg md:text-xl leading-none tracking-tight mb-2"><span className="font-bold text-slate-900">Colorado</span> <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
-          <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Diagnostic Assessment Tool</p>
+          <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Clinical Framework for Motor Speech Assessment</p>
         </div>
       </div>
 
