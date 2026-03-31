@@ -102,11 +102,11 @@ function Tool() {
           <div className="flex items-center justify-center gap-4">
             <input 
               type={isSlider ? "range" : "text"} 
-              className="border p-2 rounded w-full font-bold text-slate-900 print:border-none print:p-0" 
+              className="border p-2 rounded w-full font-bold text-slate-900 print:border-none" 
               value={customValues[title] || ""}
               onChange={(e) => setCustomValues(prev => ({ ...prev, [title]: e.target.value }))}
             />
-            {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600">{customValues[title]}</span>}
+            {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600 print:hidden">{customValues[title]}</span>}
           </div>
         </td>
       </tr>
@@ -140,7 +140,19 @@ function Tool() {
 
   return (
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
-      <style dangerouslySetInnerHTML={{ __html: `@media print { .no-print { display: none !important; } }` }} />
+      {/* CUSTOM PRINT STYLES TO PREVENT CUTTING OFF */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media print { 
+          .no-print { display: none !important; } 
+          .shadow-lg, .shadow-2xl { border: none !important; box-shadow: none !important; }
+          .overflow-x-auto { overflow: visible !important; width: 100% !important; }
+          .sticky { position: static !important; }
+          table { table-layout: auto !important; width: 100% !important; font-size: 8px !important; }
+          th, td { padding: 4px !important; border: 1px solid #333 !important; }
+          tr { page-break-inside: avoid !important; }
+          .print-scale { zoom: 0.8; }
+        }
+      ` }} />
       
       {/* BRANDING */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b-2 border-slate-100 pb-8 gap-6">
@@ -149,106 +161,102 @@ function Tool() {
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900 print:border-none" type="text" placeholder="Enter name..." />
         </div>
         <div className="text-left md:text-right">
-          <p className="text-lg md:text-xl font-bold text-slate-900">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
+          <p className="text-lg md:text-xl font-bold text-slate-900 leading-none mb-1">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
         </div>
       </div>
 
-      {/* TOP INSTRUCTION BOX & TOGGLE */}
-      <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
-        <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4">
-          <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200 mt-0.5">i</div>
-          <p className="text-xs font-bold text-sky-800 uppercase tracking-wide leading-relaxed">
-            Hover over blue "i's" for tasks. Toggle to hide or reveal the highlighted results during administration of the tasks.
-          </p>
-        </div>
-        <RevealToggle />
-      </div>
-
-      {/* DIAGNOSTIC KEY */}
-      {showHighlights && (
-        <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm print:shadow-none">
-          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Diagnostic Indicator Key</h3>
-          <div className="flex flex-wrap gap-x-12 gap-y-6">
-            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">x</div><span className="text-xs font-bold text-slate-700 uppercase">Common</span></div>
-            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">xx</div><span className="text-xs font-bold text-slate-700 uppercase">Highly Distinguishing</span></div>
-            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">—</div><span className="text-xs font-bold text-slate-700 uppercase">Unexpected</span></div>
+      <div className="print-scale">
+        {/* TOP INSTRUCTION BOX */}
+        <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
+          <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4">
+            <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200 mt-0.5">i</div>
+            <p className="text-xs font-bold text-sky-800 leading-relaxed uppercase tracking-wide">
+              Hover over blue "i's" for tasks. Toggle to hide or reveal the highlighted results during administration of the tasks.
+            </p>
           </div>
+          <RevealToggle />
         </div>
-      )}
 
-      {/* MAIN DATA TABLE */}
-      <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto print:shadow-none print:border-slate-500">
-        <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
-          <thead>
-            <tr className="bg-slate-100">
-              <th rowSpan={2} className="sticky left-0 z-20 p-3 border border-slate-700 bg-slate-100 w-64 md:w-80 text-xs font-black uppercase text-left pl-6">Characteristics</th>
-              <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase">Y/N</th>
-              {firstRow}
-            </tr>
-            <tr>{secondRow}</tr>
-          </thead>
-          <tbody>{charRows}</tbody>
-        </table>
-      </div>
+        {/* DIAGNOSTIC KEY (Restored & Responsive for Print) */}
+        {showHighlights && (
+          <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm print:border-slate-400">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Diagnostic Indicator Key</h3>
+            <div className="flex flex-wrap gap-x-12 gap-y-6">
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">x</div><span className="text-xs font-bold text-slate-700 uppercase">Common</span></div>
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">xx</div><span className="text-xs font-bold text-slate-700 uppercase">Highly Distinguishing</span></div>
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">—</div><span className="text-xs font-bold text-slate-700 uppercase">Unexpected</span></div>
+            </div>
+          </div>
+        )}
 
-      {/* BOTTOM ACTIONS (Hidden in PDF) */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-sky-600">
-          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
-        </button>
-        <RevealToggle />
-        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
-      </div>
-
-      {/* RATINGS & OBSERVATIONS (Now visible in PDF) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20 print:gap-4">
-        <div className="lg:col-span-1">
-          <table className="border border-slate-700 w-full rounded-xl overflow-hidden print:border-slate-500">
-            <tbody>{customRows}</tbody>
+        {/* MAIN DATA TABLE */}
+        <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto print:border-slate-800">
+          <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
+            <thead>
+              <tr className="bg-slate-100">
+                <th rowSpan={2} className="sticky left-0 z-20 p-3 border border-slate-700 bg-slate-100 w-64 md:w-80 text-xs font-black uppercase text-left pl-6 print:static">Characteristics</th>
+                <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase">Y/N</th>
+                {firstRow}
+              </tr>
+              <tr>{secondRow}</tr>
+            </thead>
+            <tbody>{charRows}</tbody>
           </table>
         </div>
-        <div className="lg:col-span-2">
-          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-500 print:min-h-0" placeholder="Clinical Observations..."></textarea>
-        </div>
-      </div>
 
-      {/* SCORECARD (Restored to PDF) */}
-      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto print:shadow-none print:border-slate-500">
-        <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
-          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
-          <tbody>
-            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
-            <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
-          </tbody>
-        </table>
-      </div>
-
-      {/* EPIC SMART PHRASE (Restored to PDF) */}
-      <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 print:border-slate-500 print:bg-white print:p-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 print:mb-4">
-          <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Clinical Summary</h2>
-          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg no-print">Copy Smart Phrase</button>
+        {/* BOTTOM UI ACTIONS */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
+          <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
+            {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+          </button>
+          <RevealToggle />
+          <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto print:border-none print:shadow-none print:max-h-none print:p-0">
-          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
-        </div>
-      </div>
 
-      {/* FOOTER (Restored to PDF) */}
-      <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 px-4 print:mt-12">
-        <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
-          Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
-          Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
-          https://cmsf.info
-        </p>
-        <div className="h-px w-12 bg-slate-200 mx-auto my-4 no-print"></div>
-        <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
-          © 2023-2026, Regents of the University of Colorado. All rights reserved. <br />
-          Website by Frederick Linn (Frederick.Linn@colorado.edu).
-        </p>
-      </footer>
+        {/* RATINGS & OBSERVATIONS */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
+          <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden print:border-slate-800"><tbody>{customRows}</tbody></table></div>
+          <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-800" placeholder="Clinical Observations..."></textarea></div>
+        </div>
+
+        {/* SCORECARD (Captures in PDF now) */}
+        <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
+          <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
+            <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
+            <tbody>
+              <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+              <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+              <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+              <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* EPIC SMART PHRASE (Captures in PDF now) */}
+        <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 no-print">
+            <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Clinical Summary</h2>
+            <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg">Copy Smart Phrase</button>
+          </div>
+          <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto print:max-h-none print:border-none">
+            <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
+          </div>
+        </div>
+
+        {/* FOOTER (Captures in PDF now) */}
+        <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 px-4">
+          <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
+            Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
+            Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
+            https://cmsf.info
+          </p>
+          <div className="h-px w-12 bg-slate-200 mx-auto my-4 no-print"></div>
+          <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
+            © 2023-2026, Regents of the University of Colorado. All rights reserved. <br />
+            Website by Frederick Linn (Frederick.Linn@colorado.edu).
+          </p>
+        </footer>
+      </div>
     </div>
   );
 }
