@@ -15,16 +15,16 @@ const WebsiteUpdates = () => {
           <div>
             <h4 className="text-[10px] font-black uppercase text-sky-600 mb-4 tracking-widest">Platform & UI</h4>
             <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
-              <li>• Updated website aesthetic for improved clinical workflow.</li>
-              <li>• Added the <strong>FITI Modules Page</strong> for indirect task interference assessment.</li>
-              <li>• Integrated the <strong>EPIC Smart Phrase generator</strong> for automated documentation.</li>
+              <li>• Updated website aesthetic for improved clinical workflow and visual scanning.</li>
+              <li>• Added the <strong>FITI Modules Page</strong> for assessment of indirect task interference.</li>
+              <li>• Integrated the <strong>EPIC Smart Phrase generator</strong> for automated clinical summaries.</li>
             </ul>
           </div>
           <div>
             <h4 className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Diagnostic Logic</h4>
             <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
               <li>• Removed X (Flaccid) for slow rate of speech.</li>
-              <li>• Removed X (Hypokinetic) for vocal tremor; added <strong>XX (Hyperkinetic)</strong>.</li>
+              <li>• Vocal Tremor: Removed X (Hypokinetic) and added <strong>XX (Hyperkinetic)</strong>.</li>
               <li>• Added X (Hyperkinetic) for <strong>resting tremor</strong>.</li>
             </ul>
           </div>
@@ -43,18 +43,16 @@ const WebsiteUpdates = () => {
                 <li>— Revised MPT cutoffs: 15s (&lt;65) / 12s (&gt;65).</li>
                 <li>— Added features: <strong>Pitch Instability</strong>, <strong>Pitch Breaks</strong>, and <strong>Runs out of air</strong>.</li>
                 <li>— Revised "Strained-Strangled" to <strong>Strained</strong>.</li>
-                <li>— Removed "Vocal Harshness" to reduce overlap.</li>
+                <li>— Removed "Vocal Harshness" to reduce clinical overlap.</li>
                 <li>— Added XX (Flaccid) for breathiness and aphonia.</li>
               </ul>
             </div>
             <div>
-              <h4 className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">OME (Face, Lip, Lingual)</h4>
+              <h4 className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">OME & Face</h4>
               <ul className="space-y-2 text-[11px] text-slate-500 leading-relaxed">
                 <li>— Added feature: <strong>Reduced sensation to the face</strong>.</li>
                 <li>— Added XX (Flaccid) for hypotonia and bilateral facial weakness.</li>
-                <li>— Added X (UUMN/Hypo/Hyper) for <strong>pseudobulbar affect</strong>.</li>
-                <li>— Revised "Weak Cough" to include laryngeal/respiratory involvement.</li>
-                <li>— Removed X (AOS) for drooping, lip weakness, and lingual weakness.</li>
+                <li>— Revised "Weak Cough" to include laryngeal and respiratory involvement.</li>
               </ul>
             </div>
           </div>
@@ -62,8 +60,8 @@ const WebsiteUpdates = () => {
             <div>
               <h4 className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Tasks & Articulation</h4>
               <ul className="space-y-2 text-[11px] text-slate-500 leading-relaxed">
-                <li>— Added CAPE-V sentence "Mama makes lemon muffins" to Resonance tasks.</li>
-                <li>— Revised DDK instructions: Obtain exact counts; cue for comfort vs. max rates.</li>
+                <li>— Added CAPE-V sentence "Mama makes lemon muffins" to Resonance.</li>
+                <li>— Revised DDK instructions: Obtain exact counts; cue for comfortable/max rates.</li>
                 <li>— Added XX (Spastic) for monopitch and monoloudness.</li>
                 <li>— Added XX (AOS) for syllable segregation.</li>
                 <li>— Added "inconsistent breakdowns" for hyperkinetic dysarthria.</li>
