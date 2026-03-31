@@ -140,7 +140,6 @@ function Tool() {
 
   return (
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
-      {/* CUSTOM PRINT STYLES TO PREVENT CUTTING OFF */}
       <style dangerouslySetInnerHTML={{ __html: `
         @media print { 
           .no-print { display: none !important; } 
@@ -154,7 +153,6 @@ function Tool() {
         }
       ` }} />
       
-      {/* BRANDING */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
@@ -166,7 +164,6 @@ function Tool() {
       </div>
 
       <div className="print-scale">
-        {/* TOP INSTRUCTION BOX */}
         <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
           <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4">
             <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200 mt-0.5">i</div>
@@ -177,7 +174,6 @@ function Tool() {
           <RevealToggle />
         </div>
 
-        {/* DIAGNOSTIC KEY (Restored & Responsive for Print) */}
         {showHighlights && (
           <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm print:border-slate-400">
             <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Diagnostic Indicator Key</h3>
@@ -189,7 +185,6 @@ function Tool() {
           </div>
         )}
 
-        {/* MAIN DATA TABLE */}
         <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto print:border-slate-800">
           <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
             <thead>
@@ -204,7 +199,6 @@ function Tool() {
           </table>
         </div>
 
-        {/* BOTTOM UI ACTIONS */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
           <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
             {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
@@ -213,13 +207,11 @@ function Tool() {
           <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
         </div>
 
-        {/* RATINGS & OBSERVATIONS */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
           <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden print:border-slate-800"><tbody>{customRows}</tbody></table></div>
           <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-800" placeholder="Clinical Observations..."></textarea></div>
         </div>
 
-        {/* SCORECARD (Captures in PDF now) */}
         <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
           <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
             <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
@@ -232,7 +224,6 @@ function Tool() {
           </table>
         </div>
 
-        {/* EPIC SMART PHRASE (Captures in PDF now) */}
         <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 no-print">
             <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Clinical Summary</h2>
@@ -243,7 +234,6 @@ function Tool() {
           </div>
         </div>
 
-        {/* FOOTER (Captures in PDF now) */}
         <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 px-4">
           <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
             Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
