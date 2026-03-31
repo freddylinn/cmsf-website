@@ -105,10 +105,13 @@ function Intro() {
           <div>
             <h2 className="text-xs font-black uppercase tracking-[0.3em] text-sky-600 mb-6">How to Use the CMSF</h2>
             <ul className="space-y-4 text-slate-600 leading-relaxed font-medium">
-              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Administer standard motor speech evaluation tasks.</li>
-              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Observe deviant features across all speech subsystems.</li>
-              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Mark 'Y' for features clearly present in the tool.</li>
-              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Utilize the Scorecard and EPIC summary to guide classification.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Administer standard motor speech assessment tasks (hover over the blue i for suggested tasks in the tool).</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Elicit multiple speech contexts (e.g., connected speech, repetition, automatic speech).</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Observe deviant speech features across subsystems.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Mark “Y” for features clearly present in the CMSF.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Review the Scorecard and visually examine the highlighted feature pattern across subtype columns.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the EPIC summary to document classification and clinical impressions.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the optional Body Movements form for confirmatory signs.</li>
             </ul>
           </div>
 
