@@ -47,7 +47,8 @@ function Intro() {
                 "Observe deviant speech and non-speech features across respiratory, phonatory, resonance, prosodic, and articulatory subsystems.",
                 "Mark 'Y' for features that are clearly present using the binary selection tool.",
                 "Review the Diagnostic Scorecard to identify which motor speech subtype aligns most closely with observed features.",
-                "Utilize the Net Differential Diagnostic Score to guide clinical classification and evaluation reports."
+                "If more than one motor speech subtype lines up with the observations, determine if there is evidence for a mixed diagnosis. For example, if there are distinguishing features that cannot be explained by the primary motor speech diagnosis.",
+                "Utilize the Net Differential Diagnostic Score to guide clinical classification, evaluation reports, and treatment goals."
               ].map((bullet, i) => (
                 <li key={i} className="flex gap-4 text-slate-600 leading-relaxed">
                   <span className="font-black text-sky-500">—</span>
@@ -65,7 +66,7 @@ function Intro() {
               To respect patient privacy, <strong>no input data are stored or transmitted</strong> to any servers. All calculations occur locally within your browser.
             </p>
             <p className="text-sm text-slate-500 leading-relaxed italic">
-              "Don’t discount your observations if they don’t 'fit' with a neuro-diagnosis. Use the framework to guide clinical judgment, not replace it."
+              Key element of the tool: Don’t discount your observations if they don’t 'fit' with a neurological diagnosis. Use the framework to guide clinical judgment, not replace it.
             </p>
           </div>
         </div>
