@@ -4,11 +4,12 @@ import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
 import taskData from "../data/tasks.json";
 import customData from "../data/custom.json";
+import defData from "../data/definitions.json"; // UPDATE 1: Import definitions
 import Row from "../components/Row";
 
 function Tool() {
   const [hidden, setHidden] = useState(false);
-  const [showHighlights, setShowHighlights] = useState(false); // Default to Blind Mode
+  const [showHighlights, setShowHighlights] = useState(false); 
   const [checkedItems, setCheckedItems] = useState({});
   
   const [customValues, setCustomValues] = useState({
@@ -77,6 +78,7 @@ function Tool() {
           isChecked={!!checkedItems[charName]} 
           onToggle={(val) => handleToggle(charName, val, data)} 
           showHighlights={showHighlights}
+          definition={defData[charName]} // UPDATE 2: Pass definition to Row
         />
       );
     });
@@ -116,13 +118,26 @@ function Tool() {
     );
   });
 
+  // UPDATE 3: Polished Clinical Smart Phrase logic
   const generateSmartPhrase = () => {
     const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
     let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
     text += `Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
-    text += `Clinical Ratings:\n- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n- Naturalness: ${customValues["Naturalness"]}/100\n- Efficiency: ${customValues["Efficiency"]}/100\n\n`;
+    
+    text += `Clinical Ratings:\n`;
+    text += `- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n`;
+    text += `- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n`;
+    text += `- Naturalness Rating (VAS): ${customValues["Naturalness"]}/100\n`;
+    text += `- Efficiency Rating (VAS): ${customValues["Efficiency"]}/100\n\n`;
+
     text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
     text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]}`).join('\n');
+    
+    text += `\n\nOverall Impressions:\n`;
+    text += `Speech features observed during this evaluation suggest possible involvement of [Neural Area].\n`;
+    text += `Primary motor speech disorder classification: [MSD Type].\n`;
+    text += `Perceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
+    
     return text;
   };
 
@@ -144,23 +159,30 @@ function Tool() {
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
       <style dangerouslySetInnerHTML={{ __html: `@media print { .no-print { display: none !important; } }` }} />
       
+      {/* BRANDING */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 no-print border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
         </div>
         <div className="text-left md:text-right">
-          <p className="text-lg md:text-xl font-bold tracking-tight mb-2">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
+          <p className="text-lg md:text-xl leading-none tracking-tight mb-2 font-bold text-slate-900">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
+          <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Diagnostic Assessment Tool</p>
         </div>
       </div>
 
+      {/* TOP TOGGLE */}
       <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
         <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-center gap-4">
-          <p className="text-xs font-bold text-sky-800 uppercase tracking-wide">Toggle to hide or reveal results during administration.</p>
+          <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200">i</div>
+          <p className="text-xs font-bold text-sky-800 leading-relaxed uppercase tracking-wide">
+            Toggle to hide or reveal the highlighted results during administration of the tasks.
+          </p>
         </div>
         <RevealToggle />
       </div>
 
+      {/* MAIN TABLE */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -175,20 +197,36 @@ function Tool() {
         </table>
       </div>
 
+      {/* ACTION BUTTONS */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl">{hidden ? "Show All Rows" : "Hide Unchecked Rows"}</button>
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
+          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+        </button>
         <RevealToggle />
-        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl">Generate PDF Report</button>
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
       </div>
 
+      {/* RATINGS & OBSERVATIONS */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden"><tbody>{customRows}</tbody></table></div>
-        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
+        <div className="lg:col-span-1">
+          <table className="table-fixed border border-slate-700 w-full rounded-xl overflow-hidden">
+            <tbody>{customRows}</tbody>
+          </table>
+        </div>
+        <div className="lg:col-span-2">
+          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea>
+        </div>
       </div>
 
-      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-        <table className="table-fixed text-center border-collapse w-full">
-          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700">Summary Scorecard</th>{secondRow}</tr></thead>
+      {/* SCORECARD */}
+      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
+        <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
+          <thead>
+            <tr className="bg-slate-800 text-white text-xs font-black uppercase">
+              <th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>
+              {secondRow}
+            </tr>
+          </thead>
           <tbody>
             <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
             <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
@@ -198,12 +236,20 @@ function Tool() {
         </table>
       </div>
 
+      {/* EPIC SMART PHRASE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-          <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2>
-          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg">Copy Smart Phrase</button>
+          <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
+          <button 
+            onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} 
+            className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all"
+          >
+            Copy Smart Phrase
+          </button>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto"><pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre></div>
+        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
+          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
+        </div>
       </div>
     </div>
   );
