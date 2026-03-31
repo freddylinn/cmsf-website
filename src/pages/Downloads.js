@@ -68,13 +68,13 @@ function Downloads() {
       <footer className="py-20 bg-white border-t border-slate-200 text-center px-6">
         <div className="max-w-4xl mx-auto space-y-6">
           <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
-            Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). <br />
+            Hilger, A., Cloud, C., & Dunne-Platero, K. (2024). <br />
             Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
             https://cmsf.info
           </p>
           <div className="h-px w-12 bg-slate-200 mx-auto"></div>
           <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
-            © 2024-2026, Regents of the University of Colorado, a body corporate. <br />
+            © 2023-2026, Regents of the University of Colorado, a body corporate. <br />
             Developed in the Colorado Motor Speech lab. All rights reserved. <br />
             Website developed by Frederick Linn (Frederick.Linn@colorado.edu)
           </p>
