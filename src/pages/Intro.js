@@ -14,7 +14,7 @@ function Intro() {
         </h1>
 
         <p className="text-xl md:text-2xl text-slate-500 max-w-3xl leading-relaxed mb-10">
-          A standardized clinical framework designed to assist Speech-Language Pathologists 
+          A  clinical framework designed to assist Speech-Language Pathologists 
           in the differential diagnosis and classification of motor speech disorders.
         </p>
 
@@ -43,8 +43,8 @@ function Intro() {
             </h2>
             <ul className="space-y-4">
               {[
-                "Administer standard motor speech evaluation tasks (e.g., AMRs/SMRs, prolonged vowel, conversational speech).",
-                "Observe deviant speech and non-speech features across respiratory, phonatory, resonance, and articulatory subsystems.",
+                "Administer standard motor speech evaluation tasks (e.g., connected speech, maximum phonation time, DDK's, etc.).",
+                "Observe deviant speech and non-speech features across respiratory, phonatory, resonance, prosodic, and articulatory subsystems.",
                 "Mark 'Y' for features that are clearly present using the binary selection tool.",
                 "Review the Diagnostic Scorecard to identify which motor speech subtype aligns most closely with observed features.",
                 "Utilize the Net Differential Diagnostic Score to guide clinical classification and evaluation reports."
