@@ -51,7 +51,7 @@ function Tool() {
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
         <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
           <div className="flex items-center gap-3">
-            <span className="text-[18px] font-black capitalize tracking-normal text-slate-500">
+            <span className="text-[12px] font-black capitalize tracking-normal text-slate-500">
               {groupName.toLowerCase()}
             </span>
             <div className="has-tooltip relative flex items-center">
@@ -106,6 +106,7 @@ function Tool() {
               value={customValues[title] || ""}
               onChange={(e) => setCustomValues(prev => ({ ...prev, [title]: e.target.value }))}
             />
+            {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600">{customValues[title]}</span>}
           </div>
         </td>
       </tr>
@@ -123,9 +124,31 @@ function Tool() {
     </div>
   );
 
+  // RESTORED COMPREHENSIVE SMART PHRASE
   const generateSmartPhrase = () => {
     const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
-    let text = `Evaluation: CMSF\nObservations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "None.");
+    
+    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
+    text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
+    
+    text += `Clinical Ratings:\n`;
+    text += `- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n`;
+    text += `- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n`;
+    text += `- Naturalness Rating (VAS): ${customValues["Naturalness"]}/100\n`;
+    text += `- Efficiency Rating (VAS): ${customValues["Efficiency"]}/100\n\n`;
+
+    text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
+    
+    text += `\n\nDifferential Summary:\n`;
+    text += headerKeys.map((k, i) => {
+        return `${k}: Net ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`;
+    }).join('\n');
+    
+    text += `\n\nOverall Impressions:\n`;
+    text += `Speech features observed during this evaluation suggest possible involvement of [Neural Area].\n`;
+    text += `Primary motor speech disorder classification: [MSD Type].\n`;
+    text += `Perceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
+    
     return text;
   };
 
@@ -147,7 +170,6 @@ function Tool() {
         </div>
       </div>
 
-      {/* TOP CONTROL CENTER */}
       <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
         <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4">
           <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200 mt-0.5">i</div>
@@ -158,19 +180,6 @@ function Tool() {
         <RevealToggle />
       </div>
 
-      {/* DIAGNOSTIC KEY */}
-      {showHighlights && (
-        <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 no-print shadow-sm">
-          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Diagnostic Indicator Key</h3>
-          <div className="flex flex-wrap gap-x-12 gap-y-6">
-            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs">X</div><span className="text-xs font-bold text-slate-700 uppercase">Common</span></div>
-            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs">XX</div><span className="text-xs font-bold text-slate-700 uppercase">Highly Distinguishing</span></div>
-            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs">—</div><span className="text-xs font-bold text-slate-700 uppercase">Unexpected</span></div>
-          </div>
-        </div>
-      )}
-
-      {/* TABLE */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -185,16 +194,14 @@ function Tool() {
         </table>
       </div>
 
-      {/* BOTTOM ACTIONS */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all">
           {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
         </button>
         <RevealToggle />
         <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF</button>
       </div>
 
-      {/* RATINGS */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
         <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden"><tbody>{customRows}</tbody></table></div>
         <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
@@ -203,26 +210,27 @@ function Tool() {
       {/* SCORECARD */}
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto no-print">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
-          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700">Summary Scorecard</th>{secondRow}</tr></thead>
+          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
-            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
             <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
           </tbody>
         </table>
       </div>
 
-      {/* EPIC SMART PHRASE */}
+      {/* RESTORED FULL EPIC SUMMARY */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-          <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Summary</h2>
-          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg">Copy Smart Phrase</button>
+          <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
+          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all">Copy Smart Phrase</button>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto"><pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre></div>
+        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
+          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
+        </div>
       </div>
 
-      {/* RESTORED FOOTER */}
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print px-4">
         <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
           Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
@@ -231,7 +239,7 @@ function Tool() {
         </p>
         <div className="h-px w-12 bg-slate-200 mx-auto my-4"></div>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
-          © 2023-2026, Regents of the University of Colorado. All rights reserved. <br />
+          © 2024-2026, Regents of the University of Colorado. All rights reserved. <br />
           Website by Frederick Linn (Frederick.Linn@colorado.edu).
         </p>
       </footer>
