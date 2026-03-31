@@ -20,14 +20,15 @@ function Row({ rowData, isChecked, onToggle, headerLength }) {
 
   return (
     <tr className="hover:bg-slate-50 transition-colors">
-      <td className={`p-4 border border-slate-700 text-sm text-left transition-all pl-6 ${
+      {/* STICKY COLUMN: Optimized for mobile vertical context */}
+      <td className={`sticky left-0 z-10 p-4 border border-slate-700 text-sm text-left transition-all pl-6 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] ${
         isChecked ? 'bg-white font-black text-slate-900 underline decoration-sky-100 decoration-4' : 'bg-slate-50 text-slate-900 font-bold'
       }`}>
         <div className="flex justify-between items-center gap-4">
-          <span>{title}</span>
+          <span className="leading-tight">{title}</span>
           {charTaskData[title] && (
             <div className="has-tooltip relative">
-              <span className="tooltip absolute left-full -top-4 ml-6 rounded-2xl leading-relaxed shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[600px] text-left border border-slate-300 z-50 whitespace-normal ring-1 ring-slate-200">
+              <span className="tooltip absolute left-full -top-4 ml-6 rounded-2xl leading-relaxed shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[300px] md:w-[600px] text-left border border-slate-300 z-50 whitespace-normal ring-1 ring-slate-200">
                 <p className="mb-2 text-[10px] font-black uppercase text-sky-700 tracking-widest">Definition:</p>
                 {charTaskData[title].split("\n").map((item, key) => <p className="my-3 first:mt-0 font-medium" key={key}>{item}</p>)}
               </span>
