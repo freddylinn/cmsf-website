@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// Removed 'Link' from here to satisfy the compiler
 import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
 import taskData from "../data/tasks.json";
 import customData from "../data/custom.json";
-import charTasksData from "../data/char-tasks.json"; // Definitions file
+import charTasksData from "../data/char-tasks.json"; 
 import Row from "../components/Row";
 
 function Tool() {
   const [hidden, setHidden] = useState(false);
-  const [showHighlights, setShowHighlights] = useState(false); // Default to Blind Mode
+  const [showHighlights, setShowHighlights] = useState(false); 
   const [checkedItems, setCheckedItems] = useState({});
   
   const [customValues, setCustomValues] = useState({
@@ -44,7 +44,6 @@ function Tool() {
   const charRows = Object.keys(charData).flatMap((groupName) => {
     const groupItems = Object.entries(charData[groupName]);
     const visibleItems = groupItems.filter(([name]) => !hidden || checkedItems[name]);
-    
     if (visibleItems.length === 0) return [];
 
     const rows = [];
@@ -118,14 +117,13 @@ function Tool() {
     return text;
   };
 
-  const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black">{item}</th>));
+  const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>));
   const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">{val}</th>));
 
   return (
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
       <style dangerouslySetInnerHTML={{ __html: `@media print { .no-print { display: none !important; } }` }} />
       
-      {/* BRANDING */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 no-print border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
@@ -136,7 +134,6 @@ function Tool() {
         </div>
       </div>
 
-      {/* TOP TOGGLE */}
       <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
         <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-center gap-4">
           <p className="text-xs font-bold text-sky-800 uppercase tracking-wide">Toggle to hide or reveal results during administration.</p>
@@ -144,7 +141,6 @@ function Tool() {
         <RevealToggle />
       </div>
 
-      {/* TABLE */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -159,38 +155,41 @@ function Tool() {
         </table>
       </div>
 
-      {/* BOTTOM ACTIONS */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
-          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all">
+          {hidden ? "Show All" : "Hide Unchecked"}
         </button>
         <RevealToggle />
-        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF</button>
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl">Generate PDF</button>
       </div>
 
-      {/* SCORECARD */}
-      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
+        <div className="lg:col-span-1">
+          <table className="border border-slate-700 w-full rounded-xl overflow-hidden">
+            <tbody>{customRows}</tbody> {/* USES customRows HERE */}
+          </table>
+        </div>
+        <div className="lg:col-span-2">
+          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px]" placeholder="Clinical Observations..."></textarea>
+        </div>
+      </div>
+
+      <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto no-print">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
-          <thead>
-            <tr className="bg-slate-800 text-white text-xs font-black uppercase">
-              <th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>
-              {secondRow}
-            </tr>
-          </thead>
+          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700">Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
-            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
             <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
           </tbody>
         </table>
       </div>
 
-      {/* SMART PHRASE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-          <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
-          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all">Copy Smart Phrase</button>
+          <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Summary</h2>
+          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg">Copy Summary</button>
         </div>
         <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
           <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
