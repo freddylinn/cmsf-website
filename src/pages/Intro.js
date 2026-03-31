@@ -108,7 +108,7 @@ function Intro() {
       <footer className="py-16 bg-slate-50 border-t border-slate-100 text-center px-6">
         <div className="max-w-4xl mx-auto space-y-4">
           <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose">
-            © 2024-2026, Regents of the University of Colorado, a body corporate. <br />
+            © 2023-2026, Regents of the University of Colorado, a body corporate. <br />
             Developed in the Colorado Motor Speech lab. All rights reserved.
           </p>
           <div className="h-px w-12 bg-slate-200 mx-auto"></div>
