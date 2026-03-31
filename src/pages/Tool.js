@@ -70,7 +70,6 @@ function Tool() {
       rows.push(<Row key={`${groupName}-${charName}`} rowData={[charName, data]} isChecked={!!checkedItems[charName]} onToggle={(val) => handleToggle(charName, val, data)} headerLength={headerKeys.length} />);
     });
 
-    // RESTORED: Link is now used
     if (groupName === "Articulation") {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
@@ -111,14 +110,30 @@ function Tool() {
   });
 
   const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>));
-  const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>));
+  const secondRow = headerKeys.map(val => (
+    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
+  ));
 
-  const generateEPICSummary = () => {
+  const generateSmartPhrase = () => {
     const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
-    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n(Dunne-Platero, Cloud, & Hilger, 2024)\n\n`;
-    text += `Clinical Ratings:\n- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n- Intelligibility: ${customValues["Intelligibility"] || "N/A"}%\n- Naturalness: ${customValues["Naturalness"]}/100\n- Efficiency: ${customValues["Efficiency"]}/100\n\n`;
+    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
+    // UPDATED CITATION IN SMART PHRASE
+    text += `Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
+    
+    text += `Clinical Ratings:\n`;
+    text += `- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n`;
+    text += `- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n`;
+    text += `- Naturalness Rating (VAS): ${customValues["Naturalness"]}/100\n`;
+    text += `- Efficiency Rating (VAS): ${customValues["Efficiency"]}/100\n\n`;
+
     text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
-    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]}`).join('\n');
+    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
+    
+    text += `\n\nOverall Impressions:\n`;
+    text += `Speech features observed during this evaluation suggest possible involvement of [Neural Area].\n`;
+    text += `Primary motor speech disorder classification: [MSD Type].\n`;
+    text += `Perceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
+    
     return text;
   };
 
@@ -157,7 +172,6 @@ function Tool() {
         </table>
       </div>
 
-      {/* RESTORED: setHidden is now used */}
       <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 mb-16 no-print">
         <button 
           onClick={() => setHidden(!hidden)} 
@@ -169,8 +183,14 @@ function Tool() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1"><table className="table-fixed border border-slate-700 w-full rounded-xl overflow-hidden"><tbody>{customRows}</tbody></table></div>
-        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
+        <div className="lg:col-span-1">
+          <table className="table-fixed border border-slate-700 w-full rounded-xl overflow-hidden">
+            <tbody>{customRows}</tbody>
+          </table>
+        </div>
+        <div className="lg:col-span-2">
+          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea>
+        </div>
       </div>
 
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
@@ -188,14 +208,28 @@ function Tool() {
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
           <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
-          <button onClick={() => { navigator.clipboard.writeText(generateEPICSummary()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all">Copy Smart Phrase</button>
+          <button 
+            onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} 
+            className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all"
+          >
+            Copy Smart Phrase
+          </button>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto"><pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateEPICSummary()}</pre></div>
+        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
+          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
+        </div>
       </div>
 
-      <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
+      <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print px-4">
+        <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
+          Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). <br />
+          Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
+          https://cmsf.info
+        </p>
+        <div className="h-px w-12 bg-slate-200 mx-auto my-4"></div>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
-          © 2024-2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab. Website by Frederick Linn.
+          © 2024-2026, Regents of the University of Colorado, a body corporate. Developed in the Colorado Motor Speech lab. All rights reserved. <br />
+          Website by Frederick Linn (Frederick.Linn@colorado.edu).
         </p>
       </footer>
     </div>
