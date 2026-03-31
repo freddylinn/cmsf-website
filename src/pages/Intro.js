@@ -1,6 +1,7 @@
-function Home() {
 import React from "react";
 import { Link } from "react-router-dom";
+
+function Intro() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
       {/* Hero Section */}
