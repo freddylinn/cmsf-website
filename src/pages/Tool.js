@@ -222,13 +222,13 @@ function Tool() {
 
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print px-4">
         <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
-          Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). <br />
+          Hilger, A., Cloud, C., & Dunne-Platero, K. (2024). <br />
           Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
           https://cmsf.info
         </p>
         <div className="h-px w-12 bg-slate-200 mx-auto my-4"></div>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
-          © 2024-2026, Regents of the University of Colorado, a body corporate. Developed in the Colorado Motor Speech lab. All rights reserved. <br />
+          © 2023-2026, Regents of the University of Colorado, a body corporate. Developed in the Colorado Motor Speech lab. All rights reserved. <br />
           Website by Frederick Linn (Frederick.Linn@colorado.edu).
         </p>
       </footer>
