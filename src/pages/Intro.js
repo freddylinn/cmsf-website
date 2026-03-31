@@ -1,56 +1,121 @@
-function Intro() {
+function Home() {
+import React from "react";
+import { Link } from "react-router-dom";
   return (
-    <>
-      <div className="bg-[url('../public/images/greenmountain.webp')] bg-cover min-h-[calc(100vh-6rem)]">
-        <div className="h-4"></div>
-        <h1 className="text-3xl font-bold text-center py-2 px-4 mt-4 mb-8 bg-gray-900/70 backdrop-blur-sm text-white rounded-md w-11/12 md:w-1/2 mx-auto">
-          Welcome to the Colorado Motor Speech Framework!
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      {/* Hero Section */}
+      <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-left">
+        
+        {/* LOGO STYLE MATCHED TO NAVBAR */}
+        <h1 className="text-4xl md:text-6xl tracking-tight mb-6">
+          <span className="font-bold text-slate-900">Colorado</span>{" "}
+          <span className="font-normal text-slate-400">Motor Speech Framework</span>
         </h1>
-        <p className="text-lg leading-relaxed text-left w-11/12 lg:w-256 mx-auto bg-gray-900/70 backdrop-blur-sm text-white p-6 rounded-md">
-          This is a tool to help guide the assessment of motor speech disorders.
-          There are suggested tasks to administer in the popup window if you
-          hover over the blue “i” in the far left-hand column. Using those
-          tasks, you will identify which characteristics you are observing with
-          your patient by checking the yes/no box for that characteristic. The
-          resulting boxes for that row will be highlighted to indicate if that
-          characteristic is a highly distinguishing feature for a particular
-          motor speech disorder subtype (green and XX), a common feature for
-          that subtype (yellow and X), not common (blank), or would be very
-          unexpected (red and -). As you scroll down, you can then click the box
-          “Hide Unchecked Rows” to isolate only the observed characteristics.
-          You will also notice a count total at the very bottom to assist your
-          diagnostic decision making. However, remember that your clinical
-          knowledge should be used foremost over the count of X's to make a
-          decision. We also recommend logging participant self-rating of their
-          speech and then your clinician estimates of intelligibility,
-          naturalness, and efficiency in the provided box at the end. When you
-          are completed with the assessment, you can save it as a PDF by going
-          right clicking the window, selecting “Print,” and changing the
-          destination to “Save as PDF.”
+
+        <p className="text-xl md:text-2xl text-slate-500 max-w-3xl leading-relaxed mb-10">
+          A standardized clinical framework designed to assist Speech-Language Pathologists 
+          in the differential diagnosis and classification of motor speech disorders.
         </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 mb-20">
+          <Link 
+            to="/tool" 
+            className="px-8 py-4 bg-sky-500 text-white font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 hover:-translate-y-1 transition-all text-center"
+          >
+            Start Assessment
+          </Link>
+          <Link 
+            to="/movement" 
+            className="px-8 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center"
+          >
+            Body Movement Form
+          </Link>
+        </div>
+
+        <hr className="border-slate-100 mb-16" />
+
+        {/* HOW TO USE SECTION - BASED ON CLINICAL TUTORIAL */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+          <div>
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-sky-600 mb-6">
+              How to Use the CMSF
+            </h2>
+            <ul className="space-y-4">
+              {[
+                "Administer standard motor speech evaluation tasks (e.g., AMRs/SMRs, prolonged vowel, conversational speech).",
+                "Observe deviant speech and non-speech features across respiratory, phonatory, resonance, and articulatory subsystems.",
+                "Mark 'Y' for features that are clearly present using the binary selection tool.",
+                "Review the Diagnostic Scorecard to identify which motor speech subtype aligns most closely with observed features.",
+                "Utilize the Net Differential Diagnostic Score to guide clinical classification and evaluation reports."
+              ].map((bullet, i) => (
+                <li key={i} className="flex gap-4 text-slate-600 leading-relaxed">
+                  <span className="font-black text-sky-500">—</span>
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200">
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-6">
+              Clinical Privacy & Integrity
+            </h2>
+            <p className="text-sm text-slate-500 leading-relaxed mb-4">
+              To respect patient privacy, <strong>no input data are stored or transmitted</strong> to any servers. All calculations occur locally within your browser.
+            </p>
+            <p className="text-sm text-slate-500 leading-relaxed italic">
+              "Don’t discount your observations if they don’t 'fit' with a neuro-diagnosis. Use the framework to guide clinical judgment, not replace it."
+            </p>
+          </div>
+        </div>
+
+        {/* FRAMEWORK DEVELOPERS */}
+        <div className="border-t border-slate-100 pt-12">
+          <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8">
+            Framework Developers
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div>
+              <p className="font-bold text-slate-900">Allison Hilger</p>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-tighter">PhD, CCC-SLP</p>
+            </div>
+            <div>
+              <p className="font-bold text-slate-900">Caitlin Cloud</p>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-tighter">MA, CCC-SLP</p>
+            </div>
+            <div>
+              <p className="font-bold text-slate-900">Kylie Dunne-Platero</p>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-tighter">MS, CCC-SLP</p>
+            </div>
+          </div>
+        </div>
+
+        {/* CONTACT SECTION */}
+        <div className="mt-20 p-8 bg-slate-900 rounded-3xl text-white flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="font-medium text-center md:text-left">Questions, comments, or clinical feedback?</p>
+          <a 
+            href="mailto:allison.hilger@colorado.edu" 
+            className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors text-sm"
+          >
+            allison.hilger@colorado.edu
+          </a>
+        </div>
       </div>
-      <footer className="w-full bg-zinc-800 py-4">
-        <p className="text-sm leading-relaxed text-center w-3/4 mx-auto text-slate-300">
-          The CMSF tool was developed by Kylie Dunne-Platero, MA, CCC-SLP,
-          Caitlin Cloud, MA, CCC-SLP, and Allison Hilger, PhD, CCC-SLP. Website
-          developed by Frederick Linn (
-          <a
-            href="mailto:frederick.linn@colorado.edu"
-            className="underline text-blue-500"
-          >
-            Frederick.Linn@colorado.edu.
-          </a>
-          ) If you have any comments or suggestions, please email Dr. Allison
-          Hilger at{" "}
-          <a
-            className="underline text-blue-500"
-            href="mailto:Allison.Hilger@colorado.edu"
-          >
-            Allison.Hilger@colorado.edu
-          </a>
-        </p>
+
+      {/* FOOTER: COPYRIGHT & WEBSITE DEVELOPER */}
+      <footer className="py-16 bg-slate-50 border-t border-slate-100 text-center px-6">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose">
+            © 2024-2026, Regents of the University of Colorado, a body corporate. <br />
+            Developed in the Colorado Motor Speech lab. All rights reserved.
+          </p>
+          <div className="h-px w-12 bg-slate-200 mx-auto"></div>
+          <p className="text-[10px] text-slate-400 font-medium">
+            Website developed by Frederick Linn (<a href="mailto:Frederick.Linn@colorado.edu" className="hover:text-sky-500 underline transition-colors">Frederick.Linn@colorado.edu</a>)
+          </p>
+        </div>
       </footer>
-    </>
+    </div>
   );
 }
 
