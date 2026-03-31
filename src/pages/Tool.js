@@ -10,7 +10,6 @@ function Tool() {
   const [hidden, setHidden] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   
-  // NEW: State to track clinical ratings for the EPIC summary
   const [customValues, setCustomValues] = useState({
     "Self-Rating": "",
     "Intelligibility": "",
@@ -46,7 +45,9 @@ function Tool() {
   const charRows = Object.keys(charData).flatMap((groupName) => {
     const groupItems = Object.entries(charData[groupName]);
     const visibleItems = groupItems.filter(([name]) => !hidden || checkedItems[name]);
+    
     if (visibleItems.length === 0) return [];
+
     const rows = [];
     rows.push(
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
@@ -64,9 +65,24 @@ function Tool() {
         </td>
       </tr>
     );
+
     visibleItems.forEach(([charName, data]) => {
       rows.push(<Row key={`${groupName}-${charName}`} rowData={[charName, data]} isChecked={!!checkedItems[charName]} onToggle={(val) => handleToggle(charName, val, data)} headerLength={headerKeys.length} />);
     });
+
+    // RESTORED: Link is now used
+    if (groupName === "Articulation") {
+      rows.push(
+        <tr key="fiti-link" className="bg-sky-50 print:hidden">
+          <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
+            <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
+              Perform Modular FITI Assessment
+            </Link>
+          </td>
+        </tr>
+      );
+    }
+
     return rows;
   });
 
@@ -97,27 +113,12 @@ function Tool() {
   const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>));
   const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>));
 
-  // EPIC Summary Generator
   const generateEPICSummary = () => {
     const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
-    
-    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
-    text += `(Dunne-Platero, Cloud, & Hilger, 2024)\n\n`;
-    
-    // RESTORED: Clinical Ratings Section
-    text += `Clinical Ratings:\n`;
-    text += `- Patient Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n`;
-    text += `- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n`;
-    text += `- Naturalness Rating (VAS): ${customValues["Naturalness"]}/100\n`;
-    text += `- Efficiency Rating (VAS): ${customValues["Efficiency"]}/100\n\n`;
-
-    text += `Observations:\n`;
-    text += checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.";
-    
-    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
-    
-    text += `\n\nOverall Impressions:\nPatient presents with a pattern of speech features indicating involvement of [Neural Area]. Primary MSD classification: [MSD Type]. Severity: [Mild/Mod/Severe].`;
-    
+    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n(Dunne-Platero, Cloud, & Hilger, 2024)\n\n`;
+    text += `Clinical Ratings:\n- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n- Intelligibility: ${customValues["Intelligibility"] || "N/A"}%\n- Naturalness: ${customValues["Naturalness"]}/100\n- Efficiency: ${customValues["Efficiency"]}/100\n\n`;
+    text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
+    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]}`).join('\n');
     return text;
   };
 
@@ -125,7 +126,6 @@ function Tool() {
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
       <style dangerouslySetInnerHTML={{ __html: `@media print { .no-print { display: none !important; } }` }} />
       
-      {/* Branding Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 no-print border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
@@ -143,7 +143,6 @@ function Tool() {
         <p className="text-xs font-black text-sky-800 uppercase tracking-wide">Hover over the blue "i's" for suggested tasks and feature definitions.</p>
       </div>
 
-      {/* Main Table */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -158,19 +157,22 @@ function Tool() {
         </table>
       </div>
 
-      {/* Sliders and Notes */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1">
-            <table className="table-fixed border border-slate-700 w-full rounded-xl overflow-hidden">
-                <tbody>{customRows}</tbody>
-            </table>
-        </div>
-        <div className="lg:col-span-2">
-            <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea>
-        </div>
+      {/* RESTORED: setHidden is now used */}
+      <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 mb-16 no-print">
+        <button 
+          onClick={() => setHidden(!hidden)} 
+          className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 transition-all"
+        >
+          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+        </button>
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF Report</button>
       </div>
 
-      {/* Scorecard */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
+        <div className="lg:col-span-1"><table className="table-fixed border border-slate-700 w-full rounded-xl overflow-hidden"><tbody>{customRows}</tbody></table></div>
+        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 text-base outline-none min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
+      </div>
+
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
@@ -183,28 +185,17 @@ function Tool() {
         </table>
       </div>
 
-      {/* EPIC SMART PHRASE MODULE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-          <div className="text-left">
-            <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2>
-            <p className="text-sm text-slate-500 mt-1">Copy this summary directly into your medical documentation.</p>
-          </div>
-          <button 
-            onClick={() => { navigator.clipboard.writeText(generateEPICSummary()); alert("Summary Copied!"); }} 
-            className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all"
-          >
-            Copy Smart Phrase
-          </button>
+          <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
+          <button onClick={() => { navigator.clipboard.writeText(generateEPICSummary()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all">Copy Smart Phrase</button>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
-          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateEPICSummary()}</pre>
-        </div>
+        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto"><pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateEPICSummary()}</pre></div>
       </div>
 
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
-          © 2023-2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab PI Dr. Allison Hilger. Website by Frederick Linn.
+          © 2024-2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab. Website by Frederick Linn.
         </p>
       </footer>
     </div>
