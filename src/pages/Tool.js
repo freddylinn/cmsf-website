@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
+import taskData from "../data/tasks.json"; // Restored for subsystem tooltips
 import customData from "../data/custom.json";
 import Row from "../components/Row";
 
@@ -42,12 +43,25 @@ function Tool() {
 
     const rows = [];
 
-    // SLIM HORIZONTAL SECTION HEADER
-    // This maintains the "Groups" context without forcing vertical height
+    // LEFT-ALIGNED HORIZONTAL HEADER WITH TASK TOOLTIP
     rows.push(
-      <tr key={`section-${groupName}`} className="bg-slate-50 border-y-2 border-slate-300">
-        <td colSpan={headerKeys.length + 2} className="p-2 pl-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 bg-slate-50/50">
-          {groupName}
+      <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
+        <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
+              {groupName}
+            </span>
+            {/* Subsystem Task Information Pop-up */}
+            <div className="has-tooltip relative flex items-center">
+              <span className="tooltip absolute left-full top-0 ml-6 leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[600px] border border-slate-300 z-50 text-left whitespace-normal ring-1 ring-slate-200">
+                <p className="mb-2 text-[10px] font-black uppercase text-sky-700 tracking-widest">Recommended Tasks:</p>
+                {taskData[groupName].split("\n").map((item, key) => (
+                  <p className="my-2 first:mt-0 font-medium" key={key}>{item}</p>
+                ))}
+              </span>
+              <button className="print:hidden px-2 py-0.5 rounded bg-sky-100 text-[10px] text-sky-700 font-bold border border-sky-200">i</button>
+            </div>
+          </div>
         </td>
       </tr>
     );
@@ -103,7 +117,7 @@ function Tool() {
     <th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>
   ));
   const secondRow = headerKeys.map(val => (
-    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-xs min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
+    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] min-w-[4.5rem] uppercase font-bold text-slate-700">{val}</th>
   ));
 
   return (
@@ -122,7 +136,6 @@ function Tool() {
         <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
           <thead>
             <tr className="bg-slate-100">
-              {/* REMOVED: Vertical Group Column */}
               <th rowSpan={2} className="p-3 border border-slate-700 w-80 text-xs font-black uppercase text-slate-900 text-left pl-6">Characteristics</th>
               <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase text-slate-900">Y/N</th>
               {firstRow}
@@ -145,12 +158,12 @@ function Tool() {
 
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
         <table className="table-fixed text-center border-collapse w-full min-w-[1200px]">
-          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 tracking-widest border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
+          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
-            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase text-slate-900">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
-            <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase tracking-widest">Calculated Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50 text-sm">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+            <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Calculated Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50 text-sm">{item}</td>)}</tr>
           </tbody>
         </table>
       </div>
