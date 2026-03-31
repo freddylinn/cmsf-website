@@ -4,7 +4,7 @@ import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
 import taskData from "../data/tasks.json";
 import customData from "../data/custom.json";
-import defData from "../data/definitions.json"; // UPDATE 1: Import definitions
+import defData from "../data/char-tasks.json"; // UPDATE 1: Import definitions
 import Row from "../components/Row";
 
 function Tool() {
