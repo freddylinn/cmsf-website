@@ -7,7 +7,7 @@ import Downloads from "./pages/Downloads";
 import Audio from "./pages/Audio";
 import BodyMovement from "./pages/BodyMovement";
 import PatientTasks from './pages/PatientTasks';
-import FitiAssessment from "./pages/FitiAssessment";
+import FitiAssessment from "./pages/FitiAssessment"; // Double check this filename!
 
 function App() {
   return (
