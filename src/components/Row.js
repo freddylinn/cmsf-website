@@ -4,13 +4,23 @@ function Row({ rowData, isChecked, onToggle, showHighlights, definition }) {
   const [charName, cellData] = rowData;
 
   const cells = cellData.map((val, i) => {
-    // val[0] is the type (-1, 1, 2)
-    // val[1] is the symbol or text string ("X", "XX", "(uncommon)", etc.)
-    
-    // 1. SYMBOL LOGIC: Always visible if the Master Toggle is ON
-    const displaySymbol = showHighlights ? val[1] : "";
+    // val[0] = Indicator Type (-1, 1, 2)
+    // val[1] = Indicator Symbol ("X", "XX", or special text)
 
-    // 2. COLOR LOGIC: Only visible if Toggle is ON AND the checkbox is checked
+    // 1. SYMBOL LOGIC: Reveal symbols if Master Toggle is ON.
+    // If the JSON string is empty, we force a fallback so markers don't disappear.
+    let displaySymbol = "";
+    if (showHighlights) {
+      if (val[1] && val[1] !== "") {
+        displaySymbol = val[1];
+      } else {
+        if (val[0] === 1) displaySymbol = "X";
+        if (val[0] === 2) displaySymbol = "XX";
+        if (val[0] === -1) displaySymbol = "—";
+      }
+    }
+
+    // 2. COLOR LOGIC: Only visible if Toggle is ON AND Checkbox is Checked.
     const shouldShowColor = showHighlights && isChecked;
 
     const bgColor = !shouldShowColor 
@@ -22,7 +32,7 @@ function Row({ rowData, isChecked, onToggle, showHighlights, definition }) {
     return (
       <td 
         key={i} 
-        className={`p-2 border border-slate-300 ${bgColor} font-bold text-[10px] leading-tight text-slate-900 transition-all duration-300 min-h-[40px]`}
+        className={`p-1 border border-slate-300 ${bgColor} font-bold text-[10px] leading-tight text-slate-900 transition-all duration-300 min-h-[44px] align-middle`}
       >
         {displaySymbol}
       </td>
