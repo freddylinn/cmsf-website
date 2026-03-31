@@ -118,7 +118,7 @@ function Tool() {
     const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
     let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
     // UPDATED CITATION IN SMART PHRASE
-    text += `Hilger, A., Cloud, L., & Dunne-Platero, C. (2024). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
+    text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
     
     text += `Clinical Ratings:\n`;
     text += `- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n`;
