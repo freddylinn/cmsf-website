@@ -7,7 +7,7 @@ function Download({ name, type, alias, description }) {
   
   return (
     <a 
-      href={`/files/${name}`} 
+      href={`/downloads/${name}`} 
       download 
       className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-sky-300 hover:-translate-y-1 transition-all flex flex-col items-start text-left w-full h-full"
     >
