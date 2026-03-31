@@ -1,59 +1,56 @@
-import React, { useEffect, useState } from "react";
-import Cell from "./Cell";
-import charTaskData from "../data/char-tasks.json";
+import React from "react";
 
-function Row({ rowData, isChecked, onToggle, headerLength }) {
-  const [directional, setDirectional] = useState(false);
-  const [title, setTitle] = useState(rowData[0]);
+function Row({ rowData, isChecked, onToggle, headerLength, showHighlights }) {
+  const [charName, cellData] = rowData;
 
-  useEffect(() => {
-    if (title.slice(-1) === "*") {
-      setDirectional(true);
-      setTitle(title.slice(0, -1));
-    }
-  }, [title]);
+  // Map through each diagnostic cell in the row
+  const cells = cellData.map((val, i) => {
+    // val[0] is the indicator type: -1 (Unexpected), 1 (Common), 2 (Highly Distinguishing)
+    // val[1] is the text symbol: "-", "X", "XX"
+    
+    // LOGIC: If showHighlights is false (Blind Mode), force white background and hide symbol
+    const bgColor = !showHighlights 
+      ? "bg-white" 
+      : val[0] === -1 
+        ? "bg-red-300"   // Unexpected Indicator
+        : val[0] === 1 
+          ? "bg-yellow-200" // Common Indicator
+          : val[0] === 2 
+            ? "bg-green-300"  // Highly Distinguishing Indicator
+            : "bg-white";
 
-  const cellValues = rowData[1] || [];
-  const cells = Array.from({ length: headerLength }).map((_, i) => (
-    <Cell key={i} checked={isChecked} color={cellValues[i]?.[0]} notes={cellValues[i]?.[1]} />
-  ));
+    const displaySymbol = !showHighlights ? "" : val[1];
+
+    return (
+      <td 
+        key={i} 
+        className={`p-2 border border-slate-300 ${bgColor} font-bold text-xs text-slate-900 transition-colors duration-300`}
+      >
+        {displaySymbol}
+      </td>
+    );
+  });
 
   return (
-    <tr className="hover:bg-slate-50 transition-colors">
-      {/* STICKY COLUMN: Optimized for mobile vertical context */}
-      <td className={`sticky left-0 z-10 p-4 border border-slate-700 text-sm text-left transition-all pl-6 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] ${
-        isChecked ? 'bg-white font-black text-slate-900 underline decoration-sky-100 decoration-4' : 'bg-slate-50 text-slate-900 font-bold'
-      }`}>
-        <div className="flex justify-between items-center gap-4">
-          <span className="leading-tight">{title}</span>
-          {charTaskData[title] && (
-            <div className="has-tooltip relative">
-              <span className="tooltip absolute left-full -top-4 ml-6 rounded-2xl leading-relaxed shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[300px] md:w-[600px] text-left border border-slate-300 z-50 whitespace-normal ring-1 ring-slate-200">
-                <p className="mb-2 text-[10px] font-black uppercase text-sky-700 tracking-widest">Definition:</p>
-                {charTaskData[title].split("\n").map((item, key) => <p className="my-3 first:mt-0 font-medium" key={key}>{item}</p>)}
-              </span>
-              <button className="print:hidden px-2 py-0.5 rounded bg-sky-100 text-[11px] text-sky-700 font-bold border border-sky-200">i</button>
-            </div>
-          )}
+    <tr className={`${isChecked ? "bg-sky-50/40" : "bg-white"} transition-colors hover:bg-slate-50 group`}>
+      {/* Characteristic Name - Sticky for easy scrolling */}
+      <td className="sticky left-0 z-10 p-3 pl-6 border border-slate-300 bg-inherit text-left text-[11px] md:text-sm font-semibold text-slate-700 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+        {charName}
+      </td>
+
+      {/* Y/N Checkbox */}
+      <td className="p-2 border border-slate-300 bg-inherit">
+        <div className="flex items-center justify-center">
+          <input 
+            type="checkbox" 
+            checked={isChecked} 
+            onChange={(e) => onToggle(e.target.checked)}
+            className="w-5 h-5 accent-sky-600 rounded border-slate-300 cursor-pointer transition-transform group-hover:scale-110"
+          />
         </div>
       </td>
 
-      <td className={`p-4 border border-slate-700 ${isChecked ? 'bg-white' : 'bg-slate-50'}`}>
-        <div className="flex flex-col items-center">
-          <input
-            type="checkbox"
-            checked={isChecked}
-            className="h-6 w-6 text-sky-500 rounded border-slate-400 focus:ring-sky-500 cursor-pointer shadow-sm"
-            onChange={() => onToggle(!isChecked)}
-          />
-          {isChecked && directional && (
-            <div className="flex justify-center mt-3 gap-4 border-t-2 border-slate-100 pt-3">
-              <div className="flex flex-col items-center"><input type="checkbox" className="h-4 w-4 rounded text-sky-400 border-slate-400" /><span className="text-[10px] font-black text-slate-400 mt-1 uppercase">L</span></div>
-              <div className="flex flex-col items-center"><input type="checkbox" className="h-4 w-4 rounded text-sky-400 border-slate-400" /><span className="text-[10px] font-black text-slate-400 mt-1 uppercase">R</span></div>
-            </div>
-          )}
-        </div>
-      </td>
+      {/* Diagnostic Indicator Cells */}
       {cells}
     </tr>
   );
