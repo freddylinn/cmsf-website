@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// Removed 'Link' from here to satisfy the compiler
+import { Link } from "react-router-dom"; // Restored for FITI link
 import charData from "../data/characteristics.json";
 import locData from "../data/locations.json";
 import taskData from "../data/tasks.json";
@@ -78,6 +78,18 @@ function Tool() {
         />
       );
     });
+
+    if (groupName === "Articulation") {
+      rows.push(
+        <tr key="fiti-link" className="bg-sky-50 print:hidden">
+          <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
+            <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
+              Perform Modular FITI Assessment
+            </Link>
+          </td>
+        </tr>
+      );
+    }
     return rows;
   });
 
@@ -117,30 +129,48 @@ function Tool() {
     return text;
   };
 
-  const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>));
+  const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black">{item}</th>));
   const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">{val}</th>));
 
   return (
     <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
       <style dangerouslySetInnerHTML={{ __html: `@media print { .no-print { display: none !important; } }` }} />
       
+      {/* BRANDING */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 no-print border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
         </div>
         <div className="text-left md:text-right">
-          <p className="text-lg md:text-xl font-bold tracking-tight mb-2">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
+          <p className="text-lg md:text-xl font-bold tracking-tight mb-2 text-slate-900">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
         </div>
       </div>
 
+      {/* TOP INSTRUCTION BOX & TOGGLE */}
       <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
-        <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-center gap-4">
-          <p className="text-xs font-bold text-sky-800 uppercase tracking-wide">Toggle to hide or reveal results during administration.</p>
+        <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4 shadow-sm">
+          <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200 mt-0.5">i</div>
+          <p className="text-xs font-bold text-sky-800 leading-relaxed uppercase tracking-wide">
+            Hover over blue "i's" for tasks. Toggle to hide or reveal the highlighted results during administration of the tasks.
+          </p>
         </div>
         <RevealToggle />
       </div>
 
+      {/* DIAGNOSTIC KEY (Visible when results are revealed) */}
+      {showHighlights && (
+        <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 no-print shadow-sm animate-in fade-in duration-500">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 text-left">Diagnostic Indicator Key</h3>
+          <div className="flex flex-wrap gap-x-12 gap-y-6">
+            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs">X</div><span className="text-xs font-bold text-slate-700 uppercase">Common</span></div>
+            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs">XX</div><span className="text-xs font-bold text-slate-700 uppercase">Highly Distinguishing</span></div>
+            <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs">—</div><span className="text-xs font-bold text-slate-700 uppercase">Unexpected</span></div>
+          </div>
+        </div>
+      )}
+
+      {/* MAIN TABLE */}
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead>
@@ -155,45 +185,40 @@ function Tool() {
         </table>
       </div>
 
+      {/* BOTTOM ACTIONS */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all">
-          {hidden ? "Show All" : "Hide Unchecked"}
+        <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-sky-600 transition-all">
+          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
         </button>
         <RevealToggle />
-        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl">Generate PDF</button>
+        <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl hover:bg-slate-900 transition-all">Generate PDF</button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div className="lg:col-span-1">
-          <table className="border border-slate-700 w-full rounded-xl overflow-hidden">
-            <tbody>{customRows}</tbody> {/* USES customRows HERE */}
-          </table>
-        </div>
-        <div className="lg:col-span-2">
-          <textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px]" placeholder="Clinical Observations..."></textarea>
-        </div>
+        <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden"><tbody>{customRows}</tbody></table></div>
+        <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px]" placeholder="Clinical Observations..."></textarea></div>
       </div>
 
+      {/* SCORECARD */}
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto no-print">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
-          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700">Summary Scorecard</th>{secondRow}</tr></thead>
+          <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
           <tbody>
-            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common Feature Total</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing Total</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+            <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected Feature Total</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
             <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase">Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
           </tbody>
         </table>
       </div>
 
+      {/* SMART PHRASE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-          <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Summary</h2>
-          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg">Copy Summary</button>
+          <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
+          <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg">Copy Smart Phrase</button>
         </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
-          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
-        </div>
+        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto"><pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre></div>
       </div>
     </div>
   );
