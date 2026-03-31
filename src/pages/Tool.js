@@ -93,20 +93,30 @@ function Tool() {
     return rows;
   });
 
-  const customRows = Object.entries(customData).map(([title]) => {
+const customRows = Object.entries(customData).map(([title]) => {
     const isSlider = title === "Naturalness" || title === "Efficiency";
+    const isSelfRating = title === "Self-Rating";
+    const isIntelligibility = title === "Intelligibility";
+
     return (
       <tr key={title}>
-        <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-xs uppercase font-black text-slate-900 tracking-wider">{title}</th>
+        <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-[10px] uppercase font-black text-slate-900 tracking-wider">
+          {title}
+        </th>
         <td className="p-3 border border-slate-700 text-center">
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-3">
             <input 
-              type={isSlider ? "range" : "text"} 
-              className="border p-2 rounded w-full font-bold text-slate-900 print:border-none" 
+              type={isSlider ? "range" : "number"} 
+              className={`border p-2 rounded font-bold text-slate-900 text-center print:border-none ${isSlider ? 'w-full' : 'w-20'}`} 
               value={customValues[title] || ""}
+              min={isSlider || isIntelligibility ? "0" : (isSelfRating ? "1" : "0")}
+              max={isSlider || isIntelligibility ? "100" : (isSelfRating ? "10" : "100")}
               onChange={(e) => setCustomValues(prev => ({ ...prev, [title]: e.target.value }))}
             />
+            {/* Units & Labels */}
             {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600 print:ml-2">{customValues[title]}</span>}
+            {isSelfRating && <span className="text-xs font-black text-slate-400">/ 10</span>}
+            {isIntelligibility && <span className="text-xs font-black text-slate-400">%</span>}
           </div>
         </td>
       </tr>
