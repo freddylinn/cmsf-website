@@ -110,6 +110,8 @@ function Intro() {
               <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Observe deviant speech features across subsystems.</li>
               <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Mark “Y” for features clearly present in the CMSF.</li>
               <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Review the Scorecard and visually examine the highlighted feature pattern across subtype columns.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the feature pattern to support neuroanatomical reasoning about possible lesion sites.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Determine whether the pattern reflects a pure or mixed dysarthria.</li>
               <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the EPIC summary to document classification and clinical impressions.</li>
               <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the optional Body Movements form for confirmatory signs.</li>
             </ul>
