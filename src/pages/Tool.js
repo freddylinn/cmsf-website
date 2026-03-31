@@ -117,7 +117,6 @@ function Tool() {
   const generateSmartPhrase = () => {
     const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
     let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
-    // UPDATED CITATION IN SMART PHRASE
     text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
     
     text += `Clinical Ratings:\n`;
@@ -145,7 +144,7 @@ function Tool() {
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
           <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900" type="text" placeholder="Enter name..." />
-          <p className="mt-4 text-[10px] font-bold text-slate-400 uppercase tracking-tight italic">Note: To respect patient privacy, no input data are stored or transmitted.</p>
+          <p className="mt-4 text-[10px] font-bold text-slate-400 uppercase tracking-tight italic leading-relaxed">Note: To respect patient privacy, no input data are stored or transmitted.</p>
         </div>
         <div className="text-left md:text-right">
           <p className="text-lg md:text-xl leading-none tracking-tight mb-2"><span className="font-bold text-slate-900">Colorado</span> <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
@@ -153,9 +152,33 @@ function Tool() {
         </div>
       </div>
 
+      {/* INSTRUCTION LINE */}
       <div className="mb-6 p-4 bg-sky-50 rounded-2xl border border-sky-100 no-print flex items-center gap-4">
         <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-sky-100 text-sky-700 font-bold text-[12px] border border-sky-200">i</div>
         <p className="text-xs font-black text-sky-800 uppercase tracking-wide">Hover over the blue "i's" for suggested tasks and feature definitions.</p>
+      </div>
+
+      {/* NEW: REINSTATED COLOR & INDICATOR KEY */}
+      <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 no-print shadow-sm">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Color & Indicator Key</h3>
+        <div className="flex flex-wrap gap-x-12 gap-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs">X</div>
+            <span className="text-xs font-bold text-slate-700 uppercase">Common Feature</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs">XX</div>
+            <span className="text-xs font-bold text-slate-700 uppercase">Highly Distinguishing Feature</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs">—</div>
+            <span className="text-xs font-bold text-slate-700 uppercase">Unexpected Feature</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded bg-white border border-slate-300"></div>
+            <span className="text-xs font-bold text-slate-700 uppercase">No Correlation</span>
+          </div>
+        </div>
       </div>
 
       <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto">
@@ -193,6 +216,7 @@ function Tool() {
         </div>
       </div>
 
+      {/* Scorecard */}
       <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto">
         <table className="table-fixed text-center border-collapse w-full min-w-[1000px]">
           <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
@@ -205,6 +229,7 @@ function Tool() {
         </table>
       </div>
 
+      {/* EPIC SMART PHRASE MODULE */}
       <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
           <div className="text-left"><h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2></div>
@@ -222,7 +247,7 @@ function Tool() {
 
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print px-4">
         <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
-          Hilger, A., Cloud, C., & Dunne-Platero, K. (2024). <br />
+          Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
           Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
           https://cmsf.info
         </p>
