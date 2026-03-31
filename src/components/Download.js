@@ -1,40 +1,40 @@
-function Download({ name, type, alias }) {
-  const hrefString = `/downloads/${name}`;
-  let displayString;
-  if (alias) {
-    displayString = alias;
-  } else {
-    displayString = name.replaceAll("_", " ");
-  }
-  let icon;
-  switch (type) {
-    case "pdf":
-      icon = "/images/pdficon.png";
-      break;
-    case "image":
-      icon = "/images/imageicon.png";
-      break;
-    case "excel":
-      icon = "/images/spreadsheeticon.png";
-      break;
-    default:
-      icon = "/images/imageicon.png";
-      break;
-  }
+import React from "react";
 
+function Download({ name, type, alias, description }) {
+  const isPdf = type === "pdf";
+  const isExcel = type === "excel";
+  const isImage = type === "image";
+  
   return (
-    <li className="max-w-full">
-      <a
-        href={hrefString}
-        download
-        className="max-w-full flex flex-wrap items-center justify-center my-4 gap-2 bg-gray-900/70 hover:bg-gray-950/80 shadow-md px-5 mx-2 py-2 rounded-lg"
-      >
-        <span className="text-blue-300 max-w-full break-words underline text-wrap">
-          {displayString}
-        </span>
-        <img className="w-8 h-8" src={icon} alt="" />
-      </a>
-    </li>
+    <a 
+      href={`/files/${name}`} 
+      download 
+      className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-sky-300 hover:-translate-y-1 transition-all flex flex-col items-start text-left w-full h-full"
+    >
+      <div className={`mb-6 p-3 rounded-2xl ${isPdf ? 'bg-red-50 text-red-600' : isExcel ? 'bg-green-50 text-green-600' : 'bg-sky-50 text-sky-600'}`}>
+        {isPdf ? (
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+        ) : isExcel ? (
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+        ) : (
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+        )}
+      </div>
+      
+      <h3 className="font-black text-slate-900 text-lg mb-2 group-hover:text-sky-600 transition-colors">
+        {alias || name}
+      </h3>
+      
+      <p className="text-sm text-slate-500 leading-relaxed flex-grow mb-6">
+        {description}
+      </p>
+      
+      <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+        <span>Download</span>
+        <span className="w-4 h-px bg-slate-200"></span>
+        <span>{type}</span>
+      </div>
+    </a>
   );
 }
 
