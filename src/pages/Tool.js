@@ -190,6 +190,71 @@ function Tool() {
         </table>
       </div>
 
+              // Helper to generate the text for EPIC
+  const generateSmartPhrase = () => {
+    const checkedNames = Object.keys(checkedItems).filter(key => checkedItems[key]);
+    
+    // Header based on Page 105 of the tutorial
+    let phrase = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
+    phrase += `The CMSF is an assessment tool for efficient assessment of motor speech disorders (Dunne-Platero, Cloud, & Hilger, 2024).\n\n`;
+
+    // Add observations grouped by checked features
+    if (checkedNames.length > 0) {
+      phrase += `Observations:\n`;
+      checkedNames.forEach(name => {
+        phrase += `- ${name}\n`;
+      });
+    } else {
+      phrase += `Observations: No deviant features were clearly present during this assessment.\n`;
+    }
+
+    // Add the Scorecard summary
+    phrase += `\nDiagnostic Summary:\n`;
+    headerKeys.forEach((key, i) => {
+      phrase += `${key}: Net Score ${counts.Total[i]} (Common: ${counts.Yellow[i]}, Distinguishing: ${counts.Green[i]}, Unexpected: ${counts.Red[i]})\n`;
+    });
+
+    phrase += `\nOverall Impressions:\n`;
+    phrase += `Patient presents with a pattern of speech features that indicate involvement of [Neural Area]. Primary MSD clinical classification: [MSD Type]. Severity: [Mild/Mod/Severe].\n`;
+    
+    return phrase;
+  };
+
+  const copyToClipboard = () => {
+    const text = generateSmartPhrase();
+    navigator.clipboard.writeText(text);
+    alert("EPIC Smart Phrase copied to clipboard!");
+  };
+
+  return (
+    <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900">
+      {/* ... existing table and scorecard code ... */}
+
+      {/* NEW: EPIC SMART PHRASE MODULE */}
+      <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 no-print">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+          <div className="text-left">
+            <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">EPIC Clinical Summary</h2>
+            <p className="text-sm text-slate-500 mt-1">Generate a formatted summary of your observations to copy into your medical records.</p>
+          </div>
+          <button 
+            onClick={copyToClipboard}
+            className="px-8 py-4 bg-sky-600 text-white font-black uppercase tracking-widest rounded-2xl shadow-lg hover:bg-sky-700 active:scale-95 transition-all flex items-center gap-3"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            Copy Smart Phrase
+          </button>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto">
+          <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700 leading-relaxed">
+            {generateSmartPhrase()}
+          </pre>
+        </div>
+      </div>
+
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
         <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4 text-center">Colorado Motor Speech Framework</p>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold text-center">
