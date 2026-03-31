@@ -180,7 +180,8 @@ function Tool() {
       <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 no-print">
         <p className="text-xs text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Colorado Motor Speech Framework</p>
         <p className="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed italic uppercase font-bold text-center">
-          © 2024-2026 Regents of the University of Colorado. Dunne-Platero, K., Cloud, C. S., & Hilger, A. Colorado Motor Speech Framework.
+          For questions, email Dr. Allison Hilger at allison.hilger@colorado.edu
+              © 2024-2026, Regents of the University of Colorado, a body corporate. Developed in the Colorado Motor Speech lab. All rights reserved.
         </p>
       </footer>
     </div>
