@@ -14,6 +14,7 @@ function Download({ name, type, alias, description }) {
       <div className={`mb-6 p-3 rounded-2xl ${
         isPdf ? 'bg-red-50 text-red-600' : 
         isExcel ? 'bg-green-50 text-green-600' : 
+        isImage ? 'bg-amber-50 text-amber-600' : 
         'bg-sky-50 text-sky-600'
       }`}>
         {isPdf ? (
