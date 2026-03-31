@@ -3,20 +3,18 @@ import React from "react";
 function Row({ rowData, isChecked, onToggle, headerLength, showHighlights }) {
   const [charName, cellData] = rowData;
 
-  // Map through each diagnostic cell in the row
   const cells = cellData.map((val, i) => {
     // val[0] is the indicator type: -1 (Unexpected), 1 (Common), 2 (Highly Distinguishing)
     // val[1] is the text symbol: "-", "X", "XX"
     
-    // LOGIC: If showHighlights is false (Blind Mode), force white background and hide symbol
     const bgColor = !showHighlights 
       ? "bg-white" 
       : val[0] === -1 
-        ? "bg-red-300"   // Unexpected Indicator
+        ? "bg-red-300"   
         : val[0] === 1 
-          ? "bg-yellow-200" // Common Indicator
+          ? "bg-yellow-200" 
           : val[0] === 2 
-            ? "bg-green-300"  // Highly Distinguishing Indicator
+            ? "bg-green-300"  
             : "bg-white";
 
     const displaySymbol = !showHighlights ? "" : val[1];
@@ -33,12 +31,9 @@ function Row({ rowData, isChecked, onToggle, headerLength, showHighlights }) {
 
   return (
     <tr className={`${isChecked ? "bg-sky-50/40" : "bg-white"} transition-colors hover:bg-slate-50 group`}>
-      {/* Characteristic Name - Sticky for easy scrolling */}
       <td className="sticky left-0 z-10 p-3 pl-6 border border-slate-300 bg-inherit text-left text-[11px] md:text-sm font-semibold text-slate-700 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
         {charName}
       </td>
-
-      {/* Y/N Checkbox */}
       <td className="p-2 border border-slate-300 bg-inherit">
         <div className="flex items-center justify-center">
           <input 
@@ -49,8 +44,6 @@ function Row({ rowData, isChecked, onToggle, headerLength, showHighlights }) {
           />
         </div>
       </td>
-
-      {/* Diagnostic Indicator Cells */}
       {cells}
     </tr>
   );
