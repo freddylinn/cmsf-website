@@ -79,12 +79,12 @@ function Tool() {
       );
     });
 
-    if (groupName === "Articulation") {
+    if (groupName === "Articulation" && !hidden) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
           <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
-              Perform Modular FITI Assessment
+              For more in-depth Articulation Testing, Perform Modular FITI Assessment
             </Link>
           </td>
         </tr>
@@ -172,15 +172,45 @@ const customRows = Object.entries(customData).map(([title]) => {
           <p className="text-lg md:text-xl font-bold text-slate-900 leading-none mb-1 uppercase tracking-tight">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
         </div>
       </div>
-
+{/* START PRINT SCALE (Everything below here gets zoomed for the PDF) */}
       <div className="print-scale">
-        {/* INSTRUCTION BOX */}
-        <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
-          <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-center gap-4">
-            <p className="text-xs font-bold text-sky-800 uppercase tracking-wide">Hover over blue "i's" for tasks. Reveal results when finished.</p>
+
+  {/* BRANDING, CLINICAL GUIDANCE & PRIVACY */}
+      <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
+        <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4 shadow-sm">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-100 text-sky-700 font-bold text-sm border border-sky-200 mt-0.5 shrink-0">
+            ?
           </div>
-          <RevealToggle />
+          <div className="flex flex-col gap-4">
+            {/* The "Why" */}
+            <div>
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-1">Clinical Methodology</h4>
+              <p className="text-xs font-bold text-sky-800 leading-relaxed">
+                Use <span className="text-sky-900 underline">Blind Mode</span> to conduct an unbiased perceptual assessment. By hiding diagnostic indicators, you ensure observations are grounded solely in the patient's speech features. Toggle to <span className="text-amber-600 underline">Reveal Results</span> only after identifying deviant features to visualize diagnostic patterns.
+              </p>
+            </div>
+            
+            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 pt-3 border-t border-sky-200/60">
+              {/* The "How" */}
+              <div className="flex-1">
+                <p className="text-[10px] font-black uppercase tracking-widest text-sky-600 mb-1">Quick Instructions</p>
+                <p className="text-xs font-bold text-sky-800">
+                  Hover over blue <span className="px-1.5 py-0.5 rounded bg-sky-100 border border-sky-200 text-sky-700 font-black">i</span>'s for tasks. Reveal results when finished.
+                </p>
+              </div>
+
+              {/* THE PRIVACY NOTE */}
+              <div className="flex items-center gap-2 px-3 py-2 bg-white/50 rounded-xl border border-sky-200/50">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                <p className="text-[9px] font-black uppercase tracking-tighter text-slate-500">
+                  Patient Privacy: <span className="text-slate-700">No data is saved or transmitted.</span> All inputs remain local to your browser.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+        <RevealToggle />
+      </div>
 
         {/* DIAGNOSTIC KEY (Visible at top) */}
         {showHighlights && (
@@ -258,7 +288,7 @@ const customRows = Object.entries(customData).map(([title]) => {
             Website by Frederick Linn (Frederick.Linn@colorado.edu).
           </p>
         </footer>
-      </div>
+      </div> {/* END PRINT SCALE */}
     </div>
   );
 }
