@@ -139,5 +139,228 @@
         ]
       }
     ]
+  },
+  {
+    "id": "B2",
+    "description": "Group B, Tier 2 (#_C)",
+    "targets": 3,
+    "phrases": [
+      {
+        "text": "I'd like to drive to a place that has music.",
+        "phoneticParts": [
+          { "val": "aɪd laɪk tu ", "isTarget": false }, { "val": "d", "isTarget": true }, { "val": "raɪv tu ə ", "isTarget": false },
+          { "val": "p", "isTarget": true }, { "val": "leɪs ðæt hæz ", "isTarget": false },
+          { "val": "m", "isTarget": true }, { "val": "juzɪk.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "B3",
+    "description": "Group B, Tier 3 (V_C, V_#, C_C, C_#)",
+    "targets": 12,
+    "phrases": [
+      {
+        "text": "It's time to address the armed camp.",
+        "phoneticParts": [
+          { "val": "ɪts taɪ", "isTarget": false }, { "val": "m", "isTarget": true }, { "val": " tu ə'd", "isTarget": false },
+          { "val": "r", "isTarget": false }, { "val": "ɛs ði ar", "isTarget": false },
+          { "val": "m", "isTarget": true }, { "val": "d", "isTarget": true }, { "val": " kæ", "isTarget": false },
+          { "val": "m", "isTarget": true }, { "val": "p", "isTarget": true }, { "val": ".", "isTarget": false }
+        ]
+      },
+      {
+        "text": "Help me find a good film script.",
+        "phoneticParts": [
+          { "val": "hɛl", "isTarget": false }, { "val": "p", "isTarget": true }, { "val": " ", "isTarget": false },
+          { "val": "m", "isTarget": false }, { "val": "i faɪn", "isTarget": false },
+          { "val": "d", "isTarget": true }, { "val": " ə gu", "isTarget": false },
+          { "val": "d", "isTarget": true }, { "val": " fɪl", "isTarget": false },
+          { "val": "m", "isTarget": true }, { "val": " skrɪ", "isTarget": false },
+          { "val": "p", "isTarget": true }, { "val": "t.", "isTarget": false }
+        ]
+      },
+      {
+        "text": "When she finds a good bed spread, she likes to keep it.",
+        "phoneticParts": [
+          { "val": "wɛn ʃi faɪn", "isTarget": false }, { "val": "dz", "isTarget": true }, { "val": " ə gu", "isTarget": false },
+          { "val": "d", "isTarget": true }, { "val": " bɛ", "isTarget": false },
+          { "val": "d", "isTarget": true }, { "val": " s", "isTarget": false },
+          { "val": "p", "isTarget": true }, { "val": "rɛd, ʃi laɪks tu ki", "isTarget": false },
+          { "val": "p", "isTarget": true }, { "val": " ɪt.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C1",
+    "description": "Group C (/f, b, ʃ, v/), Tier 1",
+    "targets": 12,
+    "phrases": [
+      {
+        "text": "The effect of the performance depends on her voice.",
+        "phoneticParts": [
+          { "val": "ði ɪ'", "isTarget": false }, { "val": "f", "isTarget": true }, { "val": "ɛkt ʌv ðə pər'", "isTarget": false },
+          { "val": "f", "isTarget": true }, { "val": "ɔrməns dɪ'pɛndz ɑn hɜr ", "isTarget": false },
+          { "val": "v", "isTarget": true }, { "val": "ɔɪs.", "isTarget": false }
+        ]
+      },
+      {
+        "text": "Do we need to find and provide insurance for the big machine?",
+        "phoneticParts": [
+          { "val": "du wi nid tu faɪnd ænd prə'", "isTarget": false }, { "val": "v", "isTarget": true }, { "val": "aɪd ɪn'ʃʊrəns fɔr ðə ", "isTarget": false },
+          { "val": "b", "isTarget": true }, { "val": "ɪg mə'", "isTarget": false }, { "val": "ʃ", "isTarget": true },
+          { "val": "in?", "isTarget": false }
+        ]
+      },
+      {
+        "text": "The show about baseball did not involve much action.",
+        "phoneticParts": [
+          { "val": "ðə ", "isTarget": false }, { "val": "ʃ", "isTarget": true }, { "val": "oʊ ə'baʊt '", "isTarget": false },
+          { "val": "b", "isTarget": true }, { "val": "eɪsbɔl dɪd nɑt ɪn'", "isTarget": false },
+          { "val": "v", "isTarget": true }, { "val": "ɑlv mʌtʃ 'ækʃən.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C2",
+    "description": "Group C, Tier 2",
+    "targets": 4,
+    "phrases": [
+      {
+        "text": "My brother's view is that shrimp should be free.",
+        "phoneticParts": [
+          { "val": "maɪ '", "isTarget": false }, { "val": "b", "isTarget": true }, { "val": "rʌðərz ", "isTarget": false },
+          { "val": "v", "isTarget": true }, { "val": "ju ɪz ðæt ", "isTarget": false },
+          { "val": "ʃ", "isTarget": true }, { "val": "rɪmp ʃʊd bi ", "isTarget": false },
+          { "val": "f", "isTarget": true }, { "val": "ri.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C3",
+    "description": "Group C, Tier 3",
+    "targets": 15,
+    "phrases": [
+      {
+        "text": "Before she leaves on her trip, I will give my wife new golf clubs.",
+        "phoneticParts": [
+          { "val": "bɪ'fɔr ʃi li", "isTarget": false }, { "val": "v", "isTarget": true }, { "val": "z ɑn hɜr trɪp, aɪ wɪl gɪ", "isTarget": false },
+          { "val": "v", "isTarget": true }, { "val": " maɪ waɪ", "isTarget": false },
+          { "val": "f", "isTarget": true }, { "val": " nu gɔl", "isTarget": false },
+          { "val": "f", "isTarget": true }, { "val": " klʌ", "isTarget": false },
+          { "val": "b", "isTarget": true }, { "val": "z.", "isTarget": false }
+        ]
+      },
+      {
+        "text": "For dinner we serve meat cooked in herbs and a bulb of garlic.",
+        "phoneticParts": [
+          { "val": "fɔr 'dɪnər wi sɜr", "isTarget": false }, { "val": "v", "isTarget": true }, { "val": " mit kʊkt ɪn ɜr", "isTarget": false },
+          { "val": "b", "isTarget": true }, { "val": "z ænd ə bʌl", "isTarget": false },
+          { "val": "b", "isTarget": true }, { "val": " ʌv 'gɑrlɪk.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "D1",
+    "description": "Group D (/g, w, z, ʤ, ŋ, j, ʧ, h/), Tier 1",
+    "targets": 21,
+    "phrases": [
+      {
+        "text": "Don't forget to go exchange the pants that the child just outgrew.",
+        "phoneticParts": [
+          { "val": "doʊnt fər'", "isTarget": false }, { "val": "g", "isTarget": true }, { "val": "ɛt tu ", "isTarget": false },
+          { "val": "g", "isTarget": true }, { "val": "oʊ ɪks'", "isTarget": false },
+          { "val": "tʃ", "isTarget": true }, { "val": "eɪndʒ ðə pænts ðæt ðə ", "isTarget": false },
+          { "val": "tʃ", "isTarget": true }, { "val": "aɪld ", "isTarget": false },
+          { "val": "dʒ", "isTarget": true }, { "val": "ʌst aʊt'", "isTarget": false },
+          { "val": "g", "isTarget": true }, { "val": "ru.", "isTarget": false }
+        ]
+      },
+      {
+        "text": "Let's begin by looking ahead, not away.",
+        "phoneticParts": [
+          { "val": "lɛts bɪ'", "isTarget": false }, { "val": "g", "isTarget": true }, { "val": "ɪn baɪ 'lʊkɪ", "isTarget": false },
+          { "val": "ŋ", "isTarget": true }, { "val": " ə'", "isTarget": false },
+          { "val": "h", "isTarget": true }, { "val": "ɛd, nɑt ə'", "isTarget": false },
+          { "val": "w", "isTarget": true }, { "val": "eɪ.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "D2",
+    "description": "Group D, Tier 2",
+    "targets": 1,
+    "phrases": [
+      {
+        "text": "What a great group.",
+        "phoneticParts": [
+          { "val": "wɑt ə ", "isTarget": false }, { "val": "g", "isTarget": true }, { "val": "reɪt grup.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "D3",
+    "description": "Group D, Tier 3",
+    "targets": 17,
+    "phrases": [
+      {
+        "text": "We watched him get the congressional medal.",
+        "phoneticParts": [
+          { "val": "wi wɑ", "isTarget": false }, { "val": "tʃ", "isTarget": true }, { "val": "t hɪm gɛt ðə kən'g", "isTarget": false },
+          { "val": "r", "isTarget": false }, { "val": "ɛʃənəl 'mɛ", "isTarget": false },
+          { "val": "d", "isTarget": false }, { "val": "əl.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "E1",
+    "description": "Group E (/θ, ð, ʒ/), Tier 1",
+    "targets": 8,
+    "phrases": [
+      {
+        "text": "Please make the decision within five minutes, then we will go.",
+        "phoneticParts": [
+          { "val": "pliz meɪk ðə dɪ'sɪ", "isTarget": false }, { "val": "ʒ", "isTarget": true }, { "val": "ən wɪ'", "isTarget": false },
+          { "val": "ð", "isTarget": true }, { "val": "ɪn faɪv 'mɪnɪts, ", "isTarget": false },
+          { "val": "ð", "isTarget": true }, { "val": "ɛn wi wɪl gou.", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "E2",
+    "description": "Group E, Tier 2",
+    "targets": 1,
+    "phrases": [
+      {
+        "text": "Don't throw that away!",
+        "phoneticParts": [
+          { "val": "doʊnt ", "isTarget": false }, { "val": "θ", "isTarget": true }, { "val": "roʊ ðæt ə'weɪ!", "isTarget": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "E3",
+    "description": "Group E, Tier 3",
+    "targets": 7,
+    "phrases": [
+      {
+        "text": "The athlete breathes smooth and slow breaths.",
+        "phoneticParts": [
+          { "val": "ði 'æ", "isTarget": false }, { "val": "θ", "isTarget": true }, { "val": "lit bri", "isTarget": false },
+          { "val": "ð", "isTarget": true }, { "val": "z smu", "isTarget": false },
+          { "val": "ð", "isTarget": true }, { "val": " ænd sloʊ brɛ", "isTarget": false },
+          { "val": "θ", "isTarget": true }, { "val": "s.", "isTarget": false }
+        ]
+      }
+    ]
   }
 ]
