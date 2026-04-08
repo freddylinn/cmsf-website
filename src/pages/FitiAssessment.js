@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import fitiData from '../data/fitiData.json';
+import fitiData from '../data/fiti.json';
 
 function FitiAssessment() {
   const [phonemeScores, setPhonemeScores] = useState({});
-  const [showInstructions, setShowInstructions] = useState(true);
+  const [showRef, setShowRef] = useState(false);
 
-  const togglePhonemeScore = (moduleId, pIdx, partIdx, e) => {
+  const togglePhonemeScore = (moduleId, pIdx, partIdx) => {
     const key = `${moduleId}-${pIdx}-${partIdx}`;
     setPhonemeScores(prev => ({ ...prev, [key]: !prev[key] }));
   };
@@ -16,161 +16,159 @@ function FitiAssessment() {
     ).length;
   };
 
-  // NEW: Function to clear scores for a specific module only
-  const clearModuleScore = (moduleId, e) => {
-    e.stopPropagation();
-    setPhonemeScores(prev => {
-      const newScores = { ...prev };
-      Object.keys(newScores).forEach(key => {
-        if (key.startsWith(`${moduleId}-`)) {
-          delete newScores[key];
-        }
-      });
-      return newScores;
-    });
+  // Live calculation for the Documentation Table
+  const getTableScore = (groupId, tier) => {
+    const moduleId = `${groupId}${tier}`;
+    const module = fitiData.find(m => m.id === moduleId);
+    if (!module) return "N/A";
+    return `${getModuleScore(moduleId)} / ${module.targets}`;
+  };
+
+  const generateReport = () => {
+    const a1Score = getModuleScore("A1");
+    let report = `FITI Analysis Summary:\n`;
+    
+    // Clinical Logic for High Priority Deficits
+    if (a1Score < 15) {
+      report += `- Patient has clear production of only ${a1Score}/18 targets in Module A1. Given its high functional importance to intelligibility [FITI], expect significant intelligibility deficits.\n`;
+    } else {
+      report += `- Functional intelligibility for high-frequency Tier 1 targets (Group A) is relatively preserved.\n`;
+    }
+
+    // Complexity Logic (Groups E)
+    const e2 = getModuleScore("E2");
+    const e3 = getModuleScore("E3");
+    if (e2 < 1 || e3 < 5) {
+      report += `- Deficits noted in phonetic complexity (E2/E3). Given the low frequency of these sounds, difficulties may indicate specific sequencing or motor planning involvement [Apraxia].\n`;
+    }
+
+    return report;
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto font-sans bg-slate-50 min-h-screen">
+    <div className="p-4 md:p-10 max-w-7xl mx-auto font-sans bg-white min-h-screen text-slate-900 text-left">
       
-      {/* Header & Resources */}
-      <div className="mb-10 text-center">
-        <h1 className="text-3xl font-black text-slate-800 mb-2 tracking-tight">Modular FITI Assessment</h1>
-        <div className="flex flex-col items-center gap-3">
-          <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
-            A hierarchical approach to intelligibility assessment. Track specific phonemic targets 
-            within each priority module to identify treatment goals.  Gurevich, N., & Kim, H. (2024). Modular FITI Phrase List Analysis.
-          </p>
-          <a 
-            href="https://sites.pfw.edu/cladlab/fiti.html" 
-            target="_blank" 
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sky-600 hover:text-sky-700 font-bold text-sm bg-white px-4 py-2 rounded-full border border-sky-100 shadow-sm transition-all no-print"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            Visit Official FITI Resource Page
-          </a>
-        </div>
+      {/* HEADER & CITATION */}
+      <div className="mb-10 border-b pb-8">
+        <h1 className="text-3xl font-black text-slate-900 mb-4 tracking-tighter uppercase">Modular FITI Assessment</h1>
+        <p className="text-sm text-slate-500 leading-relaxed max-w-4xl italic">
+          <strong>Reference:</strong> Gurevich, N., & Kim, H. (2024). A hierarchical approach to efficient assessment of functional intelligibility: The modular FITI phrase list. 
+          <span className="ml-1 text-sky-600">Perspectives of the ASHA Special Interest Groups, 9(3), 892–907.</span>
+        </p>
       </div>
 
-      {/* Clinical Instructions (Visible by default) */}
-      <div className="mb-12 max-w-3xl mx-auto no-print">
+      {/* DOCUMENTATION & SCORING ORIENTATION */}
+      <div className="mb-12 no-print">
         <button 
-          onClick={() => setShowInstructions(!showInstructions)}
-          className="w-full flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-slate-300 transition-all"
+          onClick={() => setShowRef(!showRef)}
+          className="w-full flex items-center justify-between p-6 bg-slate-900 text-white rounded-2xl shadow-xl hover:bg-slate-800 transition-all"
         >
-          <span className="font-bold text-slate-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Clinical Progression Instructions
-          </span>
-          <svg className={`h-5 w-5 text-slate-400 transition-transform ${showInstructions ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-          </svg>
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center font-black">?</div>
+            <div className="text-left">
+              <p className="font-black uppercase tracking-widest text-xs text-sky-400">Clinical Resource</p>
+              <p className="text-lg font-bold">Documentation & Scoring Orientation</p>
+            </div>
+          </div>
+          <span className="text-2xl">{showRef ? '−' : '+'}</span>
         </button>
 
-        {showInstructions && (
-          <div className="mt-2 p-6 bg-white border border-slate-200 rounded-xl text-sm text-slate-600 leading-relaxed shadow-inner animate-in fade-in slide-in-from-top-1">
-            <p className="mb-4 font-bold text-slate-800 italic">
-              Completing all of the modules is recommended to build a comprehensive picture of an individual's function. 
-              If short on time, follow the prioritized sequence described below.
+        {showRef && (
+          <div className="mt-4 p-8 bg-slate-50 border-2 border-slate-200 rounded-3xl animate-in fade-in slide-in-from-top-4">
+            <h3 className="font-black text-slate-900 uppercase tracking-widest text-sm mb-4">Functional Importance Hierarchy</h3>
+            <p className="text-sm text-slate-600 mb-8 leading-relaxed">
+              Intelligibility priority flows from <strong>Group A (Most Important)</strong> to <strong>Group E (Least)</strong>, 
+              and from <strong>Tier 1 (Most Salient)</strong> to <strong>Tier 3 (Least Salient)</strong>.
             </p>
-            <ul className="space-y-4">
-              <li>
-                <strong className="text-slate-800 block mb-1">1. Priority Start:</strong>
-                Begin with <span className="font-bold text-sky-600">Module A1</span>. It covers high-frequency phonemes in Tier 1 prominent contexts, which are most essential to functional intelligibility.
-              </li>
-              <li>
-                <strong className="text-slate-800 block mb-1">2. Complexity Jump:</strong>
-                If A1 is within normal limits, jump to <span className="font-bold text-sky-600">Modules E2 and E3</span> to assess phonetically complex elements like fricatives and clusters.
-              </li>
-              <li>
-                <strong className="text-slate-800 block mb-1">3. Clinical Decision Making:</strong>
-                Use the per-module scores to identify if deficits are linked to specific phoneme groups or positional salience.
-              </li>
-            </ul>
+
+            {/* LIVE SCORING TABLE */}
+            <div className="overflow-x-auto rounded-xl border border-slate-300 shadow-sm mb-8">
+              <table className="w-full text-center border-collapse bg-white">
+                <thead>
+                  <tr className="bg-slate-800 text-white text-[10px] uppercase tracking-widest">
+                    <th className="p-3 border border-slate-700">Group</th>
+                    <th className="p-3 border border-slate-700">Tier 1 (#_V, V_V, C_V)</th>
+                    <th className="p-3 border border-slate-700">Tier 2 (#_C)</th>
+                    <th className="p-3 border border-slate-700">Tier 3 (V_C, V_#, C_C, C_#)</th>
+                  </tr>
+                </thead>
+                <tbody className="text-sm font-bold">
+                  {['A', 'B', 'C', 'D', 'E'].map(group => (
+                    <tr key={group}>
+                      <td className="p-3 bg-slate-100 border border-slate-200">Group {group}</td>
+                      <td className="p-3 border border-slate-200 text-sky-600">{getTableScore(group, 1)}</td>
+                      <td className="p-3 border border-slate-200 text-sky-600">{getTableScore(group, 2)}</td>
+                      <td className="p-3 border border-slate-200 text-sky-600">{getTableScore(group, 3)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-inner">
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Draft Documentation Summary</h4>
+              <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700 leading-relaxed">{generateReport()}</pre>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Modules Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {fitiData.map((module) => {
-          const moduleCorrect = getModuleScore(module.id);
-          const isComplete = moduleCorrect === module.targets;
-
-          return (
-            <div key={module.id} className={`border rounded-2xl overflow-hidden bg-white shadow-sm flex flex-col transition-all ${isComplete ? 'border-green-200 ring-1 ring-green-100' : 'border-slate-200'}`}>
-              
-              <div className={`border-b p-4 flex justify-between items-center ${isComplete ? 'bg-green-50 border-green-200' : 'bg-slate-50 border-slate-200'}`}>
-                <div className="flex items-center gap-3">
-                  <span className={`flex items-center justify-center w-8 h-8 rounded-lg font-black text-xs transition-colors ${isComplete ? 'bg-green-600 text-white' : 'bg-slate-800 text-white'}`}>
-                    {module.id}
-                  </span>
-                  <div className="flex flex-col">
-                    <h3 className="font-bold text-slate-800 text-sm leading-none">Module {module.id}</h3>
-                    {/* NEW: Small Clear Link */}
-                    <button 
-                      onClick={(e) => clearModuleScore(module.id, e)}
-                      className="text-[10px] font-bold text-slate-400 hover:text-red-500 uppercase tracking-widest mt-1 text-left"
-                    >
-                      Clear Module
-                    </button>
-                  </div>
-                </div>
-                
-                <div className="text-right">
-                  <span className={`text-lg font-black leading-none ${isComplete ? 'text-green-700' : 'text-sky-600'}`}>
-                    {moduleCorrect}
-                  </span>
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter ml-1">
-                    / {module.targets} targets
-                  </span>
-                </div>
+      {/* ASSESSMENT MODULES */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
+        {fitiData.map((module) => (
+          <div key={module.id} className="bg-white border-2 border-slate-100 rounded-3xl shadow-sm overflow-hidden flex flex-col">
+            <div className="p-5 bg-slate-50 border-b flex justify-between items-center">
+              <div>
+                <span className="px-3 py-1 bg-slate-800 text-white text-[10px] font-black rounded-full mr-2 uppercase">Module {module.id}</span>
+                <p className="inline text-xs font-bold text-slate-500 uppercase tracking-tighter">{module.description}</p>
               </div>
-
-              <div className="p-4 space-y-4 flex-grow">
-                <p className="text-[11px] text-slate-400 italic mb-2 font-medium">{module.description}</p>
-                {module.phrases.map((phrase, pIdx) => (
-                  <div key={pIdx} className="border-b border-slate-50 last:border-0 pb-4">
-                    <p className="text-sm font-semibold leading-snug text-slate-700 mb-3">
-                      {phrase.text}
-                    </p>
-                    <div className="flex flex-wrap items-center gap-y-2 p-3 bg-slate-50 rounded-xl border border-slate-100 shadow-inner font-mono text-sm">
-                      <span className="mr-1 text-slate-400">[</span>
-                      {phrase.phoneticParts.map((part, partIdx) => (
-                        part.isTarget ? (
-                          <button
-                            key={partIdx}
-                            onClick={(e) => togglePhonemeScore(module.id, pIdx, partIdx, e)}
-                            className={`mx-0.5 px-1.5 py-0.5 rounded border-2 transition-all font-black ${
-                              phonemeScores[`${module.id}-${pIdx}-${partIdx}`]
-                                ? 'bg-green-500 border-green-600 text-white'
-                                : 'bg-white border-slate-300 text-slate-800 hover:border-sky-400 shadow-sm'
-                            }`}
-                          >
-                            {part.val}
-                          </button>
-                        ) : (
-                          <span key={partIdx} className="text-slate-500">{part.val}</span>
-                        )
-                      ))}
-                      <span className="ml-1 text-slate-400">]</span>
-                    </div>
-                  </div>
-                ))}
+              <div className="text-right">
+                <span className="text-xl font-black text-sky-600">{getModuleScore(module.id)}</span>
+                <span className="text-[10px] font-black text-slate-300 uppercase ml-1">/ {module.targets} Targets</span>
               </div>
             </div>
-          );
-        })}
+
+            <div className="p-6 space-y-8 flex-grow">
+              {module.phrases.map((phrase, pIdx) => (
+                <div key={pIdx} className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-slate-300 font-black text-xs mt-1">{pIdx + 1}</span>
+                    <p className="text-lg font-bold text-slate-800 leading-tight">
+                      {phrase.text}
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-wrap items-center gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-200/50 font-mono text-sm shadow-inner">
+                    <span className="text-slate-300 mr-2">[</span>
+                    {phrase.phoneticParts.map((part, partIdx) => (
+                      part.isTarget ? (
+                        <button
+                          key={partIdx}
+                          onClick={() => togglePhonemeScore(module.id, pIdx, partIdx)}
+                          className={`px-3 py-1 rounded-lg border-2 transition-all font-black text-base ${
+                            phonemeScores[`${module.id}-${pIdx}-${partIdx}`]
+                              ? 'bg-green-500 border-green-600 text-white shadow-md'
+                              : 'bg-white border-slate-300 text-slate-900 hover:border-sky-500 hover:text-sky-600 shadow-sm'
+                          }`}
+                        >
+                          {part.val}
+                        </button>
+                      ) : (
+                        <span key={partIdx} className="text-slate-400 px-1">{part.val}</span>
+                      )
+                    ))}
+                    <span className="text-slate-300 ml-2">]</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <footer className="mt-16 pt-8 border-t border-slate-200 text-center pb-20 no-print">
-        <p className="mt-2 text-[10px] text-slate-300 italic">
-          Gurevich, N., & Kim, H. (2024). Modular FITI Phrase List Analysis.
+      <footer className="mt-20 py-10 border-t border-slate-100 text-center">
+        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">
+          Functional Importance to Intelligibility (FITI) © 2024
         </p>
       </footer>
     </div>
