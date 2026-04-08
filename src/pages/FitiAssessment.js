@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import fitiData from '../data/fiti.json';
+// Updated to match your file name
+import fitiData from '../data/fitiData.json'; 
 
 function FitiAssessment() {
   const [phonemeScores, setPhonemeScores] = useState({});
@@ -28,7 +29,7 @@ function FitiAssessment() {
     const a1Score = getModuleScore("A1");
     let report = `FITI Analysis Summary:\n`;
     
-    // Clinical Logic for High Priority Deficits
+    // Clinical Logic for High Priority Deficits (A1)
     if (a1Score < 15) {
       report += `- Patient has clear production of only ${a1Score}/18 targets in Module A1. Given its high functional importance to intelligibility [FITI], expect significant intelligibility deficits.\n`;
     } else {
@@ -167,8 +168,9 @@ function FitiAssessment() {
       </div>
 
       <footer className="mt-20 py-10 border-t border-slate-100 text-center">
-        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">
-          Functional Importance to Intelligibility (FITI) © 2024
+        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-loose">
+          Functional Importance to Intelligibility (FITI) © 2024 <br />
+          Developed for the University of Colorado
         </p>
       </footer>
     </div>
