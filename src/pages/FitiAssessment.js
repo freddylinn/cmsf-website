@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// Updated to match your file name
 import fitiData from '../data/fitiData.json'; 
 
 function FitiAssessment() {
@@ -17,7 +16,6 @@ function FitiAssessment() {
     ).length;
   };
 
-  // Live calculation for the Documentation Table
   const getTableScore = (groupId, tier) => {
     const moduleId = `${groupId}${tier}`;
     const module = fitiData.find(m => m.id === moduleId);
@@ -28,34 +26,44 @@ function FitiAssessment() {
   const generateReport = () => {
     const a1Score = getModuleScore("A1");
     let report = `FITI Analysis Summary:\n`;
-    
-    // Clinical Logic for High Priority Deficits (A1)
     if (a1Score < 15) {
       report += `- Patient has clear production of only ${a1Score}/18 targets in Module A1. Given its high functional importance to intelligibility [FITI], expect significant intelligibility deficits.\n`;
     } else {
       report += `- Functional intelligibility for high-frequency Tier 1 targets (Group A) is relatively preserved.\n`;
     }
-
-    // Complexity Logic (Groups E)
     const e2 = getModuleScore("E2");
     const e3 = getModuleScore("E3");
     if (e2 < 1 || e3 < 5) {
-      report += `- Deficits noted in phonetic complexity (E2/E3). Given the low frequency of these sounds, difficulties may indicate specific sequencing or motor planning involvement [Apraxia].\n`;
+      report += `- Deficits noted in phonetic complexity (E2/E3). Difficulties may indicate specific sequencing or motor planning involvement.\n`;
     }
-
     return report;
   };
 
   return (
     <div className="p-4 md:p-10 max-w-7xl mx-auto font-sans bg-white min-h-screen text-slate-900 text-left">
       
-      {/* HEADER & CITATION */}
-      <div className="mb-10 border-b pb-8">
-        <h1 className="text-3xl font-black text-slate-900 mb-4 tracking-tighter uppercase">Modular FITI Assessment</h1>
-        <p className="text-sm text-slate-500 leading-relaxed max-w-4xl italic">
-          <strong>Reference:</strong> Gurevich, N., & Kim, H. (2024). A hierarchical approach to efficient assessment of functional intelligibility: The modular FITI phrase list. 
-          <span className="ml-1 text-sky-600">Perspectives of the ASHA Special Interest Groups, 9(3), 892–907.</span>
-        </p>
+      {/* HEADER & RESTORED EXTERNAL LINK */}
+      <div className="mb-10 border-b pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="flex-grow">
+          <h1 className="text-3xl font-black text-slate-900 mb-4 tracking-tighter uppercase">Modular FITI Assessment</h1>
+          <p className="text-sm text-slate-500 leading-relaxed max-w-2xl italic">
+            <strong>Reference:</strong> Gurevich, N., & Kim, H. (2024). A hierarchical approach to efficient assessment of functional intelligibility. 
+            <span className="ml-1 text-sky-600">Perspectives of the ASHA Special Interest Groups, 9(3), 892–907.</span>
+          </p>
+        </div>
+
+        {/* RESTORED LINK BUTTON */}
+        <a 
+          href="https://sites.pfw.edu/cladlab/fiti.html" 
+          target="_blank" 
+          rel="noreferrer"
+          className="shrink-0 inline-flex items-center gap-2 text-sky-600 hover:text-sky-700 font-bold text-sm bg-white px-5 py-3 rounded-2xl border border-sky-100 shadow-sm transition-all no-print hover:shadow-md"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+          Official FITI Resource
+        </a>
       </div>
 
       {/* DOCUMENTATION & SCORING ORIENTATION */}
@@ -71,7 +79,7 @@ function FitiAssessment() {
               <p className="text-lg font-bold">Documentation & Scoring Orientation</p>
             </div>
           </div>
-          <span className="text-2xl">{showRef ? '−' : '+'}</span>
+          <span className="text-2xl font-black">{showRef ? '−' : '+'}</span>
         </button>
 
         {showRef && (
@@ -82,15 +90,14 @@ function FitiAssessment() {
               and from <strong>Tier 1 (Most Salient)</strong> to <strong>Tier 3 (Least Salient)</strong>.
             </p>
 
-            {/* LIVE SCORING TABLE */}
             <div className="overflow-x-auto rounded-xl border border-slate-300 shadow-sm mb-8">
               <table className="w-full text-center border-collapse bg-white">
                 <thead>
                   <tr className="bg-slate-800 text-white text-[10px] uppercase tracking-widest">
                     <th className="p-3 border border-slate-700">Group</th>
-                    <th className="p-3 border border-slate-700">Tier 1 (#_V, V_V, C_V)</th>
-                    <th className="p-3 border border-slate-700">Tier 2 (#_C)</th>
-                    <th className="p-3 border border-slate-700">Tier 3 (V_C, V_#, C_C, C_#)</th>
+                    <th className="p-3 border border-slate-700">Tier 1</th>
+                    <th className="p-3 border border-slate-700">Tier 2</th>
+                    <th className="p-3 border border-slate-700">Tier 3</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm font-bold">
