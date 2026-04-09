@@ -15,6 +15,7 @@ function NavBar() {
     { name: 'Modular FITI Phrases for Additional Articulation Testing', path: '/fiti' },
     { name: 'Downloads & Updates', path: '/downloads' },
     { name: 'Audio Samples', path: '/audio' },
+    { name: 'Research Participation', path: '/research' },
   ];
 
   const isActive = (path) => location.pathname === path;
