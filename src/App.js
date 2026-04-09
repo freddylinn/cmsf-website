@@ -7,6 +7,7 @@ import Downloads from "./pages/Downloads";
 import Audio from "./pages/Audio";
 import BodyMovement from "./pages/BodyMovement";
 import PatientTasks from './pages/PatientTasks';
+import Research from "./pages/Research";
 // Comment this out too while you're double-checking things!
 // import FitiAssessment from "./pages/FitiAssessment";
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/audio" element={<Audio />} />
           <Route path="/movement" element={<BodyMovement />} />
           <Route path="/patient-view" element={<PatientTasks />} />
+          <Route path="/research" element={<Research />} />
          {/* FITI is temporarily disabled for double-checking targets */}
           {/* <Route path="/fiti" element={<FitiAssessment />} /> */}
         </Routes>
