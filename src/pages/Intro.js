@@ -97,6 +97,11 @@ function Intro() {
           <Link to="/patient-view" className="px-8 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center">
             Patient View Stimuli
           </Link>
+
+          {/* NEW RESEARCH BUTTON */}
+          <Link to="/research" className="px-8 py-4 bg-white border-2 border-emerald-100 text-emerald-700 font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 transition-all text-center shadow-sm">
+            Want to participate in CMSF research?
+          </Link>
         </div>
 
         <hr className="border-slate-100 mb-16" />
