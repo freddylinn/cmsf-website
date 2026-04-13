@@ -7,7 +7,7 @@ import customData from "../data/custom.json";
 import charTasksData from "../data/char-tasks.json"; 
 import Row from "../components/Row";
 
-// Add this helper function at the top of your component (outside the Tool function)
+// Helper for Google Analytics
 const trackEvent = (action, label) => {
   if (window.gtag) {
     window.gtag('event', action, {
