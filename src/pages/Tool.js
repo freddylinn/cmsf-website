@@ -7,6 +7,16 @@ import customData from "../data/custom.json";
 import charTasksData from "../data/char-tasks.json"; 
 import Row from "../components/Row";
 
+// Add this helper function at the top of your component (outside the Tool function)
+const trackEvent = (action, label) => {
+  if (window.gtag) {
+    window.gtag('event', action, {
+      'event_category': 'Engagement',
+      'event_label': label,
+    });
+  }
+};
+
 function Tool() {
   const [hidden, setHidden] = useState(false);
   const [showHighlights, setShowHighlights] = useState(false); 
@@ -239,11 +249,46 @@ const customRows = Object.entries(customData).map(([title]) => {
           </table>
         </div>
 
-        {/* UI BUTTONS */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-          <button onClick={() => setHidden(!hidden)} className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-sky-600">{hidden ? "Show All Rows" : "Hide Unchecked Rows"}</button>
-          <button onClick={() => window.print()} className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-slate-900">Generate PDF Report</button>
-        </div>
+     {/* UI BUTTONS */}
+      <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
+        
+        {/* Toggle Rows Button */}
+        <button 
+          onClick={() => {
+            const newState = !hidden;
+            setHidden(newState);
+            
+            // Track UX preference
+            if (window.gtag) {
+              window.gtag('event', 'toggle_view_mode', {
+                'event_category': 'UX',
+                'event_label': newState ? 'Switched to Compact View' : 'Switched to Full View'
+              });
+            }
+          }} 
+          className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-sky-600"
+        >
+          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+        </button>
+
+        {/* Generate PDF Button */}
+        <button 
+          onClick={() => {
+            // Track Clinical Output
+            if (window.gtag) {
+              window.gtag('event', 'generate_pdf', {
+                'event_category': 'Conversion',
+                'event_label': 'PDF Report Generated'
+              });
+            }
+            window.print();
+          }} 
+          className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-slate-900"
+        >
+          Generate PDF Report
+        </button>
+        
+      </div>
 
         {/* RATINGS & OBSERVATIONS */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
@@ -264,12 +309,41 @@ const customRows = Object.entries(customData).map(([title]) => {
           </table>
         </div>
 
-        {/* EPIC SMART PHRASE */}
+       {/* EPIC SMART PHRASE */}
         <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 print:bg-white print:border-slate-400">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-            <h2 className="text-lg font-black text-slate-900 uppercase">EPIC Clinical Summary</h2>
-            <button onClick={() => { navigator.clipboard.writeText(generateSmartPhrase()); alert("Summary Copied!"); }} className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg no-print">Copy Smart Phrase</button>
+            
+            {/* Heading & New Clinical Instructions */}
+            <div className="flex flex-col gap-1">
+              <h2 className="text-lg font-black text-slate-900 uppercase leading-none">EPIC Clinical Summary</h2>
+              <p className="text-[11px] font-bold text-slate-500 italic leading-relaxed max-w-md">
+                Please manually revise the ending diagnostic description to include the neural area, motor speech diagnosis, and severity estimate.
+              </p>
+            </div>
+            
+            <button 
+              onClick={() => { 
+                // 1. Copy to clipboard
+                navigator.clipboard.writeText(generateSmartPhrase()); 
+                
+                // 2. Log the event to Google Analytics
+                if (window.gtag) {
+                  window.gtag('event', 'copy_smart_phrase', {
+                    'event_category': 'Engagement',
+                    'event_label': 'Clinical Summary Copied'
+                  });
+                }
+                
+                // 3. Notify the user
+                alert("Summary Copied!"); 
+              }} 
+              className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg no-print hover:bg-sky-700 transition-colors"
+            >
+              Copy Smart Phrase
+            </button>
+            
           </div>
+
           <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto print:max-h-none print:border-none print:shadow-none">
             <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700">{generateSmartPhrase()}</pre>
           </div>
