@@ -7,7 +7,7 @@ import customData from "../data/custom.json";
 import charTasksData from "../data/char-tasks.json"; 
 import Row from "../components/Row";
 
-// Helper for Google Analytics
+// 1. HELPER DEFINED HERE (Line 11)
 const trackEvent = (action, label) => {
   if (window.gtag) {
     window.gtag('event', action, {
@@ -16,6 +16,18 @@ const trackEvent = (action, label) => {
     });
   }
 };
+
+// 2. TOGGLE COMPONENT DEFINED OUTSIDE
+const RevealToggle = ({ showHighlights, setShowHighlights }) => (
+  <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-slate-200 shadow-sm no-print">
+    <span className={`text-[10px] font-black uppercase tracking-widest ${!showHighlights ? 'text-slate-900' : 'text-slate-300'}`}>Blind Mode</span>
+    <label className="relative inline-flex items-center cursor-pointer">
+      <input type="checkbox" className="sr-only peer" checked={showHighlights} onChange={() => setShowHighlights(!showHighlights)} />
+      <div className="w-12 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+    </label>
+    <span className={`text-[10px] font-black uppercase tracking-widest ${showHighlights ? 'text-amber-600' : 'text-slate-300'}`}>Reveal Results</span>
+  </div>
+);
 
 function Tool() {
   const [hidden, setHidden] = useState(false);
@@ -49,6 +61,17 @@ function Tool() {
       });
       return updated;
     });
+  };
+
+  const generateSmartPhrase = () => {
+    const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
+    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
+    text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
+    text += `Clinical Ratings:\n- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n- Naturalness: ${customValues["Naturalness"]}/100\n- Efficiency: ${customValues["Efficiency"]}/100\n\n`;
+    text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
+    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
+    text += `\n\nOverall Impressions:\nSpeech features observed during this evaluation suggest possible involvement of [Neural Area].\nPrimary motor speech disorder classification: [MSD Type].\nPerceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
+    return text;
   };
 
   const charRows = Object.keys(charData).flatMap((groupName) => {
@@ -103,7 +126,7 @@ function Tool() {
     return rows;
   });
 
-const customRows = Object.entries(customData).map(([title]) => {
+  const customRows = Object.entries(customData).map(([title]) => {
     const isSlider = title === "Naturalness" || title === "Efficiency";
     const isSelfRating = title === "Self-Rating";
     const isIntelligibility = title === "Intelligibility";
@@ -123,7 +146,6 @@ const customRows = Object.entries(customData).map(([title]) => {
               max={isSlider || isIntelligibility ? "100" : (isSelfRating ? "10" : "100")}
               onChange={(e) => setCustomValues(prev => ({ ...prev, [title]: e.target.value }))}
             />
-            {/* Units & Labels */}
             {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600 print:ml-2">{customValues[title]}</span>}
             {isSelfRating && <span className="text-xs font-black text-slate-400">/ 10</span>}
             {isIntelligibility && <span className="text-xs font-black text-slate-400">%</span>}
@@ -132,28 +154,6 @@ const customRows = Object.entries(customData).map(([title]) => {
       </tr>
     );
   });
-
-  const generateSmartPhrase = () => {
-    const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
-    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
-    text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
-    text += `Clinical Ratings:\n- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n- Naturalness: ${customValues["Naturalness"]}/100\n- Efficiency: ${customValues["Efficiency"]}/100\n\n`;
-    text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
-    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
-    text += `\n\nOverall Impressions:\nSpeech features observed during this evaluation suggest possible involvement of [Neural Area].\nPrimary motor speech disorder classification: [MSD Type].\nPerceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
-    return text;
-  };
-
-  const RevealToggle = () => (
-    <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-slate-200 shadow-sm no-print">
-      <span className={`text-[10px] font-black uppercase tracking-widest ${!showHighlights ? 'text-slate-900' : 'text-slate-300'}`}>Blind Mode</span>
-      <label className="relative inline-flex items-center cursor-pointer">
-        <input type="checkbox" className="sr-only peer" checked={showHighlights} onChange={() => setShowHighlights(!showHighlights)} />
-        <div className="w-12 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
-      </label>
-      <span className={`text-[10px] font-black uppercase tracking-widest ${showHighlights ? 'text-amber-600' : 'text-slate-300'}`}>Reveal Results</span>
-    </div>
-  );
 
   const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>));
   const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">{val}</th>));
@@ -172,7 +172,6 @@ const customRows = Object.entries(customData).map(([title]) => {
         }
       ` }} />
       
-      {/* BRANDING */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
           <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
@@ -182,47 +181,34 @@ const customRows = Object.entries(customData).map(([title]) => {
           <p className="text-lg md:text-xl font-bold text-slate-900 leading-none mb-1 uppercase tracking-tight">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
         </div>
       </div>
-{/* START PRINT SCALE (Everything below here gets zoomed for the PDF) */}
+
       <div className="print-scale">
 
-  {/* BRANDING, CLINICAL GUIDANCE & PRIVACY */}
-      <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
-        <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4 shadow-sm">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-100 text-sky-700 font-bold text-sm border border-sky-200 mt-0.5 shrink-0">
-            ?
-          </div>
-          <div className="flex flex-col gap-4">
-            {/* The "Why" */}
-            <div>
-              <h4 className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-1">Clinical Methodology</h4>
-              <p className="text-xs font-bold text-sky-800 leading-relaxed">
-                Use <span className="text-sky-900 underline">Blind Mode</span> to conduct an unbiased perceptual assessment. By hiding diagnostic indicators, you ensure observations are grounded solely in the patient's speech features. Toggle to <span className="text-amber-600 underline">Reveal Results</span> only after identifying deviant features to visualize diagnostic patterns.
-              </p>
-            </div>
-            
-            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 pt-3 border-t border-sky-200/60">
-              {/* The "How" */}
-              <div className="flex-1">
-                <p className="text-[10px] font-black uppercase tracking-widest text-sky-600 mb-1">Quick Instructions</p>
-                <p className="text-xs font-bold text-sky-800">
-                  Hover over blue <span className="px-1.5 py-0.5 rounded bg-sky-100 border border-sky-200 text-sky-700 font-black">i</span>'s for tasks. Reveal results when finished.
+        <div className="flex flex-col lg:flex-row items-stretch gap-4 mb-10 no-print">
+          <div className="flex-grow p-6 bg-sky-50 rounded-3xl border border-sky-100 flex items-start gap-4 shadow-sm">
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-100 text-sky-700 font-bold text-sm border border-sky-200 mt-0.5 shrink-0">?</div>
+            <div className="flex flex-col gap-4">
+              <div>
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-1">Clinical Methodology</h4>
+                <p className="text-xs font-bold text-sky-800 leading-relaxed">
+                  Use <span className="text-sky-900 underline">Blind Mode</span> to conduct an unbiased perceptual assessment. Toggle to <span className="text-amber-600 underline">Reveal Results</span> after identifying features.
                 </p>
               </div>
-
-              {/* THE PRIVACY NOTE */}
-              <div className="flex items-center gap-2 px-3 py-2 bg-white/50 rounded-xl border border-sky-200/50">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                <p className="text-[9px] font-black uppercase tracking-tighter text-slate-500">
-                  Patient Privacy: <span className="text-slate-700">No data is saved or transmitted.</span> All inputs remain local to your browser.
-                </p>
+              <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 pt-3 border-t border-sky-200/60">
+                <div className="flex-1">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-sky-600 mb-1">Quick Instructions</p>
+                  <p className="text-xs font-bold text-sky-800">Hover over blue <span className="px-1.5 py-0.5 rounded bg-sky-100 border border-sky-200 text-sky-700 font-black">i</span>'s for tasks.</p>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-2 bg-white/50 rounded-xl border border-sky-200/50">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <p className="text-[9px] font-black uppercase tracking-tighter text-slate-500">Privacy: All data remains local to your browser.</p>
+                </div>
               </div>
             </div>
           </div>
+          <RevealToggle showHighlights={showHighlights} setShowHighlights={setShowHighlights} />
         </div>
-        <RevealToggle />
-      </div>
 
-        {/* DIAGNOSTIC KEY (Visible at top) */}
         {showHighlights && (
           <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm print:border-slate-400">
             <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Diagnostic Indicator Key</h3>
@@ -234,7 +220,6 @@ const customRows = Object.entries(customData).map(([title]) => {
           </div>
         )}
 
-        {/* MAIN DATA TABLE */}
         <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto print:border-slate-800">
           <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
             <thead>
@@ -249,48 +234,30 @@ const customRows = Object.entries(customData).map(([title]) => {
           </table>
         </div>
 
-     {/* UI BUTTONS */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
-        
-        {/* Toggle Rows Button */}
-        <button 
-          onClick={() => {
-            const newState = !hidden;
-            setHidden(newState);
-            
-            // Track UX preference
-            if (window.gtag) {
-              window.gtag('event', 'toggle_view_mode', {
-                'event_category': 'UX',
-                'event_label': newState ? 'Switched to Compact View' : 'Switched to Full View'
-              });
-            }
-          }} 
-          className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-sky-600"
-        >
-          {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
-        </button>
+        {/* UI BUTTONS - USING HELPER (Fixes build error) */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
+          <button 
+            onClick={() => {
+              const newState = !hidden;
+              setHidden(newState);
+              trackEvent('toggle_view_mode', newState ? 'Switched to Compact View' : 'Switched to Full View');
+            }} 
+            className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-sky-600"
+          >
+            {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+          </button>
 
-        {/* Generate PDF Button */}
-        <button 
-          onClick={() => {
-            // Track Clinical Output
-            if (window.gtag) {
-              window.gtag('event', 'generate_pdf', {
-                'event_category': 'Conversion',
-                'event_label': 'PDF Report Generated'
-              });
-            }
-            window.print();
-          }} 
-          className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-slate-900"
-        >
-          Generate PDF Report
-        </button>
-        
-      </div>
+          <button 
+            onClick={() => {
+              trackEvent('generate_pdf', 'PDF Report Generated');
+              window.print();
+            }} 
+            className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-slate-900"
+          >
+            Generate PDF Report
+          </button>
+        </div>
 
-        {/* RATINGS & OBSERVATIONS */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
           <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden print:border-slate-800"><tbody>{customRows}</tbody></table></div>
           <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-800" placeholder="Clinical Observations..."></textarea></div>
@@ -309,12 +276,10 @@ const customRows = Object.entries(customData).map(([title]) => {
           </table>
         </div>
 
-       {/* EPIC SMART PHRASE */}
+        {/* EPIC SMART PHRASE - USING HELPER (Fixes build error) */}
         <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 print:bg-white print:border-slate-400">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-            
-            {/* Heading & New Clinical Instructions */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 text-left">
               <h2 className="text-lg font-black text-slate-900 uppercase leading-none">EPIC Clinical Summary</h2>
               <p className="text-[11px] font-bold text-slate-500 italic leading-relaxed max-w-md">
                 Please manually revise the ending diagnostic description to include the neural area, motor speech diagnosis, and severity estimate.
@@ -323,25 +288,14 @@ const customRows = Object.entries(customData).map(([title]) => {
             
             <button 
               onClick={() => { 
-                // 1. Copy to clipboard
                 navigator.clipboard.writeText(generateSmartPhrase()); 
-                
-                // 2. Log the event to Google Analytics
-                if (window.gtag) {
-                  window.gtag('event', 'copy_smart_phrase', {
-                    'event_category': 'Engagement',
-                    'event_label': 'Clinical Summary Copied'
-                  });
-                }
-                
-                // 3. Notify the user
+                trackEvent('copy_smart_phrase', 'Clinical Summary Copied');
                 alert("Summary Copied!"); 
               }} 
               className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg no-print hover:bg-sky-700 transition-colors"
             >
               Copy Smart Phrase
             </button>
-            
           </div>
 
           <div className="bg-white border border-slate-200 rounded-xl p-6 text-left shadow-inner max-h-96 overflow-y-auto print:max-h-none print:border-none print:shadow-none">
@@ -349,7 +303,6 @@ const customRows = Object.entries(customData).map(([title]) => {
           </div>
         </div>
 
-        {/* COPYRIGHT FOOTER */}
         <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 px-4">
           <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
             Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
@@ -362,7 +315,7 @@ const customRows = Object.entries(customData).map(([title]) => {
             Website by Frederick Linn (Frederick.Linn@colorado.edu).
           </p>
         </footer>
-      </div> {/* END PRINT SCALE */}
+      </div> 
     </div>
   );
 }
