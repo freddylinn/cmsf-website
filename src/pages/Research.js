@@ -1,6 +1,45 @@
 import React from "react";
 
 const Research = () => {
+  const incentives = [
+    {
+      title: "Priority Research Access",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      description: "Receive early notification and priority enrollment for upcoming CMSF research studies."
+    },
+    {
+      title: "Clinician Feedback",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+      ),
+      description: "Invitations to share your expertise in clinician feedback sessions to shape the future of the framework."
+    },
+    {
+      title: "Tool & Resource Updates",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      description: "Be the first to receive updates on new clinical tools, EPIC smart phrases, and framework resources."
+    },
+    {
+      title: "Professional Growth",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      ),
+      description: "Invitations to possible future case discussions, clinical deep-dives, or training opportunities."
+    }
+  ];
+
   const researchFocusAreas = [
     {
       id: "neuro-conditions",
@@ -26,7 +65,7 @@ const Research = () => {
     },
     {
       question: "What is the compensation model?",
-      answer: "All studies include a guaranteed honorarium for your time and expertise. Compensation is provided as an online gift card of your choice (via Tangocard.com), delivered electronically upon completion."
+      answer: "All studies include a guaranteed honorarium. Compensation is provided as a digital gift card of your choice (via Tangocard.com), which offers over 100+ global brands and can be redeemed in multiple currencies."
     },
     {
       question: "What about my privacy?",
@@ -43,7 +82,7 @@ const Research = () => {
           CMSF Clinician Research Group
         </h1>
         <p className="text-lg text-slate-600 font-medium leading-relaxed max-w-3xl">
-          Join a dedicated community of experts helping to advance the clinical utility of the Colorado Motor Speech Framework. Members are contacted for <strong>paid research opportunities</strong> to provide expert perceptual ratings and validate framework features.
+          Join a dedicated <strong>global community</strong> of experts helping to advance the clinical utility of the Colorado Motor Speech Framework. Members are contacted for paid research opportunities to provide expert perceptual ratings and validate framework features.
         </p>
       </div>
 
@@ -73,15 +112,31 @@ const Research = () => {
               <svg className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
-              <p className="text-sm font-bold text-emerald-900">Current SLP (including CFs)</p>
+              <p className="text-sm font-bold text-emerald-900">Current SLP (including CFs/equivalent)</p>
             </li>
             <li className="flex gap-3 items-start">
               <svg className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
-              <p className="text-sm font-bold text-emerald-900">Live/Work in the United States</p>
+              <p className="text-sm font-bold text-emerald-900">Global Participation: Open to participants worldwide</p>
             </li>
           </ul>
+        </div>
+      </div>
+
+      {/* GROUP INCENTIVES */}
+      <div className="mb-24">
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center md:text-left">Group Member Incentives</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {incentives.map((item, index) => (
+            <div key={index} className="flex flex-col gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+              <div className="text-sky-600">{item.icon}</div>
+              <div>
+                <h4 className="text-xs font-black uppercase text-slate-900 mb-1 tracking-wide">{item.title}</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed font-bold italic">{item.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -103,7 +158,7 @@ const Research = () => {
         </div>
       </div>
 
-      {/* NEW FAQ SECTION */}
+      {/* FAQ SECTION */}
       <div className="border-t-2 border-slate-100 pt-16 mb-20">
         <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center md:text-left">Frequently Asked Questions</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
