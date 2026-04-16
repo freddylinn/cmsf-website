@@ -7,7 +7,7 @@ import customData from "../data/custom.json";
 import charTasksData from "../data/char-tasks.json"; 
 import Row from "../components/Row";
 
-// 1. HELPER DEFINED HERE (Line 11)
+// Helper for Google Analytics
 const trackEvent = (action, label) => {
   if (window.gtag) {
     window.gtag('event', action, {
@@ -17,7 +17,7 @@ const trackEvent = (action, label) => {
   }
 };
 
-// 2. TOGGLE COMPONENT DEFINED OUTSIDE
+// Toggle component for Blind Mode
 const RevealToggle = ({ showHighlights, setShowHighlights }) => (
   <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-slate-200 shadow-sm no-print">
     <span className={`text-[10px] font-black uppercase tracking-widest ${!showHighlights ? 'text-slate-900' : 'text-slate-300'}`}>Blind Mode</span>
@@ -33,6 +33,9 @@ function Tool() {
   const [hidden, setHidden] = useState(false);
   const [showHighlights, setShowHighlights] = useState(false); 
   const [checkedItems, setCheckedItems] = useState({});
+  
+  // State for the research recruitment banner
+  const [showBanner, setShowBanner] = useState(true);
   
   const [customValues, setCustomValues] = useState({
     "Self-Rating": "", "Intelligibility": "", "Naturalness": "50", "Efficiency": "50"
@@ -159,7 +162,7 @@ function Tool() {
   const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">{val}</th>));
 
   return (
-    <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
+    <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left relative">
       <style dangerouslySetInnerHTML={{ __html: `
         @media print { 
           .no-print { display: none !important; } 
@@ -234,7 +237,7 @@ function Tool() {
           </table>
         </div>
 
-        {/* UI BUTTONS - USING HELPER (Fixes build error) */}
+        {/* UI BUTTONS */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
           <button 
             onClick={() => {
@@ -276,7 +279,7 @@ function Tool() {
           </table>
         </div>
 
-        {/* EPIC SMART PHRASE - USING HELPER (Fixes build error) */}
+        {/* EPIC SMART PHRASE */}
         <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 print:bg-white print:border-slate-400">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
             <div className="flex flex-col gap-1 text-left">
@@ -316,6 +319,53 @@ function Tool() {
           </p>
         </footer>
       </div> 
+
+      {/* PERSISTENT RESEARCH RECRUITMENT BANNER */}
+      {showBanner && (
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-[100] no-print animate-in slide-in-from-bottom duration-700">
+          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 px-4">
+            
+            <div className="flex items-center gap-4 text-left">
+              <div className="bg-emerald-500 p-2 rounded-xl shadow-inner shrink-0 hidden sm:block">
+                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-0.5">CMSF Clinician Research Group</p>
+                <p className="text-xs font-bold text-slate-300 leading-relaxed">
+                  Join our global expert community for <span className="text-white underline">paid research opportunities</span> and early access to clinical resources.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <Link 
+                to="/research" 
+                onClick={() => {
+                  setShowBanner(false);
+                  trackEvent('banner_join_click', 'Tool Page Recruitment Banner Clicked');
+                }}
+                className="flex-grow md:flex-initial px-8 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg text-center"
+              >
+                Join Now
+              </Link>
+              <button 
+                onClick={() => {
+                  setShowBanner(false);
+                  trackEvent('banner_dismiss', 'Tool Page Recruitment Banner Dismissed');
+                }}
+                className="px-3 py-2.5 text-slate-500 hover:text-white transition-colors"
+                title="Dismiss"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
