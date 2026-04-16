@@ -42,7 +42,7 @@ function NavBar() {
               to={researchLink.path}
               className="hidden sm:inline-flex items-center px-4 py-2 bg-emerald-50 text-emerald-700 text-[11px] md:text-xs font-black uppercase tracking-widest rounded-xl border border-emerald-100 hover:bg-emerald-100 hover:border-emerald-200 transition-all shadow-sm"
             >
-              Participate in Research
+           CMSF Clinician Network
             </Link>
 
             {/* The Scoring Tool Link */}
