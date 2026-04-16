@@ -332,7 +332,7 @@ function Tool() {
                 </svg>
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-0.5">CMSF Clinician Research Group</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-0.5">CMSF Clinician Network</p>
                 <p className="text-xs font-bold text-slate-300 leading-relaxed">
                   Join our global expert community for <span className="text-white underline">paid research opportunities</span> and early access to clinical resources.
                 </p>
