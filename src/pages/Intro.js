@@ -52,7 +52,7 @@ function Intro() {
             </h2>
 
             <p className="text-slate-600 leading-relaxed mb-8 font-medium">
-              We are inviting SLPs and CFs to join our dedicated research community. 
+              We are inviting SLPs and CFs to join our dedicated global research community. 
               Help shape the future of motor speech diagnosis and receive notifications for 
               <strong className="text-slate-900"> paid research opportunities.</strong>
             </p>
@@ -105,10 +105,58 @@ function Intro() {
           </Link>
         </div>
 
-        {/* ... Rest of the component remains the same ... */}
         <hr className="border-slate-100 mb-16" />
-        {/* (How to Use, Privacy, and Footer sections follow) */}
+
+        {/* HOW TO USE & PRIVACY (RESTORED) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+          <div>
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-sky-600 mb-6">How to Use the CMSF</h2>
+            <ul className="space-y-4 text-slate-600 leading-relaxed font-medium">
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Administer standard motor speech assessment tasks (hover over the blue i for suggested tasks in the tool).</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Elicit multiple speech contexts (e.g., connected speech, repetition, automatic speech).</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Observe deviant speech features across subsystems.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Mark “Y” for features clearly present in the CMSF.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Review the Scorecard and visually examine the highlighted feature pattern across subtype columns.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the feature pattern to support neuroanatomical reasoning about possible lesion sites.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Determine whether the pattern reflects a pure or mixed dysarthria.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the EPIC summary to document classification and clinical impressions.</li>
+              <li className="flex gap-4"><span className="text-sky-500 font-black">—</span> Use the optional Body Movements form for confirmatory signs.</li>
+            </ul>
+          </div>
+
+          <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200">
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-6">Clinical Privacy & Integrity</h2>
+            <p className="text-sm text-slate-500 leading-relaxed italic">
+              Note: To respect patient privacy, no input data are stored or transmitted. All calculations occur locally.
+            </p>
+          </div>
+        </div>
+
+        {/* DEVELOPERS (RESTORED) */}
+        <div className="border-t border-slate-100 pt-12">
+          <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8">Framework Developers</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm">
+            <div><p className="font-bold text-slate-900">Allison Hilger, PhD, CCC-SLP</p></div>
+            <div><p className="font-bold text-slate-900">Caitlin Cloud, MA, CCC-SLP</p></div>
+            <div><p className="font-bold text-slate-900">Kylie Dunne-Platero, MS, CCC-SLP</p></div>
+          </div>
+        </div>
+
+        {/* CONTACT (RESTORED) */}
+        <div className="mt-20 p-8 bg-slate-900 rounded-3xl text-white flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="font-medium">Questions or feedback?</p>
+          <a href="mailto:allison.hilger@colorado.edu" className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
+            allison.hilger@colorado.edu
+          </a>
+        </div>
       </div>
+
+      <footer className="py-16 bg-slate-50 border-t border-slate-100 text-center px-6">
+        <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose">
+          © 2023-2026, Regents of the University of Colorado. Developed in the Colorado Motor Speech lab. <br />
+          Website developed by Frederick Linn (Frederick.Linn@colorado.edu)
+        </p>
+      </footer>
     </div>
   );
 }
