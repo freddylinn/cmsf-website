@@ -19,6 +19,21 @@ const Research = () => {
     }
   ];
 
+  const faqs = [
+    {
+      question: "How often will I be contacted?",
+      answer: "You will only be emailed when a new research study is available for participation. We value your time and aim to send no more than two opportunities per month."
+    },
+    {
+      question: "What is the compensation model?",
+      answer: "All studies include a guaranteed honorarium for your time and expertise. Compensation is provided as an online gift card of your choice (via Tangocard.com), delivered electronically upon completion."
+    },
+    {
+      question: "What about my privacy?",
+      answer: "Your email and professional data will never be shared with third parties. You are in control of your participation and can unsubscribe from the mailing list at any time."
+    }
+  ];
+
   return (
     <div className="p-4 md:p-10 max-w-5xl mx-auto min-h-screen bg-white font-sans text-slate-900 text-left">
       
@@ -28,7 +43,7 @@ const Research = () => {
           CMSF Clinician Research Group
         </h1>
         <p className="text-lg text-slate-600 font-medium leading-relaxed max-w-3xl">
-          Join a dedicated community of experts helping to advance the clinical utility of the Colorado Motor Speech Framework. Members of this group are contacted for <strong>paid research opportunities</strong> to provide expert perceptual ratings and validate framework features.
+          Join a dedicated community of experts helping to advance the clinical utility of the Colorado Motor Speech Framework. Members are contacted for <strong>paid research opportunities</strong> to provide expert perceptual ratings and validate framework features.
         </p>
       </div>
 
@@ -38,7 +53,7 @@ const Research = () => {
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tight mb-4 text-emerald-400">Join the Mailing List</h2>
             <p className="text-slate-300 mb-8 font-medium leading-relaxed">
-              Complete our 5-minute eligibility screener to join the CMSF research registry. We will contact you directly when new paid opportunities match your expertise.
+              Complete our quick eligibility screener to join the CMSF clinician research group. We will contact you directly when new paid opportunities match your expertise.
             </p>
           </div>
           <a
@@ -58,27 +73,21 @@ const Research = () => {
               <svg className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
-              <p className="text-sm font-bold text-emerald-900">Current SLP (including Clinical Fellows / CFs)</p>
+              <p className="text-sm font-bold text-emerald-900">Current SLP (including CFs)</p>
             </li>
             <li className="flex gap-3 items-start">
               <svg className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
-              <p className="text-sm font-bold text-emerald-900">Live or Work within the United States</p>
-            </li>
-            <li className="flex gap-3 items-start">
-              <svg className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-              </svg>
-              <p className="text-sm font-bold text-emerald-900">Interest in perceptual speech diagnosis</p>
+              <p className="text-sm font-bold text-emerald-900">Live/Work in the United States</p>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* SAMPLE PROJECTS SECTION */}
-      <div>
-        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10">Sample Research Projects</h3>
+      {/* SAMPLE PROJECTS */}
+      <div className="mb-24">
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center md:text-left">Sample Research Projects</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {researchFocusAreas.map((area) => (
             <div key={area.id} className="p-8 bg-white border-2 border-slate-100 rounded-3xl shadow-sm hover:border-sky-100 hover:shadow-md transition-all">
@@ -94,8 +103,21 @@ const Research = () => {
         </div>
       </div>
 
+      {/* NEW FAQ SECTION */}
+      <div className="border-t-2 border-slate-100 pt-16 mb-20">
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center md:text-left">Frequently Asked Questions</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {faqs.map((faq, index) => (
+            <div key={index}>
+              <h4 className="text-sm font-black text-slate-900 uppercase mb-3 tracking-wide">{faq.question}</h4>
+              <p className="text-sm text-slate-500 leading-relaxed font-medium">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* IRB FOOTER */}
-      <div className="mt-20 p-8 bg-slate-50 rounded-3xl border border-slate-200">
+      <div className="p-8 bg-slate-50 rounded-3xl border border-slate-200">
         <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center italic">
           Research participation is voluntary and conducted under the oversight of the University of Colorado Institutional Review Board (IRB). 
           Mailing list data is stored securely and used exclusively for CMSF research recruitment.
