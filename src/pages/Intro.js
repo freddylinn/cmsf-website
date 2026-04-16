@@ -100,7 +100,7 @@ function Intro() {
 
           {/* NEW RESEARCH BUTTON */}
           <Link to="/research" className="px-8 py-4 bg-white border-2 border-emerald-100 text-emerald-700 font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 transition-all text-center shadow-sm">
-            Want to participate in CMSF research?
+            Want to participate in CMSF research? Join the CMSF Clinician Research Group!
           </Link>
         </div>
 
