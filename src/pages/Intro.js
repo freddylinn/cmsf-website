@@ -80,7 +80,7 @@ function Intro() {
       {/* Hero Section */}
       <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-left">
         <h1 className="text-4xl md:text-6xl tracking-tight mb-6 leading-tight">
-          <span className="font-bold text-slate-900 text-sky-600">CMSF</span>{" "}
+          <span className="font-bold text-sky-600">CMSF</span>{" "}
           <span className="font-normal text-slate-400">Motor Speech Framework</span>
         </h1>
 
@@ -89,9 +89,12 @@ function Intro() {
           in the differential diagnosis and classification of motor speech disorders.
         </p>
 
-        <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-20">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-12">
           <Link to="/tool" className="px-8 py-4 bg-sky-500 text-white font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 hover:-translate-y-1 transition-all text-center">
             Start Assessment
+          </Link>
+          <Link to="/resources" className="px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-800 hover:-translate-y-1 transition-all text-center">
+            Tutorials & Resources
           </Link>
           <Link to="/movement" className="px-8 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center">
             Body Movement Form
@@ -103,6 +106,30 @@ function Intro() {
           {/* UPDATED RESEARCH BUTTON */}
           <Link to="/research" className="px-8 py-4 bg-white border-2 border-emerald-100 text-emerald-700 font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 transition-all text-center shadow-sm">
             Join the CMSF Clinician Network: Research & Training Opportunities
+          </Link>
+        </div>
+
+        {/* NEW: FEATURED TUTORIALS & RESOURCES BANNER CARD */}
+        <div className="bg-slate-50 rounded-3xl p-6 md:p-8 border border-slate-200 mb-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2.5 py-1 bg-sky-100 text-sky-700 text-[10px] font-black uppercase rounded-lg tracking-wider">
+                Video & Podcast Guides
+              </span>
+              <span className="text-xs font-bold text-slate-400">• 50-Min ACRM Walkthrough</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900">
+              New to the Colorado Motor Speech Framework?
+            </h3>
+            <p className="text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
+              Watch our complete CEU tutorial video, listen to podcast deep-dives from <em>MedBridge</em> and <em>Speech Uncensored</em>, and learn how to use features like Blind Mode and the EPIC Smart Phrase Generator.
+            </p>
+          </div>
+          <Link
+            to="/resources"
+            className="px-6 py-3.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-md shrink-0 w-full md:w-auto text-center"
+          >
+            Explore Resources →
           </Link>
         </div>
 
