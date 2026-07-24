@@ -79,8 +79,9 @@ function Intro() {
 
       {/* Hero Section */}
       <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-left">
+        {/* HEADER RESTORED TO ORIGINAL DARK TEXT */}
         <h1 className="text-4xl md:text-6xl tracking-tight mb-6 leading-tight">
-          <span className="font-bold text-sky-600">CMSF</span>{" "}
+          <span className="font-bold text-slate-900">CMSF</span>{" "}
           <span className="font-normal text-slate-400">Motor Speech Framework</span>
         </h1>
 
@@ -89,27 +90,48 @@ function Intro() {
           in the differential diagnosis and classification of motor speech disorders.
         </p>
 
-        <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-12">
-          <Link to="/tool" className="px-8 py-4 bg-sky-500 text-white font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-sky-600 hover:-translate-y-1 transition-all text-center">
-            Start Assessment
-          </Link>
-          <Link to="/resources" className="px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-800 hover:-translate-y-1 transition-all text-center">
-            Tutorials & Resources
-          </Link>
-          <Link to="/movement" className="px-8 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center">
-            Body Movement Form
-          </Link>
-          <Link to="/patient-view" className="px-8 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center">
-            Patient View Stimuli
-          </Link>
+        {/* EVENLY STRUCTURED BUTTON LAYOUT */}
+        <div className="space-y-4 mb-12 max-w-4xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <Link 
+              to="/tool" 
+              className="px-5 py-4 bg-sky-500 text-white font-black uppercase tracking-widest rounded-2xl shadow-md hover:bg-sky-600 transition-all text-center text-xs flex items-center justify-center min-h-[56px]"
+            >
+              Start Assessment
+            </Link>
 
-          {/* UPDATED RESEARCH BUTTON */}
-          <Link to="/research" className="px-8 py-4 bg-white border-2 border-emerald-100 text-emerald-700 font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 transition-all text-center shadow-sm">
+            <Link 
+              to="/resources" 
+              className="px-5 py-4 bg-slate-900 text-white font-black uppercase tracking-widest rounded-2xl shadow-md hover:bg-slate-800 transition-all text-center text-xs flex items-center justify-center min-h-[56px]"
+            >
+              Tutorials & Resources
+            </Link>
+
+            <Link 
+              to="/movement" 
+              className="px-5 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center text-xs flex items-center justify-center min-h-[56px]"
+            >
+              Body Movement Form
+            </Link>
+
+            <Link 
+              to="/patient-view" 
+              className="px-5 py-4 bg-white border-2 border-slate-200 text-slate-600 font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all text-center text-xs flex items-center justify-center min-h-[56px]"
+            >
+              Patient View Stimuli
+            </Link>
+          </div>
+
+          {/* CLINICIAN NETWORK BUTTON - FULL WIDTH ANCHOR */}
+          <Link 
+            to="/research" 
+            className="w-full block px-6 py-4 bg-white border-2 border-emerald-100 text-emerald-700 font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 transition-all text-center text-xs shadow-sm"
+          >
             Join the CMSF Clinician Network: Research & Training Opportunities
           </Link>
         </div>
 
-        {/* NEW: FEATURED TUTORIALS & RESOURCES BANNER CARD */}
+        {/* TUTORIALS & RESOURCES BANNER CARD */}
         <div className="bg-slate-50 rounded-3xl p-6 md:p-8 border border-slate-200 mb-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
           <div>
             <div className="flex items-center gap-2 mb-2">
