@@ -7,13 +7,37 @@ const WebsiteUpdates = () => {
         Clinical Update Log
       </h2>
 
-      {/* MARCH 2026 */}
+      {/* JULY 2026 */}
       <div className="relative pl-8 border-l-4 border-sky-500 mb-16 text-left">
         <div className="absolute -left-[14px] top-0 w-6 h-6 bg-white border-4 border-sky-500 rounded-full"></div>
-        <h3 className="text-2xl font-bold mb-6 text-slate-900">March 2026</h3>
+        <h3 className="text-2xl font-bold mb-6 text-slate-900">July 2026</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h4 className="text-[10px] font-black uppercase text-sky-600 mb-4 tracking-widest">Platform & UI</h4>
+            <h4 className="text-[10px] font-black uppercase text-sky-600 mb-4 tracking-widest">Resources & Education</h4>
+            <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
+              <li>• Launched the dedicated <strong>Resources & Tutorials Hub</strong> featuring embedded video guides and podcast deep-dives.</li>
+              <li>• Added the 50-minute <strong>ACRM CEU Webinar Walkthrough</strong> detailing feature pattern analysis and differential diagnosis.</li>
+              <li>• Integrated MedSLP podcast features including <em>MedBridge Speech Scope</em> and <em>Speech Uncensored</em>.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Platform & Navigation</h4>
+            <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
+              <li>• Streamlined primary navigation and dropdown menu structure for fast clinical access.</li>
+              <li>• Added home page resource callout banner for onboarding first-time framework users.</li>
+              <li>• Expanded access points for the <strong>CMSF Clinician Network</strong> research and training initiatives.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* MARCH 2026 */}
+      <div className="relative pl-8 border-l-4 border-slate-200 mb-16 text-left">
+        <div className="absolute -left-[14px] top-0 w-6 h-6 bg-white border-4 border-slate-200 rounded-full"></div>
+        <h3 className="text-2xl font-bold mb-6 text-slate-400">March 2026</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h4 className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Platform & UI</h4>
             <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
               <li>• Updated website aesthetic for improved clinical workflow and visual scanning.</li>
               <li>• Added the <strong>FITI Modules Page</strong> for assessment of indirect task interference.</li>
