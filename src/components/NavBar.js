@@ -9,9 +9,10 @@ function NavBar() {
   const mainTool = { name: 'Scoring Tool', path: '/tool' }; 
   const researchLink = { name: 'Research', path: '/research' };
 
-  // Removed Research from here so it's not redundant in the dropdown
+  // Added "Resources & Tutorials" to this list
   const otherLinks = [
     { name: 'Body Movement Form', path: '/movement' },
+    { name: 'Resources & Tutorials', path: '/resources' },
     { name: 'Patient View', path: '/patient-view' },
     { name: 'Modular FITI Assessment', path: '/fiti' },
     { name: 'Downloads & Updates', path: '/downloads' },
@@ -37,12 +38,12 @@ function NavBar() {
           {/* 2. Navigation Area */}
           <div className="flex items-center space-x-2 md:space-x-4">
             
-            {/* NEW: Research Invitation Button */}
+            {/* Research Invitation Button */}
             <Link
               to={researchLink.path}
               className="hidden sm:inline-flex items-center px-4 py-2 bg-emerald-50 text-emerald-700 text-[11px] md:text-xs font-black uppercase tracking-widest rounded-xl border border-emerald-100 hover:bg-emerald-100 hover:border-emerald-200 transition-all shadow-sm"
             >
-           CMSF Clinician Network
+              CMSF Clinician Network
             </Link>
 
             {/* The Scoring Tool Link */}
@@ -77,7 +78,11 @@ function NavBar() {
                 <>
                   <div className="fixed inset-0 z-0" onClick={() => setIsMenuOpen(false)}></div>
                   <div className="absolute right-0 mt-3 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black ring-opacity-5 z-10 py-2 origin-top-right overflow-hidden border border-slate-100 animate-in fade-in slide-in-from-top-2">
-                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border-b border-slate-100">Clinical Tools</p>
+                    
+                    {/* Clinical Tools Section */}
+                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border-b border-slate-100">
+                      Clinical Tools
+                    </p>
                     {otherLinks.slice(0, 1).map((link) => (
                       <Link
                         key={link.name}
@@ -92,8 +97,11 @@ function NavBar() {
                     ))}
                     
                     <div className="border-t border-slate-100 my-1"></div>
-                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border-b border-slate-100">Resources</p>
                     
+                    {/* Resources Section */}
+                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border-b border-slate-100">
+                      Resources
+                    </p>
                     {otherLinks.slice(1).map((link) => (
                       <Link
                         key={link.name}
