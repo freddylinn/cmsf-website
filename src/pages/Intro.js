@@ -144,7 +144,7 @@ function Intro() {
               New to the Colorado Motor Speech Framework?
             </h3>
             <p className="text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
-              Watch our complete CEU tutorial video, listen to podcast deep-dives from <em>MedBridge</em> and <em>Speech Uncensored</em>, and learn how to use features like Blind Mode and the EPIC Smart Phrase Generator.
+              Watch our complete tutorial video, listen to podcast deep-dives from <em>MedBridge</em> and <em>Speech Uncensored</em>, and learn how to use features like Blind Mode and the EPIC Smart Phrase Generator.
             </p>
           </div>
           <Link
