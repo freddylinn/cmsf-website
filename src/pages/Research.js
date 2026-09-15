@@ -91,7 +91,7 @@ const Research = () => {
 
       {/* 3. MEMBER BENEFITS GRID */}
       <div className="mb-24">
-        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10">Member Benefits</h3>
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-600 mb-10">Member Benefits</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {memberBenefits.map((benefit, i) => (
             <div key={i} className="p-8 bg-slate-50 rounded-3xl border border-slate-100 flex gap-6">
@@ -111,7 +111,7 @@ const Research = () => {
 
       {/* 4. CURRENT INITIATIVES */}
       <div className="mb-24 border-t-2 border-slate-50 pt-20">
-        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10">Current Initiatives</h3>
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-600 mb-10">Current Initiatives</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {currentInitiatives.map((item) => (
             <div key={item.id} className="p-8 bg-white border-2 border-slate-100 rounded-3xl hover:border-sky-100 transition-all">
@@ -132,7 +132,7 @@ const Research = () => {
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-10 text-center md:text-left">
           <div className="max-w-md">
             <h4 className="text-emerald-400 font-black uppercase text-xs tracking-[0.2em] mb-4">Privacy & Ethics</h4>
-            <p className="text-slate-400 text-sm font-medium leading-relaxed italic">
+            <p className="text-slate-600 text-sm font-medium leading-relaxed italic">
               Research participation is voluntary and overseen by the University of Colorado IRB. All mailing list data is stored securely and used exclusively for CMSF Network communications.
             </p>
           </div>

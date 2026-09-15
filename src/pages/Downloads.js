@@ -1,3 +1,4 @@
+import { SPANISH_ENABLED } from "../config/features";
 import React from "react";
 import Download from "../components/Download";
 import WebsiteUpdates from '../components/WebsiteUpdates';
@@ -61,19 +62,65 @@ function Downloads() {
           />
         </div>
 
+        {SPANISH_ENABLED && (
+        <div className="mb-24">
+          <div className="mb-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-sky-700 mb-2">
+              Adaptación al español de Chile
+            </p>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+              Spanish (Chile) Edition — CMSF SPCh
+            </h2>
+            <p className="text-slate-700 leading-relaxed max-w-3xl">
+              Materials for the Chilean Spanish adaptation, developed with
+              Sebastián Contreras Cubillos and colleagues at Universidad Santo
+              Tomás, Talca. Diagnostic indicators are identical to the English
+              edition, so scores are directly comparable. The interactive version
+              is available at{" "}
+              <a href="#/es" className="text-sky-700 font-bold underline">
+                cmsf.info/#/es
+              </a>
+              .
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Download
+              name="CMSF_V7_Espanol.xlsx"
+              type="excel"
+              alias="CMSF Evaluación (Excel)"
+              description="Matriz diagnóstica completa en español de Chile, con puntaje diferencial automatizado (V7)."
+            />
+            <Download
+              name="CMSF_SPCh_Textos_Lectura.pdf"
+              type="pdf"
+              alias="Textos de Lectura (SPCh)"
+              description="Pasajes de lectura para la evaluación en español de Chile: «Inamible», «El viento del norte y el sol» y «El arcoíris»."
+            />
+            <Download
+              type="pdf"
+              external
+              href="https://repositorio.uchile.cl/handle/2250/210007"
+              alias="PEVH Disartria (U. de Chile)"
+              description="Protocolo de Toledo Rodríguez y Tobar Fredes (2021), usado para varias tareas de la adaptación. Se abre en el repositorio de la Universidad de Chile."
+            />
+          </div>
+        </div>
+        )}
+
         <WebsiteUpdates />
       </div>
 
       {/* Footer */}
       <footer className="py-20 bg-white border-t border-slate-200 text-center px-6">
         <div className="max-w-4xl mx-auto space-y-6">
-          <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
+          <p className="text-[11px] text-slate-600 font-bold uppercase tracking-widest leading-loose text-center">
             Hilger, A., Cloud, C., & Dunne-Platero, K. (2024). <br />
             Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
             https://cmsf.info
           </p>
           <div className="h-px w-12 bg-slate-200 mx-auto"></div>
-          <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
+          <p className="text-[11px] text-slate-600 font-bold uppercase tracking-widest leading-loose text-center">
             © 2023-2026, Regents of the University of Colorado, a body corporate. <br />
             Developed in the Colorado Motor Speech lab. All rights reserved. <br />
             Website developed by Frederick Linn (Frederick.Linn@colorado.edu)

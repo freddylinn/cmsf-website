@@ -1,7 +1,11 @@
 import React from 'react';
-import patientData from '../data/patientStimuli.json';
+import { getLang } from '../i18n';
 
-function PatientTasks() {
+function PatientTasks({ lang = 'en' }) {
+  const L = getLang(lang);
+  const t = L.ui;
+  const patientData = L.data.stimuli;
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -31,7 +35,7 @@ function PatientTasks() {
       {/* Navigation & Print Tab */}
       <nav className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 py-4 mb-8 border-b shadow-sm no-print">
         <div className="flex justify-between items-center mb-4">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Jump to Section:</p>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t.jumpTo}</p>
           <button 
             onClick={handlePrint}
             className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-md text-sm font-semibold hover:bg-gray-700 transition-all shadow-md"
@@ -39,7 +43,7 @@ function PatientTasks() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
             </svg>
-            Print Stimuli
+            {t.printStimuli}
           </button>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -55,7 +59,7 @@ function PatientTasks() {
         </div>
       </nav>
 
-      <h1 className="text-4xl font-bold mb-12 text-blue-900">Patient Assessment Stimuli</h1>
+      <h1 className="text-4xl font-bold mb-12 text-blue-900">{t.stimuliTitle}</h1>
       
       {Object.entries(patientData).map(([category, sections]) => {
         const sectionId = category.replace(/\s+/g, '-');
@@ -76,14 +80,14 @@ function PatientTasks() {
                   {section.instruction && (
                     <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 no-print">
                       <p className="text-gray-700 italic text-sm">
-                        <span className="font-bold not-italic">Note for Clinician:</span> {section.instruction}
+                        <span className="font-bold not-italic">{t.clinicianNote}</span> {section.instruction}
                       </p>
                     </div>
                   )}
 
                   <ul className="space-y-6">
                     {(section.sentences || section.stimuli).map((item, sIdx) => {
-                      const isSpanish = section.header?.includes("Sopa de Pescado");
+                      const isSpanish = lang === 'es' || section.header?.includes("Sopa de Pescado");
                       const isImageLink = typeof item === 'object' && item.imageUrl;
 
                       return (
@@ -93,8 +97,8 @@ function PatientTasks() {
                           className={`stimulus-item text-3xl leading-relaxed bg-gray-50 p-6 rounded-lg border shadow-sm ${isSpanish ? 'notranslate' : ''}`}
                         >
                           {isImageLink ? (
-                            <a 
-                              href={item.imageUrl} 
+                            <a
+                              href={item.imageUrl.startsWith('http') ? item.imageUrl : item.imageUrl}
                               target="_blank" 
                               rel="noopener noreferrer"
                               className="text-blue-600 underline hover:text-blue-800 flex items-center gap-3 no-print"
@@ -119,7 +123,7 @@ function PatientTasks() {
       })}
       
       <div className="h-64 flex items-center justify-center text-gray-300 italic no-print">
-        End of Assessment
+        {t.endOfAssessment}
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
-import charData from "../data/characteristics.json";
-import locData from "../data/locations.json";
-import taskData from "../data/tasks.json";
-import customData from "../data/custom.json";
-import charTasksData from "../data/char-tasks.json"; 
+import { FITI_ENABLED } from "../config/features";
+import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Row from "../components/Row";
+import MobileFeature from "../components/MobileFeature";
+import PatternGrid from "../components/PatternGrid";
+import MobileGroupHeader from "../components/MobileGroupHeader";
+import { getLang, rowKey, lookupDefinition, lookupLaterality } from "../i18n";
 
 // Helper for Google Analytics
 const trackEvent = (action, label) => {
@@ -17,28 +17,112 @@ const trackEvent = (action, label) => {
   }
 };
 
-// Toggle component for Blind Mode
-const RevealToggle = ({ showHighlights, setShowHighlights }) => (
-  <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-slate-200 shadow-sm no-print">
-    <span className={`text-[10px] font-black uppercase tracking-widest ${!showHighlights ? 'text-slate-900' : 'text-slate-300'}`}>Blind Mode</span>
-    <label className="relative inline-flex items-center cursor-pointer">
-      <input type="checkbox" className="sr-only peer" checked={showHighlights} onChange={() => setShowHighlights(!showHighlights)} />
-      <div className="w-12 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
-    </label>
-    <span className={`text-[10px] font-black uppercase tracking-widest ${showHighlights ? 'text-amber-600' : 'text-slate-300'}`}>Reveal Results</span>
-  </div>
-);
+// The two rating modes, shown as a single card that states which mode is
+// active, why it exists, and what the button will do. The previous two-label
+// switch left people unsure which side was the current state.
+const ModeCard = ({ showHighlights, setShowHighlights, t }) => {
+  const revealed = showHighlights;
+  const step = revealed ? t.revealStep : t.blindStep;
+  const title = revealed ? t.revealTitle : t.blindTitle;
+  const body = revealed ? t.revealBody : t.blindBody;
+  const action = revealed ? t.revealAction : t.blindAction;
 
-function Tool() {
+  return (
+    <div
+      className={`no-print flex flex-col justify-between gap-4 px-6 py-5 rounded-2xl border-2 shadow-sm transition-colors lg:w-[380px] shrink-0 ${
+        revealed ? "bg-amber-50 border-amber-500" : "bg-white border-slate-400"
+      }`}
+    >
+      <div>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span
+            aria-hidden="true"
+            className={`inline-flex items-center justify-center w-6 h-6 rounded-lg ${
+              revealed ? "bg-amber-500 text-white" : "bg-slate-700 text-white"
+            }`}
+          >
+            {revealed ? (
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.5 12S5.5 5.5 12 5.5 21.5 12 21.5 12 18.5 18.5 12 18.5 2.5 12 2.5 12z" />
+              </svg>
+            ) : (
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18M10.6 10.7a3 3 0 004.2 4.2M9.9 5.7A9 9 0 0112 5.5c6.5 0 9.5 6.5 9.5 6.5a15 15 0 01-3 4M6.2 7.4A15 15 0 002.5 12S5.5 18.5 12 18.5c1 0 1.9-.15 2.7-.4" />
+              </svg>
+            )}
+          </span>
+          <span className={`text-[10px] font-black uppercase tracking-widest ${revealed ? "text-amber-800" : "text-slate-700"}`}>
+            {step}
+          </span>
+        </div>
+        <p className="text-sm font-bold text-slate-900 leading-snug">{title}</p>
+        <p className="text-xs text-slate-700 leading-relaxed mt-1">{body}</p>
+      </div>
+
+      <button
+        type="button"
+        aria-pressed={revealed}
+        onClick={() => setShowHighlights(!showHighlights)}
+        className={`w-full px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-colors ${
+          revealed
+            ? "bg-white text-amber-900 border-2 border-amber-600 hover:bg-amber-100"
+            : "bg-slate-900 text-white hover:bg-slate-700"
+        }`}
+      >
+        {action}
+      </button>
+    </div>
+  );
+};
+
+function Tool({ lang = "en" }) {
+  const L = getLang(lang);
+  const t = L.ui;
+  const { characteristics: charData, locations: locData, tasks: taskData,
+          custom: customData, definitions: charTasksData } = L.data;
+  const CUSTOM_KEYS = Object.keys(customData);
+  const [SELF, INTEL, NAT, EFF] = CUSTOM_KEYS;
+
   const [hidden, setHidden] = useState(false);
+  const [hoveredCol, setHoveredCol] = useState(null);
+  const [openTask, setOpenTask] = useState(null);
+  const taskRef = useRef(null);
+
+  // Same dismissal rules as the feature definitions: tap away or press Escape.
+  useEffect(() => {
+    if (!openTask) return;
+    const onDown = (e) => {
+      if (taskRef.current && !taskRef.current.contains(e.target)) setOpenTask(null);
+    };
+    const onKey = (e) => { if (e.key === "Escape") setOpenTask(null); };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [openTask]);
+  const tableScrollRef = useRef(null);
+
+  // Toggling the row filter changes the table's height underneath a retained
+  // scroll position, which drops you into empty space below the last row.
+  // Reset to the top so the first visible feature is always where you look.
+  const toggleHidden = () => {
+    setHidden(prev => !prev);
+    if (tableScrollRef.current) {
+      const top = tableScrollRef.current.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
   const [showHighlights, setShowHighlights] = useState(false); 
   const [checkedItems, setCheckedItems] = useState({});
+  const [laterality, setLaterality] = useState({});
   
   // State for the research recruitment banner
-  const [showBanner, setShowBanner] = useState(true);
   
   const [customValues, setCustomValues] = useState({
-    "Self-Rating": "", "Intelligibility": "", "Naturalness": "50", "Efficiency": "50"
+    [SELF]: "", [INTEL]: "", [NAT]: "50", [EFF]: "50"
   });
 
   const headerKeys = Object.values(locData).flatMap(arr => arr);
@@ -48,8 +132,15 @@ function Tool() {
     Yellow: initialCount, Green: initialCount, Red: initialCount, Total: initialCount,
   });
 
-  const handleToggle = (charName, isNowChecked, cellValues) => {
-    setCheckedItems(prev => ({ ...prev, [charName]: isNowChecked }));
+  const handleToggle = (key, isNowChecked, cellValues) => {
+    setCheckedItems(prev => ({ ...prev, [key]: isNowChecked }));
+    if (!isNowChecked) {
+      setLaterality(prev => {
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      });
+    }
     const multiplier = isNowChecked ? 1 : -1;
     setCounts(prevCounts => {
       const updated = {
@@ -67,61 +158,144 @@ function Tool() {
   };
 
   const generateSmartPhrase = () => {
-    const checked = Object.keys(checkedItems).filter(k => checkedItems[k]);
-    let text = `Evaluation: Colorado Motor Speech Framework (CMSF)\n`;
+    const checked = Object.keys(checkedItems)
+      .filter(k => checkedItems[k])
+      .map(k => {
+        const name = k.split("|")[1];
+        return laterality[k] ? `${name} (${laterality[k]})` : name;
+      });
+    const sp = t.sp;
+    let text = `${sp.evaluation}\n`;
     text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
-    text += `Clinical Ratings:\n- Self-Rating: ${customValues["Self-Rating"] || "N/A"}/10\n- Intelligibility Estimate: ${customValues["Intelligibility"] || "N/A"}%\n- Naturalness: ${customValues["Naturalness"]}/100\n- Efficiency: ${customValues["Efficiency"]}/100\n\n`;
-    text += `Observations:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : "No deviant features noted.");
-    text += `\n\nDifferential Summary:\n` + headerKeys.map((k, i) => `${k}: Net ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
-    text += `\n\nOverall Impressions:\nSpeech features observed during this evaluation suggest possible involvement of [Neural Area].\nPrimary motor speech disorder classification: [MSD Type].\nPerceptual severity: [No Impairment/ Mild / Moderate / Severe/ Profound].`;
+    text += `${sp.ratings}:\n- ${sp.selfRating}: ${customValues[SELF] || "N/A"}/10\n- ${sp.intelligibility}: ${customValues[INTEL] || "N/A"}%\n- ${sp.naturalness}: ${customValues[NAT]}/100\n- ${sp.efficiency}: ${customValues[EFF]}/100\n\n`;
+    text += `${sp.observations}:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : sp.none);
+    text += `\n\n${sp.differential}:\n` + headerKeys.map((k, i) => `${k}: ${sp.net} ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
+    text += `\n\n${sp.impressions}:\n${sp.impressionsBody}`;
     return text;
   };
 
+  // One accent per subsystem. Used for the left spine on the feature-name cell
+  // and for the inline eyebrow label, so grouping survives without costing a
+  // full-width row or widening the table.
+  // Deep jewel tones: a wide hue spread so subsystems stay distinguishable at
+  // 5px, but low enough in value that they read as structure rather than
+  // competing with the light, saturated diagnostic fills. Brightness was what
+  // clashed before, not hue variety — these are the same hues, much darker.
+  const SECTION_ACCENTS = [
+    "#155E63", // deep teal
+    "#2C4B8C", // indigo
+    "#57399B", // violet
+    "#8A2B62", // plum
+    "#8C4A16", // umber
+    "#2E6B4F", // pine
+    "#6B2F3A", // wine
+    "#3C5A6E", // steel
+  ];
+  const accentFor = (name) => {
+    const names = Object.keys(charData);
+    return SECTION_ACCENTS[names.indexOf(name) % SECTION_ACCENTS.length];
+  };
+
+  // The recommended-tasks popover lives in the section header while entering
+  // features, and moves into the first row's eyebrow once headers are hidden.
+  const taskPopover = (groupName) => (
+    <div className="has-tooltip relative flex items-center no-print">
+      <span className={`${openTask === groupName ? "" : "tooltip"} absolute left-0 top-full mt-2 md:left-full md:top-0 md:ml-6 md:mt-0 leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[300px] md:w-[600px] border border-slate-300 z-50 text-left whitespace-normal ring-1 ring-slate-200`}>
+        <span className="flex items-start justify-between gap-3 mb-2">
+          <span className="text-[10px] font-black uppercase text-sky-700 tracking-widest">{t.recommendedTasks}</span>
+          {openTask === groupName && (
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={() => setOpenTask(null)}
+              className="shrink-0 -mt-1 -mr-1 w-7 h-7 rounded-lg bg-slate-200 text-slate-800 text-base leading-none font-bold"
+            >×</button>
+          )}
+        </span>
+        {(taskData[groupName] || "").split("\n").map((item, key) => (<p className="my-2 first:mt-0 font-medium" key={key}>{item}</p>))}
+      </span>
+      <button
+        type="button"
+        aria-expanded={openTask === groupName}
+        aria-label={t.recommendedTasks}
+        onClick={() => setOpenTask(prev => (prev === groupName ? null : groupName))}
+        className="print:hidden px-1.5 py-0.5 rounded bg-sky-100 text-[10px] text-sky-800 font-bold border border-sky-600 min-w-[22px] min-h-[22px]"
+      >i</button>
+    </div>
+  );
+
   const charRows = Object.keys(charData).flatMap((groupName) => {
     const groupItems = Object.entries(charData[groupName]);
-    const visibleItems = groupItems.filter(([name]) => !hidden || checkedItems[name]);
+    const visibleItems = groupItems.filter(([name]) => !hidden || checkedItems[rowKey(groupName, name)]);
+    const checkedInGroup = groupItems.filter(([name]) => checkedItems[rowKey(groupName, name)]).length;
     if (visibleItems.length === 0) return [];
 
     const rows = [];
-    rows.push(
+    if (!hidden) rows.push(
       <tr key={`section-${groupName}`} className="bg-slate-50 border-y border-slate-200">
-        <td colSpan={headerKeys.length + 2} className="p-2 pl-6 bg-slate-100/50 text-left">
+        <td
+          colSpan={2}
+          className="sticky left-0 z-10 hover:z-50 py-1.5 pl-6 pr-3 bg-slate-100 text-left border-x border-slate-300"
+          style={{ borderLeft: `5px solid ${accentFor(groupName)}` }}
+        >
           <div className="flex items-center gap-3">
-            <span className="text-[18px] font-black capitalize tracking-normal text-slate-500">
-              {groupName.toLowerCase()}
+            <span
+              className="text-[15px] font-black tracking-normal"
+              style={{ color: accentFor(groupName) }}
+            >
+              {groupName}
             </span>
-            <div className="has-tooltip relative flex items-center">
-              <span className="tooltip absolute left-full top-0 ml-6 leading-relaxed rounded-2xl shadow-2xl p-8 bg-white text-slate-900 text-sm font-semibold w-[300px] md:w-[600px] border border-slate-300 z-50 text-left whitespace-normal ring-1 ring-slate-200">
-                <p className="mb-2 text-[10px] font-black uppercase text-sky-700 tracking-widest">Recommended Tasks:</p>
-                {(taskData[groupName] || "").split("\n").map((item, key) => (<p className="my-2 first:mt-0 font-medium" key={key}>{item}</p>))}
-              </span>
-              <button className="print:hidden px-2 py-0.5 rounded bg-sky-100 text-[10px] text-sky-700 font-bold border border-sky-200">i</button>
-            </div>
+            {taskPopover(groupName)}
           </div>
         </td>
+        {headerKeys.map((_, i) => (
+          <td
+            key={i}
+            onMouseEnter={() => setHoveredCol(i)}
+            className={`h-6 border-x border-slate-300 bg-white ${
+              hoveredCol === i ? "shadow-[inset_0_0_0_9999px_rgba(14,165,233,0.10)]" : ""
+            }`}
+          />
+        ))}
       </tr>
     );
 
-    visibleItems.forEach(([charName, data]) => {
+    visibleItems.forEach(([charName, data], vIdx) => {
+      const key = rowKey(groupName, charName);
+      const leads = hidden && vIdx === 0;
       rows.push(
-        <Row 
-          key={`${groupName}-${charName}`} 
-          rowData={[charName, data]} 
-          isChecked={!!checkedItems[charName]} 
-          onToggle={(val) => handleToggle(charName, val, data)} 
+        <Row
+          key={key}
+          sectionLabel={leads ? groupName : null}
+          sectionAccent={accentFor(groupName)}
+          sectionCount={leads ? checkedInGroup : 0}
+          sectionInfo={leads ? taskPopover(groupName) : null}
+          rowData={[charName, data]}
+          isChecked={!!checkedItems[key]}
+          onToggle={(val) => handleToggle(key, val, data)}
           showHighlights={showHighlights}
-          definition={charTasksData[charName]}
+          definition={lookupDefinition(charTasksData, groupName, charName)}
+          definitionLabel={t.definition}
+          definitionMissing={t.definitionMissing}
+          hoveredCol={hoveredCol}
+          onHoverCol={setHoveredCol}
+          lateralityOptions={lookupLaterality(L, groupName, charName)}
+          lateralityValue={laterality[key] || null}
+          onLaterality={(val) => setLaterality(prev => ({ ...prev, [key]: val }))}
+          sideLabel={t.sideLabel}
         />
       );
     });
 
-    if (groupName === "Articulation" && !hidden) {
+    if (lang === "en" && groupName === "Articulation" && !hidden) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
           <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
+            {FITI_ENABLED && (
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
-              For more in-depth Articulation Testing, Perform Modular FITI Assessment
+              {t.fitiPrompt}
             </Link>
+            )}
           </td>
         </tr>
       );
@@ -130,9 +304,9 @@ function Tool() {
   });
 
   const customRows = Object.entries(customData).map(([title]) => {
-    const isSlider = title === "Naturalness" || title === "Efficiency";
-    const isSelfRating = title === "Self-Rating";
-    const isIntelligibility = title === "Intelligibility";
+    const isSlider = title === NAT || title === EFF;
+    const isSelfRating = title === SELF;
+    const isIntelligibility = title === INTEL;
 
     return (
       <tr key={title}>
@@ -150,19 +324,67 @@ function Tool() {
               onChange={(e) => setCustomValues(prev => ({ ...prev, [title]: e.target.value }))}
             />
             {isSlider && <span className="font-mono text-sm w-8 font-bold text-slate-600 print:ml-2">{customValues[title]}</span>}
-            {isSelfRating && <span className="text-xs font-black text-slate-400">/ 10</span>}
-            {isIntelligibility && <span className="text-xs font-black text-slate-400">%</span>}
+            {isSelfRating && <span className="text-xs font-black text-slate-600">/ 10</span>}
+            {isIntelligibility && <span className="text-xs font-black text-slate-600">%</span>}
           </div>
         </td>
       </tr>
     );
   });
 
-  const firstRow = Object.keys(locData).map(item => (<th colSpan={locData[item].length} key={item} className="p-3 border border-slate-700 bg-slate-100 text-sm uppercase font-black tracking-tight">{item}</th>));
-  const secondRow = headerKeys.map(val => (<th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">{val}</th>));
+  const firstRow = Object.keys(locData).map(item => (
+    <th
+      colSpan={locData[item].length}
+      key={item}
+      className="cmsf-th lg:sticky lg:top-16 z-30 h-[52px] px-2 bg-slate-100 text-[11px] leading-tight uppercase font-black tracking-tight print:static"
+    >
+      {item}
+    </th>
+  ));
+  const secondRow = headerKeys.map((val, i) => (
+    <th
+      key={val}
+      onMouseEnter={() => setHoveredCol(i)}
+      className={`cmsf-th lg:sticky lg:top-[116px] z-30 p-2 h-9 text-[11px] uppercase font-bold transition-colors print:static ${
+        hoveredCol === i ? "text-sky-800 bg-sky-100" : "text-slate-700 bg-slate-100"
+      }`}
+    >
+      {val}
+    </th>
+  ));
+
+  // --- Narrow-screen views -------------------------------------------------
+  // Both derive from the same checkedItems/laterality state as the table.
+  const mobileGroups = Object.keys(charData).map((groupName) => ({
+    groupName,
+    items: Object.entries(charData[groupName]).map(([charName, values]) => {
+      const key = rowKey(groupName, charName);
+      return { key, charName, values };
+    }),
+  }));
+
+  const patternGroups = mobileGroups.map(({ groupName, items }) => ({
+    groupName,
+    checkedCount: items.filter(({ key }) => checkedItems[key]).length,
+    items: items.map(({ key, charName, values }) => ({
+      key,
+      name: charName,
+      checked: !!checkedItems[key],
+      side: laterality[key] || null,
+      values,
+    })),
+  }));
+
+  const checkedTotal = Object.values(checkedItems).filter(Boolean).length;
+
+  const scorecardHeader = headerKeys.map(val => (
+    <th key={val} className="p-2 border border-slate-700 bg-slate-100 text-[11px] uppercase font-bold text-slate-700">
+      {val}
+    </th>
+  ));
 
   return (
-    <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left relative">
+    <div className="p-2 sm:p-4 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-white font-sans text-slate-900 text-left relative">
       <style dangerouslySetInnerHTML={{ __html: `
         @media print { 
           .no-print { display: none !important; } 
@@ -177,11 +399,12 @@ function Tool() {
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b-2 border-slate-100 pb-8 gap-6">
         <div className="w-full md:w-80">
-          <label className="block text-xs font-black uppercase text-slate-400 mb-1 tracking-widest">Patient Name</label>
-          <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900 print:border-none" type="text" placeholder="Enter name..." />
+          <label className="block text-xs font-black uppercase text-slate-600 mb-1 tracking-widest">{t.patientName}</label>
+          <input className="w-full border-b-2 border-slate-200 focus:border-sky-500 outline-none p-1 text-lg font-bold text-slate-900 print:border-none" type="text" placeholder={t.patientNamePlaceholder} />
         </div>
         <div className="text-left md:text-right">
-          <p className="text-lg md:text-xl font-bold text-slate-900 leading-none mb-1 uppercase tracking-tight">Colorado <span className="font-normal text-slate-400">Motor Speech Framework</span></p>
+          <p className="text-lg md:text-xl font-bold text-slate-900 leading-none mb-1 uppercase tracking-tight">Colorado <span className="font-normal text-slate-600">Motor Speech Framework</span></p>
+          {t.editionSub && <p className="text-[11px] font-bold text-sky-600 uppercase tracking-widest">{t.editionSub}</p>}
         </div>
       </div>
 
@@ -192,43 +415,47 @@ function Tool() {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-100 text-sky-700 font-bold text-sm border border-sky-200 mt-0.5 shrink-0">?</div>
             <div className="flex flex-col gap-4">
               <div>
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-1">Clinical Methodology</h4>
-                <p className="text-xs font-bold text-sky-800 leading-relaxed">
-                  Use <span className="text-sky-900 underline">Blind Mode</span> to conduct an unbiased perceptual assessment. Toggle to <span className="text-amber-600 underline">Reveal Results</span> after identifying features.
-                </p>
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-1">{t.methodologyTitle}</h4>
+                <p className="text-xs font-bold text-sky-800 leading-relaxed">{t.methodologyBody}</p>
               </div>
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 pt-3 border-t border-sky-200/60">
                 <div className="flex-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-sky-600 mb-1">Quick Instructions</p>
-                  <p className="text-xs font-bold text-sky-800">Hover over blue <span className="px-1.5 py-0.5 rounded bg-sky-100 border border-sky-200 text-sky-700 font-black">i</span>'s for tasks.</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-sky-600 mb-1">{t.quickInstructionsTitle}</p>
+                  <p className="text-xs font-bold text-sky-800">{t.quickInstructionsBody}</p>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-2 bg-white/50 rounded-xl border border-sky-200/50">
                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                  <p className="text-[9px] font-black uppercase tracking-tighter text-slate-500">Privacy: All data remains local to your browser.</p>
+                  <p className="text-[9px] font-black uppercase tracking-tighter text-slate-600">{t.privacyNote}</p>
                 </div>
               </div>
             </div>
           </div>
-          <RevealToggle showHighlights={showHighlights} setShowHighlights={setShowHighlights} />
+          <ModeCard showHighlights={showHighlights} setShowHighlights={setShowHighlights} t={t} />
         </div>
 
         {showHighlights && (
           <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm print:border-slate-400">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Diagnostic Indicator Key</h3>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-4">{t.keyTitle}</h3>
             <div className="flex flex-wrap gap-x-12 gap-y-6">
-              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">x</div><span className="text-xs font-bold text-slate-700 uppercase">Common</span></div>
-              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">xx</div><span className="text-xs font-bold text-slate-700 uppercase">Highly Distinguishing</span></div>
-              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">—</div><span className="text-xs font-bold text-slate-700 uppercase">Unexpected</span></div>
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-yellow-200 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">x</div><span className="text-xs font-bold text-slate-700 uppercase">{t.keyCommon}</span></div>
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-green-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">xx</div><span className="text-xs font-bold text-slate-700 uppercase">{t.keyDistinguishing}</span></div>
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-red-300 border border-slate-400 flex items-center justify-center font-bold text-xs uppercase">—</div><span className="text-xs font-bold text-slate-700 uppercase">{t.keyUnexpected}</span></div>
             </div>
           </div>
         )}
 
-        <div className="mb-10 shadow-lg rounded-xl border border-slate-300 overflow-x-auto print:border-slate-800">
-          <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
+        <div
+          ref={tableScrollRef}
+          className="hidden lg:block mb-10 shadow-lg rounded-xl border border-slate-300 lg:overflow-x-visible print:block print:overflow-visible print:border-slate-800"
+        >
+          <table
+            className="table-fixed text-center border-collapse w-full min-w-[920px] print:min-w-0"
+            onMouseLeave={() => setHoveredCol(null)}
+          >
             <thead>
               <tr className="bg-slate-100">
-                <th rowSpan={2} className="sticky left-0 z-20 p-3 border border-slate-700 bg-slate-100 w-64 md:w-80 text-xs font-black uppercase text-left pl-6 print:static">Characteristics</th>
-                <th rowSpan={2} className="p-3 border border-slate-700 w-16 text-xs font-black uppercase">Y/N</th>
+                <th rowSpan={2} className="cmsf-th sticky left-0 top-auto lg:top-16 z-40 p-3 bg-slate-100 w-64 md:w-80 text-xs font-black uppercase text-left pl-6 print:static">{t.characteristics}</th>
+                <th rowSpan={2} className="cmsf-th lg:sticky lg:top-16 z-30 p-3 bg-slate-100 w-16 text-xs font-black uppercase print:static">{t.yesNo}</th>
                 {firstRow}
               </tr>
               <tr>{secondRow}</tr>
@@ -237,17 +464,110 @@ function Tool() {
           </table>
         </div>
 
+        {/* NARROW SCREENS: the same assessment as a vertical list, with the
+            diagnostic pattern shown as a condensed grid rather than a matrix. */}
+        <div className="lg:hidden print:hidden mb-10">
+          <div className="mb-8 rounded-2xl border border-sky-300 bg-sky-50 p-5">
+            <h3 className="text-[11px] font-black uppercase tracking-widest text-sky-800 mb-2">
+              {t.mobileIntroTitle}
+            </h3>
+            <p className="text-xs text-sky-900 leading-relaxed">
+              {t.mobileIntroBody}
+            </p>
+          </div>
+
+          {showHighlights && (
+            <div className="mb-8">
+              <div className="flex items-baseline justify-between mb-3 px-1">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600">
+                  {t.mobilePatternTitle}
+                </h3>
+                <span className="text-[11px] font-bold text-slate-600">
+                  {checkedTotal} {t.mobileCheckedCount}
+                </span>
+              </div>
+              <PatternGrid
+                groups={patternGroups}
+                headerKeys={headerKeys}
+                abbrev={t.colAbbrev}
+                counts={counts}
+                t={t}
+              />
+            </div>
+          )}
+
+          <div className="flex items-baseline justify-between mb-3 px-1">
+            <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600">
+              {t.mobileFeaturesTitle}
+            </h3>
+            <span className="text-[11px] font-bold text-slate-600">
+              {checkedTotal} {t.mobileCheckedCount}
+            </span>
+          </div>
+
+          <div className="rounded-2xl border border-slate-300 overflow-hidden shadow-sm">
+            {mobileGroups.map(({ groupName, items }) => {
+              const visible = items.filter(({ key }) => !hidden || checkedItems[key]);
+              if (!visible.length) return null;
+              const checkedInGroup = items.filter(({ key }) => checkedItems[key]).length;
+              return (
+                <div key={groupName}>
+                  <MobileGroupHeader
+                    groupName={groupName}
+                    checkedCount={checkedInGroup}
+                    task={taskData[groupName]}
+                    tasksLabel={t.mobileTasksLabel}
+                  />
+                  {visible.map(({ key, charName, values }) => (
+                    <MobileFeature
+                      key={key}
+                      charName={charName}
+                      isChecked={!!checkedItems[key]}
+                      onToggle={(val) => handleToggle(key, val, values)}
+                      definition={lookupDefinition(charTasksData, groupName, charName)}
+                      definitionLabel={t.definition}
+                      definitionMissing={t.definitionMissing}
+                      lateralityOptions={lookupLaterality(L, groupName, charName)}
+                      lateralityValue={laterality[key] || null}
+                      onLaterality={(val) => setLaterality(prev => ({ ...prev, [key]: val }))}
+                      sideLabel={t.sideLabel}
+                    />
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-8">
+            <ModeCard
+              showHighlights={showHighlights}
+              setShowHighlights={setShowHighlights}
+              t={t}
+            />
+          </div>
+        </div>
+
         {/* UI BUTTONS */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16 no-print">
+          <button
+            onClick={() => setShowHighlights(!showHighlights)}
+            aria-pressed={showHighlights}
+            className={`hidden lg:inline-flex px-8 py-4 rounded-xl text-xs font-black uppercase tracking-widest transition-colors shadow-sm ${
+              showHighlights
+                ? "bg-white text-amber-900 border-2 border-amber-600 hover:bg-amber-100"
+                : "bg-slate-900 text-white hover:bg-slate-700"
+            }`}
+          >
+            {showHighlights ? t.revealAction : t.blindAction}
+          </button>
           <button 
             onClick={() => {
-              const newState = !hidden;
-              setHidden(newState);
-              trackEvent('toggle_view_mode', newState ? 'Switched to Compact View' : 'Switched to Full View');
+              trackEvent('toggle_view_mode', !hidden ? 'Switched to Compact View' : 'Switched to Full View');
+              toggleHidden();
             }} 
             className="px-10 py-4 bg-sky-500 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-sky-600"
           >
-            {hidden ? "Show All Rows" : "Hide Unchecked Rows"}
+            {hidden ? t.showAll : t.hideUnchecked}
           </button>
 
           <button 
@@ -257,24 +577,24 @@ function Tool() {
             }} 
             className="px-10 py-4 bg-slate-800 text-white text-sm font-black uppercase rounded-2xl shadow-xl transition-all hover:bg-slate-900"
           >
-            Generate PDF Report
+            {t.generatePdf}
           </button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
           <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden print:border-slate-800"><tbody>{customRows}</tbody></table></div>
-          <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-800" placeholder="Clinical Observations..."></textarea></div>
+          <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-800" placeholder={t.observationsPlaceholder}></textarea></div>
         </div>
 
         {/* SCORECARD */}
-        <div className="mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto print:shadow-none print:border-slate-800">
-          <table className="table-fixed text-center border-collapse w-full min-w-[1000px] print:min-w-0">
-            <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase font-black">Diagnostic Summary Scorecard</th>{secondRow}</tr></thead>
+        <div className="hidden lg:block print:block mt-16 border-2 border-slate-800 rounded-2xl overflow-hidden shadow-2xl overflow-x-auto print:shadow-none print:border-slate-800">
+          <table className="table-fixed text-center border-collapse w-full min-w-[920px] print:min-w-0">
+            <thead><tr className="bg-slate-800 text-white text-xs font-black uppercase"><th colSpan={2} className="p-4 text-left pl-8 border border-slate-700 uppercase font-black">{t.scorecard}</th>{scorecardHeader}</tr></thead>
             <tbody>
-              <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Common</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
-              <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Highly Distinguishing</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
-              <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">Unexpected</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
-              <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase font-black">Differential score</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
+              <tr><td colSpan={2} className="bg-yellow-200 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">{t.keyCommon}</td>{counts.Yellow.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-yellow-200">{item}</td>)}</tr>
+              <tr><td colSpan={2} className="bg-green-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">{t.keyDistinguishing}</td>{counts.Green.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-green-300">{item}</td>)}</tr>
+              <tr><td colSpan={2} className="bg-red-300 p-3 border border-slate-700 text-xs font-black text-left pl-8 uppercase font-bold">{t.keyUnexpected}</td>{counts.Red.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-bold bg-red-300">{item}</td>)}</tr>
+              <tr className="bg-slate-100 font-black"><td colSpan={2} className="p-4 border border-slate-700 text-sm text-left pl-8 uppercase font-black">{t.differentialScore}</td>{counts.Total.map((item, i) => <td key={i} className="p-2 border border-slate-700 font-black bg-slate-50">{item}</td>)}</tr>
             </tbody>
           </table>
         </div>
@@ -283,9 +603,9 @@ function Tool() {
         <div className="mt-20 p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 print:bg-white print:border-slate-400">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
             <div className="flex flex-col gap-1 text-left">
-              <h2 className="text-lg font-black text-slate-900 uppercase leading-none">EPIC Clinical Summary</h2>
-              <p className="text-[11px] font-bold text-slate-500 italic leading-relaxed max-w-md">
-                Please manually revise the ending diagnostic description to include the neural area, motor speech diagnosis, and severity estimate.
+              <h2 className="text-lg font-black text-slate-900 uppercase leading-none">{t.summaryTitle}</h2>
+              <p className="text-[11px] font-bold text-slate-600 italic leading-relaxed max-w-md">
+                {t.summaryHelp}
               </p>
             </div>
             
@@ -293,11 +613,11 @@ function Tool() {
               onClick={() => { 
                 navigator.clipboard.writeText(generateSmartPhrase()); 
                 trackEvent('copy_smart_phrase', 'Clinical Summary Copied');
-                alert("Summary Copied!"); 
+                alert(t.copied); 
               }} 
               className="px-8 py-4 bg-sky-600 text-white font-black uppercase rounded-2xl shadow-lg no-print hover:bg-sky-700 transition-colors"
             >
-              Copy Smart Phrase
+              {t.copySummary}
             </button>
           </div>
 
@@ -307,65 +627,19 @@ function Tool() {
         </div>
 
         <footer className="mt-24 pt-12 border-t border-slate-100 text-center pb-16 px-4">
-          <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-loose text-center">
+          <p className="text-[11px] text-slate-600 font-bold uppercase tracking-widest leading-loose text-center">
             Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). <br />
             Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. <br />
             https://cmsf.info
           </p>
           <div className="h-px w-12 bg-slate-200 mx-auto my-4 no-print"></div>
-          <p className="text-[11px] text-slate-400 max-w-3xl mx-auto italic font-bold">
+          <p className="text-[11px] text-slate-600 max-w-3xl mx-auto italic font-bold">
             © 2023-2026, Regents of the University of Colorado. All rights reserved. <br />
             Website by Frederick Linn (Frederick.Linn@colorado.edu).
           </p>
         </footer>
       </div> 
 
-      {/* PERSISTENT RESEARCH RECRUITMENT BANNER */}
-      {showBanner && (
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-[100] no-print animate-in slide-in-from-bottom duration-700">
-          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 px-4">
-            
-            <div className="flex items-center gap-4 text-left">
-              <div className="bg-emerald-500 p-2 rounded-xl shadow-inner shrink-0 hidden sm:block">
-                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-0.5">CMSF Clinician Network</p>
-                <p className="text-xs font-bold text-slate-300 leading-relaxed">
-                  Join our global expert community for <span className="text-white underline">paid research opportunities</span> and early access to clinical resources.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 w-full md:w-auto">
-              <Link 
-                to="/research" 
-                onClick={() => {
-                  setShowBanner(false);
-                  trackEvent('banner_join_click', 'Tool Page Recruitment Banner Clicked');
-                }}
-                className="flex-grow md:flex-initial px-8 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg text-center"
-              >
-                Join Now
-              </Link>
-              <button 
-                onClick={() => {
-                  setShowBanner(false);
-                  trackEvent('banner_dismiss', 'Tool Page Recruitment Banner Dismissed');
-                }}
-                className="px-3 py-2.5 text-slate-500 hover:text-white transition-colors"
-                title="Dismiss"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
