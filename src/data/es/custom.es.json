@@ -1,0 +1,14 @@
+{
+  "Autoreporte": {
+    "tip": "Pregúntele al paciente: \"En una escala del 1 al 10, siendo 1 el peor y 10 el mejor, ¿cómo calificaría su habla en este momento?\"\""
+  },
+  "Inteligibilidad": {
+    "tip": "Valore durante las tareas de habla contínua. Estimación del porcentaje de palabras comprendidas correctamente. Si la inteligibilidad es motivo de preocupación, considere utilizar la forma de evaluación mencionada por Toledo Rodríguez, L. y Tobar Fredes, R. (2021) en Protocolo de evaluación del habla PEVH Disartria - Formato abreviado revisado (v. 2021) disponible en: https://repositorio.uchile.cl/handle/2250/210007"
+  },
+  "Naturalidad": {
+    "tip": "Valore durante las tareas de habla contínua. ¿En qué medida se ajusta el habla a los estándares normales de velocidad, tono e intensidad?"
+  },
+  "Eficiencia": {
+    "tip": "Valore durante las tareas de habla contínua. ¿Qué tan eficientemente se transmiten los mensajes (palabras inteligibles por minuto)?"
+  }
+}

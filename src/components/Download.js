@@ -1,14 +1,18 @@
 import React from "react";
 
-function Download({ name, type, alias, description }) {
+function Download({ name, type, alias, description, href, external = false }) {
+  // `external` points at a resource hosted elsewhere (e.g. another
+  // institution's repository) rather than a file served from /downloads.
   const isPdf = type === "pdf";
   const isExcel = type === "excel";
   const isImage = type === "image";
   
   return (
-    <a 
-      href={`/downloads/${name}`} 
-      download 
+    <a
+      href={external ? href : `/downloads/${name}`}
+      {...(external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : { download: true })}
       className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-sky-300 hover:-translate-y-1 transition-all flex flex-col items-start text-left w-full h-full"
     >
       <div className={`mb-6 p-3 rounded-2xl ${
@@ -44,7 +48,7 @@ function Download({ name, type, alias, description }) {
         {description}
       </p>
       
-      <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+      <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600">
         <span>Download</span>
         <span className="w-4 h-px bg-slate-200"></span>
         <span>{type}</span>

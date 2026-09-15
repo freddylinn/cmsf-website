@@ -1,13 +1,13 @@
 {
-  "Rate of Speech": {
-    "Slow rate of speech": [
+  "Velocidad del Habla": {
+    "Velocidad lenta del habla": [
       [
         0,
         ""
       ],
       [
         1,
-        "(uncommon)"
+        "(poco común)"
       ],
       [
         2,
@@ -30,7 +30,7 @@
         ""
       ]
     ],
-    "Fast rate of speech": [
+    "Velocidad rápida del habla": [
       [
         -1,
         ""
@@ -45,7 +45,7 @@
       ],
       [
         2,
-        "(short rushes of speech)"
+        "(breves ráfagas de habla)"
       ],
       [
         0,
@@ -60,7 +60,7 @@
         ""
       ]
     ],
-    "Variable rate of speech": [
+    "Velocidad variable del habla": [
       [
         0,
         ""
@@ -79,7 +79,7 @@
       ],
       [
         1,
-        "(unpredictable movement)"
+        "(movimiento impredecible)"
       ],
       [
         1,
@@ -90,7 +90,7 @@
         ""
       ]
     ],
-    "Short phrases": [
+    "Frases cortas": [
       [
         2,
         ""
@@ -121,8 +121,8 @@
       ]
     ]
   },
-  "Fluency & Cadence": {
-    "Abnormal noises": [
+  "Fluencia y Ritmo": {
+    "Ruidos anormales": [
       [
         -1,
         ""
@@ -152,7 +152,7 @@
         ""
       ]
     ],
-    "Stutter-like Disfluencies": [
+    "Disfluencias similares a tatamudeos": [
       [
         0,
         ""
@@ -182,7 +182,7 @@
         ""
       ]
     ],
-    "Distorted substitutions or articulatory additions": [
+    "Sustituciones distorsionadas o adiciones articulatorias": [
       [
         0,
         ""
@@ -212,7 +212,7 @@
         ""
       ]
     ],
-    "Syllable Segregation": [
+    "Segmentación silábica": [
       [
         0,
         ""
@@ -242,7 +242,7 @@
         ""
       ]
     ],
-    "Prolonged interword intervals": [
+    "Intervalos prologados entre palabras": [
       [
         0,
         ""
@@ -272,7 +272,7 @@
         ""
       ]
     ],
-    "Prolonged phonemes": [
+    "Fonemas prolongados": [
       [
         0,
         ""
@@ -303,11 +303,11 @@
       ]
     ]
   },
-  "Loudness": {
-    "Reduced vocal loudness (<70 dB SPL)": [
+  "Intensidad Vocal": {
+    "Intensidad vocal reducida (<70 dB SPL)": [
       [
         1,
-        "(CN X)"
+        "(NC X )"
       ],
       [
         1,
@@ -334,7 +334,7 @@
         ""
       ]
     ],
-    "Explosive loudness bursts": [
+    "Estallidos explosivos de intensidad": [
       [
         0,
         ""
@@ -364,7 +364,7 @@
         ""
       ]
     ],
-    "Monoloudness": [
+    "Monointensidad": [
       [
         1,
         ""
@@ -394,7 +394,7 @@
         ""
       ]
     ],
-    "Loudness decay": [
+    "Disminución de la intensidad": [
       [
         0,
         ""
@@ -424,7 +424,7 @@
         ""
       ]
     ],
-    "Excessive loudness variation": [
+    "Variación excesiva de intensidad": [
       [
         0,
         ""
@@ -455,11 +455,11 @@
       ]
     ]
   },
-  "Voice Quality and Respiration": {
-    "Breathiness": [
+  "Calidad Vocal y Respiración": {
+    "Soplocidad": [
       [
         2,
-        "(CN X)"
+        "(NC X o nervio periférico)"
       ],
       [
         0,
@@ -475,7 +475,7 @@
       ],
       [
         1,
-        "(transient)"
+        "(transitorio)"
       ],
       [
         0,
@@ -486,10 +486,10 @@
         ""
       ]
     ],
-    "Aphonia": [
+    "Afonía": [
       [
         2,
-        "(CN X)"
+        "(NC X)"
       ],
       [
         0,
@@ -497,7 +497,7 @@
       ],
       [
         1,
-        "(intermittent)"
+        "(intermitente)"
       ],
       [
         0,
@@ -505,7 +505,7 @@
       ],
       [
         1,
-        "(intermittent)"
+        "(intermitente)"
       ],
       [
         0,
@@ -516,10 +516,10 @@
         ""
       ]
     ],
-    "Hoarseness": [
+    "Ronquera": [
       [
         1,
-        "(CN X)"
+        "(NC X)"
       ],
       [
         0,
@@ -546,14 +546,14 @@
         ""
       ]
     ],
-    "Strained": [
+    "Tensión": [
       [
         1,
-        "(ex. compensatory for diaphragmatic weakness)"
+        "(ej. Compensatoria para debilidad diafragmática)"
       ],
       [
         1,
-        "(uncommon)"
+        "(poco común)"
       ],
       [
         2,
@@ -565,7 +565,7 @@
       ],
       [
         1,
-        "(ex. adductor spasmodic dysphonia)"
+        "(ej. Disfonía espasmódica del aductor)"
       ],
       [
         -1,
@@ -576,18 +576,10 @@
         ""
       ]
     ],
-    "Diplophonia": [
+    "Diplofonía": [
       [
         2,
-        "(CN X)"
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
+        "(NC X)"
       ],
       [
         -1,
@@ -604,39 +596,47 @@
       [
         -1,
         ""
-      ]
-    ],
-    "Pitch Breaks": [
+      ],
       [
-        1,
+        -1,
         ""
       ],
       [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
+        -1,
         ""
       ]
     ],
-    "Monopitch": [
+    "Quiebres tonales": [
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Monotonía": [
       [
         1,
         ""
@@ -666,7 +666,7 @@
         ""
       ]
     ],
-    "Pitch Instability": [
+    "Inestabilidad tonal": [
       [
         1,
         ""
@@ -696,7 +696,7 @@
         ""
       ]
     ],
-    "Voice stoppage/arrests": [
+    "Interrupción vocal": [
       [
         0,
         ""
@@ -726,10 +726,10 @@
         ""
       ]
     ],
-    "Maximum phonation time less than 15 seconds <65+ years, less than 12 >65+ years": [
+    "TMF <15 seg en menores de 65 años, <12 seg en mayores de 65 años": [
       [
         1,
-        "(CN X, phrenic nerve)"
+        "(NC X o nervio frénico)"
       ],
       [
         0,
@@ -756,7 +756,7 @@
         ""
       ]
     ],
-    "Runs out of air when speaking": [
+    "Se queda sin aire al hablar": [
       [
         1,
         ""
@@ -786,7 +786,7 @@
         ""
       ]
     ],
-    "Vocal tremor": [
+    "Temblor vocal": [
       [
         0,
         ""
@@ -816,10 +816,10 @@
         ""
       ]
     ],
-    "Rapid vocal flutter (i.e. rapid voice tremor)": [
+    "Vibración vocal rápida (ejemplo: temblor rápido de la voz)": [
       [
         1,
-        "(CN X)"
+        "(NC X)"
       ],
       [
         0,
@@ -847,8 +847,8 @@
       ]
     ]
   },
-  "Word & Phrasal Stress": {
-    "Reduced use of stress": [
+  "Acentuación de palabras y frases": {
+    "Uso reducido de la acentuación": [
       [
         0,
         ""
@@ -878,7 +878,7 @@
         ""
       ]
     ],
-    "Prosodic excess or scanning": [
+    "Exceso prosódico o escaneo": [
       [
         0,
         ""
@@ -908,7 +908,7 @@
         ""
       ]
     ],
-    "Atypical silences / pauses": [
+    "Silencios / pausas atípicas.": [
       [
         0,
         ""
@@ -938,1039 +938,7 @@
         ""
       ]
     ],
-    "Errors marking stress": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        ""
-      ]
-    ]
-  },
-  "Articulation": {
-    "Imprecise consonants": [
-      [
-        1,
-        "(errors are typically consistent; errors reflect CNs affected)"
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        "(inconsistent breakdowns from movement interruptions)"
-      ],
-      [
-        1,
-        "(inconsistent breakdowns)"
-      ],
-      [
-        1,
-        "(inconsistent breakdowns; fewer errors for automatic speech)"
-      ]
-    ],
-    "Distorted vowels": [
-      [
-        1,
-        "(CN V, VII, and XII)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        1,
-        ""
-      ]
-    ],
-    "Irregular articulatory breakdown": [
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        "(related to unilateral weakness"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        "(due to unpredictable movement)"
-      ],
-      [
-        2,
-        "(due to incoordination)"
-      ],
-      [
-        1,
-        ""
-      ]
-    ],
-    "Articulatory groping": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        ""
-      ]
-    ],
-    "Telescoping": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        "(due to poor coordination)"
-      ],
-      [
-        1,
-        "(due to imprecise articulation)"
-      ]
-    ],
-    "Deterioration of speech during continuous speaking and improvement with rest": [
-      [
-        2,
-        "(ex. Myasthenia Gravis: improvement after rest)"
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ],
-    "Fewer Errors in Automatic Speech than Connected Speech": [
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        2,
-        ""
-      ]
-    ]
-  },
-  "Resonance": {
-    "Audible nasal emission or nasal snorting": [
-      [
-        2,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ],
-    "Hyponasality": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        "(intermittent)"
-      ],
-      [
-        1,
-        "(intermittent)"
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Hypernasality": [
-      [
-        2,
-        "(CN X)"
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        "(intermittent)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ]
-  },
-  "Diadochokinetic Rate": {
-    "Slow rate": [
-      [
-        1,
-        "(may be compensatory for poor articulation)"
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        2,
-        "(slow and regular AMR)"
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ]
-    ],
-    "Irregular rhythm": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        2,
-        "(from unpredictable movement)"
-      ],
-      [
-        2,
-        "(irregular AMR)"
-      ],
-      [
-        1,
-        "(SMRs likely more irregular than AMRs)"
-      ]
-    ],
-    "Rapid, accelerated AMRs": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Overall imprecise articulation of AMRs / SMRs": [
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        "(SMRs likely less precise than AMRs)"
-      ]
-    ],
-    "Poorer labial articulation (‘puh’) than lingual articulation (‘tuh’ and ‘kuh’)": [
-      [
-        1,
-        "(CN VII)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Poorer lingual articulation (‘tuh’ and ‘kuh’) than labial articulation (‘puh’)": [
-      [
-        1,
-        "(CN XII)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "'Puh-tuh-kuh' is poorly sequenced": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        2,
-        ""
-      ]
-    ]
-  },
-  "Expression": {
-    "Pseudobulbar Affect": [
-      [
-        -1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ],
-    "Flat affect / masked facies": [
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ]
-  },
-  "General OME Observations": {
-    "Incoordination / dysmetria": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Muscle atrophy": [
-      [
-        2,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ],
-    "Involuntary, unpredictable movements": [
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ],
-    "Tremor: action-induced": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        2,
-        "(Essential Tremor)"
-      ],
-      [
-        1,
-        "(terminal tremor)"
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Tremor: with sustained movements": [
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Tremor: at rest": [
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ],
-      [
-        -1,
-        ""
-      ]
-    ]
-  },
-  "OME (Face)": {
-    "Drooping on entire side of face*": [
-      [
-        1,
-        "(Bell's Palsy, CN VII)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Drooping on lower side of face*": [
-      [
-        0,
-        ""
-      ],
-      [
-        2,
-        "(Droop on side opposite from the site of lesion)"
-      ],
-      [
-        2,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Bilateral facial weakness": [
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Hypotonia": [
-      [
-        2,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Muscle weakness": [
-      [
-        2,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Spasticity": [
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Drooling": [
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Decreased sensation of the face (CN VII), cheek (CN V), tongue (CN XII), or palate (CN X)": [
-      [
-        1,
-        "(note which CN is affected)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Nonverbal oral apraxia": [
+    "Errores al marcar el acento": [
       [
         0,
         ""
@@ -2001,14 +969,438 @@
       ]
     ]
   },
-  "OME (Lips)": {
-    "Asymmetrical movement*": [
+  "Articulación": {
+    "Consonantes imprecisas": [
       [
         1,
-        "(CN VII; ex. reduced retraction on impaired/ipsilateral side)"
+        "(errores son típicamente consistentes; errores reflejan NCs afectado)"
       ],
       [
         1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        "(quiebres inconsistentes)"
+      ],
+      [
+        1,
+        "(quiebres inconsistentes; menos errores para el habla automática)"
+      ]
+    ],
+    "Vocales distorsionadas": [
+      [
+        1,
+        "(NC V, VII y XII)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        1,
+        ""
+      ]
+    ],
+    "Quiebres articulatorios irregulares": [
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        "(relacionado a debilidad unilateral)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        "(debido a un movimiento impredecible)"
+      ],
+      [
+        2,
+        "(debido a la falta de coordinación)"
+      ],
+      [
+        1,
+        ""
+      ]
+    ],
+    "Tanteos articulatorios": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        ""
+      ]
+    ],
+    "Colapso silábico": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        "(debido a una mala coordinación)"
+      ],
+      [
+        1,
+        "(debido a una articulación imprecisa)"
+      ]
+    ],
+    "Deterioro del habla durante el habla continua": [
+      [
+        2,
+        "(ej. Miastenia Gravis: mejora después de reposo)"
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ],
+    "Menos errores en el habla automática que en el habla conectada": [
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        2,
+        ""
+      ]
+    ]
+  },
+  "Resonancia": {
+    "Emisión nasal audible o resoplido nasal": [
+      [
+        2,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ],
+    "Hiponasalidad": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        "(intermitente)"
+      ],
+      [
+        1,
+        "(intermitente)"
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Hipernasalidad": [
+      [
+        2,
+        "(NC X)"
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        "(intermitente)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ]
+  },
+  "Tasa de Diadococinesias (DDK)": {
+    "Tasa lenta": [
+      [
+        1,
+        "(puede ser compensatoria por la mala articulación)"
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        2,
+        "(AMR lento y regular)"
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ]
+    ],
+    "Ritmo irregular": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        2,
+        "(debido a un movimiento impredecible)"
+      ],
+      [
+        2,
+        "(AMR irregular)"
+      ],
+      [
+        1,
+        "(SMR probablemente más irregulares que los AMR)"
+      ]
+    ],
+    "AMR rápidos y acelerados": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Articulación general imprecisa de AMR / SMR": [
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        "(SMR probablemente menos precisos que los AMR)"
+      ]
+    ],
+    "\"Pa\" es más imprecisa/lenta que \"ta\" o \"ka\"": [
+      [
+        1,
+        "(NC VII)"
+      ],
+      [
+        0,
         ""
       ],
       [
@@ -2032,13 +1424,13 @@
         ""
       ]
     ],
-    "Weakness": [
+    "\"Ta\" o \"ka\" más imprecisas/lentas que \"Pa\"": [
       [
         1,
-        "(CN VII; ex. weakness on the impaired side, ipsilateral to the site of lesion)"
+        "(NC XII)"
       ],
       [
-        1,
+        0,
         ""
       ],
       [
@@ -2062,14 +1454,622 @@
         ""
       ]
     ],
-    "Limited range of motion": [
+    "\"Pa-Ta-Ka\" probremente secuenciado": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        2,
+        ""
+      ]
+    ]
+  },
+  "Expresión emocional": {
+    "Afecto pseudobulbar": [
+      [
+        -1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
       [
         1,
         ""
       ],
       [
         1,
-        "(reduced on impaired side)"
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ],
+    "Afecto plano / facie de máscara": [
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ]
+  },
+  "Observaciones generales de estructuras fonoarticuladoras (EFA)": {
+    "Incoordinación / dismetría": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Atrofia Muscular": [
+      [
+        2,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ],
+    "Movimientos involuntarios, impredecibles": [
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ],
+    "Temblor: inducido por acción": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        2,
+        "(Temblor esencial)"
+      ],
+      [
+        1,
+        "(Temblor esencial)"
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Temblor con posturas sostenidos": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Temblor: de reposo": [
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ],
+      [
+        -1,
+        ""
+      ]
+    ]
+  },
+  "Aspecto general del rostro": {
+    "Caída de un lado completo de la cara": [
+      [
+        1,
+        "(NC VII, ipsilateral a la lesión)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Caída de un lado inferior de la cara": [
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        "(caída contralateral a la lesión)"
+      ],
+      [
+        2,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Debilidad facial bilateral": [
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Hipotonía": [
+      [
+        2,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Debilidad muscular": [
+      [
+        2,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Espasticidad": [
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Babeo": [
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Sensación descendida": [
+      [
+        1,
+        "(anote qué par craneal está afectado)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Apraxia oral no verbal": [
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        2,
+        ""
+      ]
+    ]
+  },
+  "Labios": {
+    "Movimientos asimétricos": [
+      [
+        1,
+        "(NC VII; reducción del movimiento ipsilateral a la lesión)"
+      ],
+      [
+        1,
+        "(movimiento reducido contralateral a la lesión)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Debilidad": [
+      [
+        1,
+        "(NC VII; debilidad en el lado afectado, ipsilateral al sitio de la lesión)"
+      ],
+      [
+        1,
+        "(debilidad contralateral al sitio de la lesión)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Rango de movimiento limitado": [
+      [
+        1,
+        ""
+      ],
+      [
+        1,
+        "( unilateral)"
       ],
       [
         1,
@@ -2093,11 +2093,11 @@
       ]
     ]
   },
-  "OME (Jaw)": {
-    "Jaw hangs open at rest": [
+  "Mandíbula": {
+    "La mandíbula permanece abierta en reposo": [
       [
         1,
-        "(CN V bilaterally)"
+        "(NC V bilateralmente)"
       ],
       [
         0,
@@ -2124,10 +2124,10 @@
         ""
       ]
     ],
-    "Jaw deviation to one side*": [
+    "Desviación de la mandíbula hacia un lado": [
       [
         1,
-        "(CN V unilaterally; jaw deviates to weak side)"
+        "(NC V unilateralmente; la mandíbula se desvía hacia el lado débil)"
       ],
       [
         0,
@@ -2154,10 +2154,10 @@
         ""
       ]
     ],
-    "Weakness when opening or closing": [
+    "Debilidad al abrir o cerrar": [
       [
         1,
-        "(CN V)"
+        "(NC V)"
       ],
       [
         0,
@@ -2214,7 +2214,7 @@
         ""
       ]
     ],
-    "Limited range of motion": [
+    "Rango de movimiento limitado": [
       [
         1,
         ""
@@ -2244,10 +2244,10 @@
         ""
       ]
     ],
-    "Progressive weakening of jaw movements": [
+    "Debilitamiento progresivo de los movimientos de la mandíbula": [
       [
         1,
-        "(associated with Myasthenia Gravis)"
+        "(asociado con Miastenia Gravis)"
       ],
       [
         0,
@@ -2275,11 +2275,11 @@
       ]
     ]
   },
-  "OME (Soft Palate)": {
-    "Palate hangs low in mouth": [
+  "Paladar blando / Velofaringe": {
+    "Paladar descendido": [
       [
         1,
-        "(CN X)"
+        "(NC X)"
       ],
       [
         0,
@@ -2306,14 +2306,14 @@
         ""
       ]
     ],
-    "Palate asymmetry*": [
+    "Asimetría de paladar": [
       [
         1,
-        "(CN X; hangs lower on side of lesion)"
+        "(NC X; cuelga más bajo en el lado de la lesión)"
       ],
       [
         1,
-        "(uncommon)"
+        "(poco común)"
       ],
       [
         0,
@@ -2336,14 +2336,14 @@
         ""
       ]
     ],
-    "Asymmetric movement on phonation": [
+    "Movimiento asimétrico durante la fonación": [
       [
         1,
-        "(CN X; palate moves towards nonimpaired side)"
+        "(NC X; el paladar se desplaza hacia el lado no afectado)"
       ],
       [
         1,
-        "(uncommon)"
+        "(poco común)"
       ],
       [
         0,
@@ -2366,10 +2366,10 @@
         ""
       ]
     ],
-    "Air escapes from nose when puffing cheeks": [
+    "El aire se escapa por la nariz al inflar las mejillas": [
       [
         1,
-        "(CN X)"
+        "(NC X)"
       ],
       [
         0,
@@ -2397,11 +2397,11 @@
       ]
     ]
   },
-  "OME (Tongue)": {
-    "Fasiculations": [
+  "Lengua": {
+    "Fasciculaciones": [
       [
         2,
-        "(CN XII)"
+        "(NC XII)"
       ],
       [
         0,
@@ -2428,14 +2428,14 @@
         ""
       ]
     ],
-    "Deviation to one side on protrusion*": [
+    "Desviación hacia un lado en la protrusión": [
       [
         1,
-        "(CN XII; deviates to weak side, towards the side of lesion)"
+        "(CN XII; se desvía hacia el lado débil, ipsilateral a la lesión))"
       ],
       [
         1,
-        "(deviates to opposite side of lesion)"
+        "(se desvía hacia el lado débil, contralateral a la lesión)"
       ],
       [
         0,
@@ -2458,10 +2458,10 @@
         ""
       ]
     ],
-    "Weakness*": [
+    "Debilidad": [
       [
         1,
-        "(CN XII)"
+        "(NC XII)"
       ],
       [
         1,
@@ -2485,20 +2485,16 @@
       ],
       [
         0,
-        ""
+        "(comunmente debilidad lingual derecha)"
       ]
     ],
-    "Limited range of motion*": [
+    "Rango de movimiento limitado": [
       [
         1,
-        "(CN XII)"
+        "(NC XII)"
       ],
       [
         0,
-        ""
-      ],
-      [
-        1,
         ""
       ],
       [
@@ -2506,33 +2502,7 @@
         ""
       ],
       [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Diminished ability to curl tip of tongue": [
-      [
         1,
-        "(CN XII)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
         ""
       ],
       [
@@ -2548,10 +2518,40 @@
         ""
       ]
     ],
-    "Slow movements": [
+    "Disminución de la capacidad para curvar la punta de la lengua.": [
       [
         1,
-        "(CN XII)"
+        "(NC XII)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "Movimientos lentos": [
+      [
+        1,
+        "(NC XII)"
       ],
       [
         1,
@@ -2579,41 +2579,11 @@
       ]
     ]
   },
-  "OME (Larynx)": {
-    "Weak cough": [
+  "Laringe": {
+    "Tos débil*": [
       [
         1,
-        "(CN X)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        1,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Weak Glottal coup": [
-      [
-        1,
-        "(CN X)"
+        "(NC X)"
       ],
       [
         0,
@@ -2640,14 +2610,10 @@
         ""
       ]
     ],
-    "Inhalatory stridor": [
+    "Golpe glótico débil*": [
       [
         1,
-        "(CN X)"
-      ],
-      [
-        0,
-        ""
+        "(NC X)"
       ],
       [
         0,
@@ -2659,32 +2625,6 @@
       ],
       [
         1,
-        "(usually accompanied by hyperkinesias)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ]
-    ],
-    "Weak cough but strong glottal coup": [
-      [
-        0,
-        "(could indicate respiratory weakness)"
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
-        ""
-      ],
-      [
-        0,
         ""
       ],
       [
@@ -2700,10 +2640,70 @@
         ""
       ]
     ],
-    "Weak coup and weak cough": [
+    "Estridor inhalatorio": [
+      [
+        1,
+        "(NC X)"
+      ],
       [
         0,
-        "(could indicate laryngeal as well as respiratory weakness)"
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        1,
+        "(generalmente acompañada de hiperkinesias)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "*tos débil pero golpe glótico fuerte": [
+      [
+        0,
+        "(podría indicar debilidad respiratoria)"
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ],
+      [
+        0,
+        ""
+      ]
+    ],
+    "*golpe débil y tos débil": [
+      [
+        0,
+        "(podría indicar debilidad laríngea)"
       ],
       [
         0,

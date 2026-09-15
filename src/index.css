@@ -15,3 +15,39 @@
   visibility: visible;
   z-index: 100;
 }
+
+/* Sticky header cells lose their borders under `border-collapse: collapse`,
+   because the collapsed border belongs to the table rather than the cell.
+   Inset box-shadows redraw them on the cell itself, which sticky respects. */
+.cmsf-th {
+  box-shadow:
+    inset 1px 0 0 #334155,
+    inset -1px 0 0 #334155,
+    inset 0 1px 0 #334155,
+    inset 0 -1px 0 #334155;
+}
+
+/* A visible keyboard focus ring. The browser default is easily lost against
+   the light palette, and it is the only wayfinding a keyboard or screen-magnifier
+   user has. :focus-visible keeps it off mouse clicks. */
+:focus-visible {
+  outline: 3px solid #0369a1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Checkboxes are the primary control on the scoring form, so give them a
+   stronger resting border than the browser default. */
+input[type="checkbox"] {
+  border-color: #64748b;
+  border-width: 2px;
+}
+
+@media print {
+  .cmsf-th { box-shadow: none; border: 1px solid #333 !important; }
+  :focus-visible { outline: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

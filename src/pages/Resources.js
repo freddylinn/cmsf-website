@@ -38,7 +38,7 @@ const Resources = () => {
       </div>
 
       {/* PODCASTS SECTION */}
-      <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">
+      <h3 className="text-xs font-black uppercase tracking-widest text-slate-600 mb-6">
         Podcast Interviews & Discussions
       </h3>
 

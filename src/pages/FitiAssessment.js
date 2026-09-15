@@ -1,183 +1,495 @@
-import React, { useState } from 'react';
-import fitiData from '../data/fitiData.json'; 
+import React, { useState, useMemo } from "react";
+import fitiData from "../data/fitiData.json";
+
+// Modular FITI assessment.
+//
+// The stimuli are Gurevich & Kim's published material; this page provides a
+// scoring interface for them, not the framework itself. Denominators are
+// derived from the phrases actually present in fitiData.json rather than from
+// the published totals, so a partially transcribed module can never report a
+// score against targets it does not contain. Modules whose stimuli are
+// incomplete are labelled as such.
+
+const GROUP_LABELS = {
+  A: "/r, t, n, s, l, k/",
+  B: "/p, d, m/",
+  C: "/f, b, ʃ, v/",
+  D: "/\u0261, w, z, ʤ, ŋ, j, ʧ, h/",
+  E: "/θ, ð, ʒ/",
+};
 
 function FitiAssessment() {
-  const [phonemeScores, setPhonemeScores] = useState({});
+  // Each target is unscored, "clear", or "unclear". Leaving a target unscored
+  // is meaningful — it may not have been elicited — so it is not the same as
+  // marking it unclear.
+  const [scores, setScores] = useState({});
   const [showRef, setShowRef] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const togglePhonemeScore = (moduleId, pIdx, partIdx) => {
-    const key = `${moduleId}-${pIdx}-${partIdx}`;
-    setPhonemeScores(prev => ({ ...prev, [key]: !prev[key] }));
-  };
+  const cycle = (key) =>
+    setScores((prev) => {
+      const cur = prev[key];
+      const next = cur === undefined ? "clear" : cur === "clear" ? "unclear" : undefined;
+      const out = { ...prev };
+      if (next === undefined) delete out[key];
+      else out[key] = next;
+      return out;
+    });
 
-  const getModuleScore = (moduleId) => {
-    return Object.keys(phonemeScores).filter(
-      (key) => key.startsWith(`${moduleId}-`) && phonemeScores[key] === true
-    ).length;
-  };
+  const moduleStats = useMemo(() => {
+    const stats = {};
+    fitiData.forEach((m) => {
+      let clear = 0,
+        unclear = 0;
+      m.phrases.forEach((ph, pIdx) =>
+        ph.phoneticParts.forEach((part, partIdx) => {
+          if (!part.isTarget) return;
+          const v = scores[`${m.id}-${pIdx}-${partIdx}`];
+          if (v === "clear") clear += 1;
+          if (v === "unclear") unclear += 1;
+        })
+      );
+      stats[m.id] = {
+        clear,
+        unclear,
+        scored: clear + unclear,
+        available: m.availableTargets,
+        published: m.publishedTargets,
+        complete: m.complete,
+      };
+    });
+    return stats;
+  }, [scores]);
 
-  const getTableScore = (groupId, tier) => {
-    const moduleId = `${groupId}${tier}`;
-    const module = fitiData.find(m => m.id === moduleId);
-    if (!module) return "N/A";
-    return `${getModuleScore(moduleId)} / ${module.targets}`;
-  };
+  const incomplete = fitiData.filter((m) => !m.complete);
+  const totalScored = Object.values(moduleStats).reduce((a, s) => a + s.scored, 0);
 
-  const generateReport = () => {
-    const a1Score = getModuleScore("A1");
-    let report = `FITI Analysis Summary:\n`;
-    if (a1Score < 15) {
-      report += `- Patient has clear production of only ${a1Score}/18 targets in Module A1. Given its high functional importance to intelligibility [FITI], expect significant intelligibility deficits.\n`;
-    } else {
-      report += `- Functional intelligibility for high-frequency Tier 1 targets (Group A) is relatively preserved.\n`;
+  const summary = () => {
+    const lines = [
+      "Modular FITI (Functional Importance to Intelligibility) — scoring summary",
+      "Stimuli and FITI framework: Gurevich, N., & Kim, H. (2024). A hierarchical",
+      "approach to efficient assessment of functional intelligibility: The modular FITI",
+      "(functional importance to intelligibility) phrase list. Perspectives of the ASHA",
+      "Special Interest Groups, 9(3), 892–907. https://doi.org/10.1044/2024_PERSP-23-00247",
+      "",
+    ];
+    ["A", "B", "C", "D", "E"].forEach((g) => {
+      const row = [1, 2, 3]
+        .map((tier) => {
+          const s = moduleStats[`${g}${tier}`];
+          if (!s) return `T${tier}: —`;
+          return `T${tier}: ${s.clear}/${s.available} clear`;
+        })
+        .join("  |  ");
+      lines.push(`Group ${g} (${GROUP_LABELS[g]})  ${row}`);
+    });
+    lines.push("");
+    lines.push(
+      "Higher-priority targets appear in earlier groups and lower tiers; deficits there carry the greatest expected impact on functional intelligibility."
+    );
+    if (incomplete.length) {
+      lines.push("");
+      lines.push(
+        `Note: stimuli are incomplete for module(s) ${incomplete
+          .map((m) => m.id)
+          .join(", ")}; scores reflect only the items present.`
+      );
     }
-    const e2 = getModuleScore("E2");
-    const e3 = getModuleScore("E3");
-    if (e2 < 1 || e3 < 5) {
-      report += `- Deficits noted in phonetic complexity (E2/E3). Difficulties may indicate specific sequencing or motor planning involvement.\n`;
-    }
-    return report;
+    return lines.join("\n");
+  };
+
+  const reset = () => {
+    setScores({});
+    setCopied(false);
   };
 
   return (
-    <div className="p-4 md:p-10 max-w-7xl mx-auto font-sans bg-white min-h-screen text-slate-900 text-left">
-      
-      {/* HEADER & RESTORED EXTERNAL LINK */}
-      <div className="mb-10 border-b pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+    <div className="p-4 sm:p-6 md:p-10 max-w-7xl mx-auto font-sans bg-white min-h-screen text-slate-900 text-left">
+      {/* HEADER */}
+      <div className="mb-8 border-b border-slate-200 pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="flex-grow">
-          <h1 className="text-3xl font-black text-slate-900 mb-4 tracking-tighter uppercase">Modular FITI Assessment</h1>
-          <p className="text-sm text-slate-500 leading-relaxed max-w-2xl italic">
-            <strong>Reference:</strong> Gurevich, N., & Kim, H. (2024). A hierarchical approach to efficient assessment of functional intelligibility. 
-            <span className="ml-1 text-sky-600">Perspectives of the ASHA Special Interest Groups, 9(3), 892–907.</span>
+          <h1 className="text-3xl font-black text-slate-900 mb-3 tracking-tight uppercase">
+            Modular FITI Assessment
+          </h1>
+          <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
+            A scoring interface for the Modular FITI phrase list. The framework
+            and all stimuli are the work of{" "}
+            <strong>Naomi Gurevich (Purdue University Fort Wayne)</strong> and{" "}
+            <strong>Heejin Kim (University of Illinois Urbana-Champaign)</strong>.
+          </p>
+          <p className="text-xs text-slate-700 leading-relaxed max-w-3xl mt-3 italic">
+            Gurevich, N., &amp; Kim, H. (2024). A hierarchical approach to
+            efficient assessment of functional intelligibility: The modular FITI
+            phrase list. <em>Perspectives of the ASHA Special Interest Groups,
+            9</em>(3), 892–907.{" "}
+            <a
+              href="https://doi.org/10.1044/2024_PERSP-23-00247"
+              target="_blank"
+              rel="noreferrer"
+              className="underline not-italic font-bold text-sky-700 hover:text-sky-900"
+            >
+              https://doi.org/10.1044/2024_PERSP-23-00247
+            </a>
           </p>
         </div>
 
-        {/* RESTORED LINK BUTTON */}
-        <a 
-          href="https://sites.pfw.edu/cladlab/fiti.html" 
-          target="_blank" 
+        <a
+          href="https://sites.pfw.edu/cladlab/fiti.html"
+          target="_blank"
           rel="noreferrer"
-          className="shrink-0 inline-flex items-center gap-2 text-sky-600 hover:text-sky-700 font-bold text-sm bg-white px-5 py-3 rounded-2xl border border-sky-100 shadow-sm transition-all no-print hover:shadow-md"
+          className="shrink-0 inline-flex items-center gap-2 text-sky-700 hover:text-sky-900 font-bold text-sm bg-white px-5 py-3 rounded-2xl border-2 border-sky-600 transition-all no-print"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
-          Official FITI Resource
+          CLAD Lab — official FITI resources
         </a>
       </div>
 
-      {/* DOCUMENTATION & SCORING ORIENTATION */}
-      <div className="mb-12 no-print">
-        <button 
+      {/* INCOMPLETE STIMULI NOTICE */}
+      {incomplete.length > 0 && (
+        <div className="mb-8 rounded-2xl border-2 border-amber-500 bg-amber-50 p-6 no-print">
+          <h2 className="text-sm font-black uppercase tracking-widest text-amber-900 mb-2">
+            Stimuli incomplete
+          </h2>
+          <p className="text-sm text-amber-900 leading-relaxed">
+            {incomplete.length} of {fitiData.length} modules do not yet reconcile
+            to the published target counts — some hold fewer phrases than the
+            published list, others have targets marked that need checking against
+            the published bolding. Those modules are scored against the items
+            present here, not the published totals, and are marked below.
+            Complete phrase lists are available from the authors at{" "}
+            <a href="mailto:cladlab@pfw.edu" className="underline font-bold">
+              cladlab@pfw.edu
+            </a>
+            .
+          </p>
+          <p className="text-xs text-amber-900 mt-3 font-bold">
+            Affected: {incomplete.map((m) => m.id).join(", ")}
+          </p>
+        </div>
+      )}
+
+      {/* HOW TO SCORE */}
+      <div className="mb-8 rounded-2xl border border-sky-300 bg-sky-50 p-6 no-print">
+        <h2 className="text-[10px] font-black uppercase tracking-widest text-sky-800 mb-3">
+          How to score
+        </h2>
+        <p className="text-sm text-sky-900 leading-relaxed mb-4">
+          Have the person read or repeat each phrase. Tap each highlighted target
+          sound to cycle its rating. Targets left unmarked are treated as not
+          elicited rather than as errors.
+        </p>
+        <p className="text-sm text-sky-900 leading-relaxed mb-4">
+          You do not need to administer every module. Each one stands alone, and
+          they are ordered so that the earlier modules carry the greatest
+          expected weight on intelligibility. Stopping early gives you a smaller
+          but still deliberate picture rather than an arbitrary one; each further
+          module you add fills the picture in.
+        </p>
+        <div className="mb-4 rounded-xl bg-white/70 border border-sky-300 p-4">
+          <p className="text-[10px] font-black uppercase tracking-widest text-sky-800 mb-2">
+            If time or stamina is short
+          </p>
+          <ul className="text-sm text-sky-900 leading-relaxed space-y-1.5 list-disc pl-5">
+            <li>
+              Start with <strong>A1</strong>. It holds the most frequent
+              consonants in the most salient positions, so it is the single most
+              informative module.
+            </li>
+            <li>
+              If A1 comes back clean, skip ahead to <strong>E2</strong> and{" "}
+              <strong>E3</strong>. These are short and carry the phonetically
+              complex targets — clusters and the least frequent consonants —
+              where deficits are most easily missed.
+            </li>
+            <li>
+              If A1 shows errors, work down in order (A2, A3, B1 …) rather than
+              jumping, so the profile stays interpretable against the hierarchy.
+            </li>
+            <li>
+              Each module can be run as full phrases when prosody matters, or as
+              the target words alone when the question is phonemic articulation.
+            </li>
+          </ul>
+          <p className="text-xs text-sky-900 leading-relaxed mt-3">
+            When the higher-priority modules are within normal limits,
+            intelligibility is less likely to be the highest-value treatment
+            target. Scores below are always calculated against the modules you
+            actually administered.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <span className="px-3 py-1.5 rounded-lg border-2 border-slate-400 bg-white text-sm font-bold text-slate-800">
+            Unmarked — not elicited
+          </span>
+          <span className="px-3 py-1.5 rounded-lg border-2 border-green-700 bg-green-600 text-white text-sm font-bold">
+            Clear production
+          </span>
+          <span className="px-3 py-1.5 rounded-lg border-2 border-red-700 bg-red-600 text-white text-sm font-bold">
+            Unclear / in error
+          </span>
+        </div>
+      </div>
+
+      {/* SUMMARY */}
+      <div className="mb-10 no-print">
+        <button
           onClick={() => setShowRef(!showRef)}
-          className="w-full flex items-center justify-between p-6 bg-slate-900 text-white rounded-2xl shadow-xl hover:bg-slate-800 transition-all"
+          className="w-full flex items-center justify-between p-6 bg-slate-900 text-white rounded-2xl hover:bg-slate-700 transition-all"
         >
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center font-black">?</div>
-            <div className="text-left">
-              <p className="font-black uppercase tracking-widest text-xs text-sky-400">Clinical Resource</p>
-              <p className="text-lg font-bold">Documentation & Scoring Orientation</p>
+          <div className="flex items-center gap-4 text-left">
+            <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center font-black shrink-0">
+              ∑
+            </div>
+            <div>
+              <p className="font-black uppercase tracking-widest text-xs text-sky-300">
+                Results
+              </p>
+              <p className="text-lg font-bold">
+                Scoring summary{totalScored > 0 ? ` — ${totalScored} target${totalScored === 1 ? "" : "s"} rated` : ""}
+              </p>
             </div>
           </div>
-          <span className="text-2xl font-black">{showRef ? '−' : '+'}</span>
+          <span className="text-2xl font-black">{showRef ? "−" : "+"}</span>
         </button>
 
         {showRef && (
-          <div className="mt-4 p-8 bg-slate-50 border-2 border-slate-200 rounded-3xl animate-in fade-in slide-in-from-top-4">
-            <h3 className="font-black text-slate-900 uppercase tracking-widest text-sm mb-4">Functional Importance Hierarchy</h3>
-            <p className="text-sm text-slate-600 mb-8 leading-relaxed">
-              Intelligibility priority flows from <strong>Group A (Most Important)</strong> to <strong>Group E (Least)</strong>, 
-              and from <strong>Tier 1 (Most Salient)</strong> to <strong>Tier 3 (Least Salient)</strong>.
+          <div className="mt-4 p-6 md:p-8 bg-slate-50 border-2 border-slate-300 rounded-3xl">
+            <h3 className="font-black text-slate-900 uppercase tracking-widest text-sm mb-3">
+              Functional importance hierarchy
+            </h3>
+            <p className="text-sm text-slate-700 mb-6 leading-relaxed max-w-3xl">
+              Priority runs from <strong>Group A</strong> (greatest functional
+              importance to intelligibility) through <strong>Group E</strong>,
+              and from <strong>Tier 1</strong> (most salient positions) through{" "}
+              <strong>Tier 3</strong>. Errors in earlier groups and lower tiers
+              carry the greatest expected impact on intelligibility.
             </p>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-300 shadow-sm mb-8">
-              <table className="w-full text-center border-collapse bg-white">
+            <div className="overflow-x-auto rounded-xl border border-slate-400 mb-8">
+              <table className="w-full text-center border-collapse bg-white min-w-[560px]">
                 <thead>
                   <tr className="bg-slate-800 text-white text-[10px] uppercase tracking-widest">
-                    <th className="p-3 border border-slate-700">Group</th>
+                    <th className="p-3 border border-slate-700 text-left pl-4">Group</th>
                     <th className="p-3 border border-slate-700">Tier 1</th>
                     <th className="p-3 border border-slate-700">Tier 2</th>
                     <th className="p-3 border border-slate-700">Tier 3</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm font-bold">
-                  {['A', 'B', 'C', 'D', 'E'].map(group => (
+                  {["A", "B", "C", "D", "E"].map((group) => (
                     <tr key={group}>
-                      <td className="p-3 bg-slate-100 border border-slate-200">Group {group}</td>
-                      <td className="p-3 border border-slate-200 text-sky-600">{getTableScore(group, 1)}</td>
-                      <td className="p-3 border border-slate-200 text-sky-600">{getTableScore(group, 2)}</td>
-                      <td className="p-3 border border-slate-200 text-sky-600">{getTableScore(group, 3)}</td>
+                      <td className="p-3 bg-slate-100 border border-slate-300 text-left pl-4">
+                        <span className="text-slate-900">Group {group}</span>
+                        <span className="block text-[10px] font-mono font-normal text-slate-700">
+                          {GROUP_LABELS[group]}
+                        </span>
+                      </td>
+                      {[1, 2, 3].map((tier) => {
+                        const s = moduleStats[`${group}${tier}`];
+                        if (!s)
+                          return (
+                            <td key={tier} className="p-3 border border-slate-300 text-slate-500">
+                              —
+                            </td>
+                          );
+                        return (
+                          <td key={tier} className="p-3 border border-slate-300">
+                            <span className="text-sky-700">
+                              {s.clear}/{s.available}
+                            </span>
+                            {!s.complete && (
+                              <span
+                                className="block text-[9px] font-black uppercase text-amber-700"
+                                title={`Published list has ${s.published} targets`}
+                              >
+                                partial
+                              </span>
+                            )}
+                          </td>
+                        );
+                      })}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-inner">
-              <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Draft Documentation Summary</h4>
-              <pre className="whitespace-pre-wrap font-mono text-xs text-slate-700 leading-relaxed">{generateReport()}</pre>
+            <div className="bg-white p-6 rounded-xl border border-slate-300 mb-8">
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-700 mb-3">
+                Interpreting and documenting these scores
+              </h4>
+              <p className="text-sm text-slate-800 leading-relaxed mb-4">
+                Read a score together with the functional weight of the module it
+                came from, rather than on its own. The same percentage means
+                something different in A1 than in E3, so documentation is most
+                useful when it ties the clarity of the targets to the expected
+                consequence for intelligibility.
+              </p>
+              <div className="space-y-3">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-300">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-1.5">
+                    Low score in a high-priority module
+                  </p>
+                  <p className="text-sm text-slate-800 leading-relaxed italic">
+                    “Clear production of 40% of A1 targets. Given the high
+                    functional importance to intelligibility of this group and
+                    tier, significant intelligibility deficits are expected.”
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-300">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-1.5">
+                    Deficits confined to low-priority modules
+                  </p>
+                  <p className="text-sm text-slate-800 leading-relaxed italic">
+                    “Clear production above 90% for all modules except E2 and E3.
+                    Overall intelligibility is not substantially reduced, but
+                    given the phonetic complexity and low frequency of the sounds
+                    involved, apraxia may warrant consideration.”
+                  </p>
+                </div>
+              </div>
+              <p className="text-xs text-slate-700 leading-relaxed mt-4">
+                The table above doubles as a documentation grid: each cell is the
+                clear count over the targets available in that module. Modules
+                left unadministered stay at zero scored and should be recorded as
+                not assessed rather than as errors.
+              </p>
             </div>
+
+            <div className="bg-white p-6 rounded-xl border border-slate-300">
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-700">
+                  Draft documentation summary
+                </h4>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(summary());
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="px-4 py-2 rounded-xl bg-sky-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-sky-700 transition-colors"
+                >
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              </div>
+              <pre className="whitespace-pre-wrap font-mono text-xs text-slate-800 leading-relaxed">
+                {summary()}
+              </pre>
+            </div>
+
+            <button
+              onClick={reset}
+              className="mt-6 px-5 py-3 rounded-xl border-2 border-slate-500 text-slate-800 text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-colors"
+            >
+              Clear all ratings
+            </button>
           </div>
         )}
       </div>
 
-      {/* ASSESSMENT MODULES */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
-        {fitiData.map((module) => (
-          <div key={module.id} className="bg-white border-2 border-slate-100 rounded-3xl shadow-sm overflow-hidden flex flex-col">
-            <div className="p-5 bg-slate-50 border-b flex justify-between items-center">
-              <div>
-                <span className="px-3 py-1 bg-slate-800 text-white text-[10px] font-black rounded-full mr-2 uppercase">Module {module.id}</span>
-                <p className="inline text-xs font-bold text-slate-500 uppercase tracking-tighter">{module.description}</p>
-              </div>
-              <div className="text-right">
-                <span className="text-xl font-black text-sky-600">{getModuleScore(module.id)}</span>
-                <span className="text-[10px] font-black text-slate-300 uppercase ml-1">/ {module.targets} Targets</span>
-              </div>
-            </div>
-
-            <div className="p-6 space-y-8 flex-grow">
-              {module.phrases.map((phrase, pIdx) => (
-                <div key={pIdx} className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <span className="text-slate-300 font-black text-xs mt-1">{pIdx + 1}</span>
-                    <p className="text-lg font-bold text-slate-800 leading-tight">
-                      {phrase.text}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap items-center gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-200/50 font-mono text-sm shadow-inner">
-                    <span className="text-slate-300 mr-2">[</span>
-                    {phrase.phoneticParts.map((part, partIdx) => (
-                      part.isTarget ? (
-                        <button
-                          key={partIdx}
-                          onClick={() => togglePhonemeScore(module.id, pIdx, partIdx)}
-                          className={`px-3 py-1 rounded-lg border-2 transition-all font-black text-base ${
-                            phonemeScores[`${module.id}-${pIdx}-${partIdx}`]
-                              ? 'bg-green-500 border-green-600 text-white shadow-md'
-                              : 'bg-white border-slate-300 text-slate-900 hover:border-sky-500 hover:text-sky-600 shadow-sm'
-                          }`}
-                        >
-                          {part.val}
-                        </button>
-                      ) : (
-                        <span key={partIdx} className="text-slate-400 px-1">{part.val}</span>
-                      )
-                    ))}
-                    <span className="text-slate-300 ml-2">]</span>
-                  </div>
+      {/* MODULES */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        {fitiData.map((module) => {
+          const s = moduleStats[module.id];
+          return (
+            <div
+              key={module.id}
+              className="bg-white border-2 border-slate-300 rounded-3xl overflow-hidden flex flex-col"
+            >
+              <div className="p-5 bg-slate-50 border-b border-slate-300 flex flex-wrap justify-between items-center gap-3">
+                <div className="min-w-0">
+                  <span className="px-3 py-1 bg-slate-800 text-white text-[10px] font-black rounded-full mr-2 uppercase">
+                    Module {module.id}
+                  </span>
+                  {!module.complete && (
+                    <span className="px-2 py-1 bg-amber-100 text-amber-900 border border-amber-600 text-[9px] font-black rounded-full uppercase mr-2">
+                      Partial
+                    </span>
+                  )}
+                  <p className="text-xs font-bold text-slate-800 mt-2">
+                    Group {module.group}{" "}
+                    <span className="font-mono font-normal">
+                      {module.groupPhonemes}
+                    </span>
+                  </p>
+                  <p className="text-xs font-bold text-slate-800">
+                    Tier {module.tier}{" "}
+                    <span className="font-mono font-normal">
+                      ({module.tierContexts})
+                    </span>
+                  </p>
                 </div>
-              ))}
+                <div className="text-right shrink-0">
+                  <span className="text-xl font-black text-sky-700">{s.clear}</span>
+                  <span className="text-[10px] font-black text-slate-700 uppercase ml-1">
+                    / {s.available} clear
+                  </span>
+                  {!module.complete && (
+                    <span className="block text-[9px] text-slate-600 font-bold">
+                      published list: {s.published}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-6 space-y-8 flex-grow">
+                {module.phrases.map((phrase, pIdx) => (
+                  <div key={pIdx} className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <span className="text-slate-600 font-black text-xs mt-1.5">
+                        {pIdx + 1}
+                      </span>
+                      <p className="text-lg font-bold text-slate-900 leading-snug">
+                        {phrase.text}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-1.5 p-4 bg-slate-50 rounded-2xl border border-slate-300 font-mono text-sm">
+                      <span className="text-slate-600 mr-1">[</span>
+                      {phrase.phoneticParts.map((part, partIdx) => {
+                        if (!part.isTarget)
+                          return (
+                            <span key={partIdx} className="text-slate-800 px-0.5">
+                              {part.val}
+                            </span>
+                          );
+                        const key = `${module.id}-${pIdx}-${partIdx}`;
+                        const v = scores[key];
+                        return (
+                          <button
+                            key={partIdx}
+                            onClick={() => cycle(key)}
+                            aria-label={`Target ${part.val}: ${v || "not elicited"}`}
+                            className={`px-3 py-1 rounded-lg border-2 transition-all font-black text-base min-w-[36px] min-h-[36px] ${
+                              v === "clear"
+                                ? "bg-green-600 border-green-700 text-white"
+                                : v === "unclear"
+                                ? "bg-red-600 border-red-700 text-white"
+                                : "bg-white border-slate-400 text-slate-900 hover:border-sky-600 hover:text-sky-700"
+                            }`}
+                          >
+                            {part.val}
+                          </button>
+                        );
+                      })}
+                      <span className="text-slate-600 ml-1">]</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <footer className="mt-20 py-10 border-t border-slate-100 text-center">
-        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-loose">
-          Functional Importance to Intelligibility (FITI) © 2024 <br />
-          Developed for the University of Colorado
+      <footer className="mt-20 py-10 border-t border-slate-200 text-center">
+        <p className="text-xs text-slate-700 leading-relaxed max-w-2xl mx-auto">
+          The FITI framework, phrase list, and phonetic annotations are the work
+          of Naomi Gurevich and Heejin Kim, reproduced here with attribution.
+          This scoring interface was built for the Colorado Motor Speech
+          Framework. Nothing entered on this page is stored or transmitted.
         </p>
       </footer>
     </div>

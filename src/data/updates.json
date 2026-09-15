@@ -1,6 +1,24 @@
 {
   "updates": [
     {
+      "date": "September 2026",
+      "items": [
+        "Added the Modular FITI Assessment, a scoring interface for the 15-module functional importance to intelligibility phrase list of Gurevich and Kim (2024)",
+        "Corrected the target sounds throughout: only phonemes appearing in each module's specific positional contexts are marked, verified phrase by phrase against the published appendix",
+        "Each module now states its own phoneme group and positional contexts, rather than only the first module of each group or tier",
+        "Added the full reference and DOI for the modular FITI paper, and carried it into the copyable documentation summary",
+        "Added guidance on interpreting and documenting scores in relation to a module's functional importance, with worked examples",
+        "Added guidance on administering a subset of modules when time or stamina is limited",
+        "Revised 'Reduced vocal loudness (<70dB)' to 'Reduced vocal loudness (<70 dB SPL)' to specify the reference scale",
+        "Added a laterality selector (Bilateral / L / R) to the eight oral mechanism features where a side should be recorded, including facial drooping, lip asymmetry, jaw deviation, palate asymmetry, and tongue deviation, weakness, and range of motion",
+        "Recorded side is now included in the generated clinical summary alongside the feature",
+        "Corrected the display of oral mechanism section headings, which previously read 'Ome' instead of 'OME'",
+        "Fixed a scoring error in which checking 'Limited range of motion' under Lips also checked it under Jaw, double-counting the feature in the diagnostic summary",
+        "Restored definitions for eight oral mechanism features that previously displayed as unavailable",
+        "Released a Chilean Spanish adaptation of the full framework; diagnostic indicators are identical to the English edition"
+      ]
+    },
+    {
       "date": "May 2025",
       "items": [
         "Added definitions for each feature",
