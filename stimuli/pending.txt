@@ -1,0 +1,16 @@
+# Staging file for Modular FITI stimuli.
+#
+# All 15 modules are currently complete (42 phrases, 151 targets), reconciled
+# against Modular_FITI_Phrase_Targets.xlsx and the published module totals.
+# This file is empty by design; it exists for future additions or corrections.
+#
+#   node scripts/fiti-add.mjs            # dry run
+#   node scripts/fiti-add.mjs --write
+#   node scripts/fiti-validate.mjs       # must report 0 errors, 0 warnings
+#
+# FORMAT:  MODULE | orthographic phrase | transcription with [t]argets bracketed
+# Bracket one phoneme per pair; in a cluster bracket only the target: s[k]ul.
+# Use the single-glyph affricates ʧ and ʤ, never tʃ or dʒ.
+#
+# Example:
+#   A1 | Look to see if this is right. | [l]ʊk tu [s]i ɪf ðɪs ɪz [r]aɪt.

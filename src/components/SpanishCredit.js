@@ -1,3 +1,4 @@
+import { SPANISH_ENABLED } from "../config/features";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -8,6 +9,7 @@ import { useLocation } from "react-router-dom";
 // entry in `team` below and delete the `pending` line.
 function SpanishCredit() {
   const location = useLocation();
+  if (!SPANISH_ENABLED) return null;
   const isES =
     location.pathname === "/es" || location.pathname.startsWith("/es/");
   if (!isES) return null;

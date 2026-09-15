@@ -1,3 +1,4 @@
+import { FITI_ENABLED } from "../config/features";
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Row from "../components/Row";
@@ -290,9 +291,11 @@ function Tool({ lang = "en" }) {
       rows.push(
         <tr key="fiti-link" className="bg-sky-50 print:hidden">
           <td colSpan={headerKeys.length + 2} className="p-4 border border-slate-700 text-center align-middle bg-white">
+            {FITI_ENABLED && (
             <Link to="/fiti" className="text-xs font-black text-sky-700 hover:underline flex items-center justify-center gap-2 uppercase tracking-wide">
               {t.fitiPrompt}
             </Link>
+            )}
           </td>
         </tr>
       );

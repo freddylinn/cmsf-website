@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { SPANISH_ENABLED, FITI_ENABLED } from '../config/features';
 
 function NavBar() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function NavBar() {
         { name: 'Body Movement Form', path: '/movement' },
         { name: 'Resources & Tutorials', path: '/resources' },
         { name: 'Patient View', path: '/patient-view' },
-        { name: 'Modular FITI Assessment', path: '/fiti' },
+        ...(FITI_ENABLED ? [{ name: 'Modular FITI Assessment', path: '/fiti' }] : []),
         { name: 'Downloads & Updates', path: '/downloads' },
         { name: 'Audio Samples', path: '/audio' },
       ];
@@ -71,6 +72,7 @@ function NavBar() {
           <div className="flex items-center gap-2 md:gap-4 shrink-0">
 
             {/* Language switch */}
+            {SPANISH_ENABLED && (
             <Link
               to={counterpart()}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11px] md:text-xs font-black uppercase tracking-widest text-slate-700 border border-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-all"
@@ -82,6 +84,7 @@ function NavBar() {
               </svg>
               <span className="hidden sm:inline">{langLabel}</span>
             </Link>
+            )}
 
             {/* Research Invitation Button — English edition only */}
             {!isES && (

@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Tool from "./pages/Tool";
 import Intro from "./pages/Intro";
 import IntroES from "./pages/IntroES";
@@ -11,6 +11,7 @@ import PatientTasks from './pages/PatientTasks';
 import Research from "./pages/Research";
 import Resources from './pages/Resources';
 import FitiAssessment from "./pages/FitiAssessment";
+import { SPANISH_ENABLED, FITI_ENABLED } from "./config/features";
 
 function App() {
   return (
@@ -26,13 +27,21 @@ function App() {
           <Route path="/patient-view" element={<PatientTasks lang="en" />} />
           <Route path="/research" element={<Research />} />
           <Route path="/resources" element={<Resources />} />
-          <Route path="/fiti" element={<FitiAssessment />} />
+          {FITI_ENABLED && <Route path="/fiti" element={<FitiAssessment />} />}
 
           {/* Español (Chile) — CMSF SPCh */}
-          <Route path="/es" element={<IntroES />} />
-          <Route path="/es/tool" element={<Tool lang="es" />} />
-          <Route path="/es/movement" element={<BodyMovement lang="es" />} />
-          <Route path="/es/patient-view" element={<PatientTasks lang="es" />} />
+          {SPANISH_ENABLED && (
+            <>
+              <Route path="/es" element={<IntroES />} />
+              <Route path="/es/tool" element={<Tool lang="es" />} />
+              <Route path="/es/movement" element={<BodyMovement lang="es" />} />
+              <Route path="/es/patient-view" element={<PatientTasks lang="es" />} />
+            </>
+          )}
+
+          {/* A withheld section must not leave a blank page behind for anyone
+              holding a bookmark or a link from the preview build. */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
     </Router>

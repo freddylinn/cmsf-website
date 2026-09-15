@@ -1,3 +1,4 @@
+import { SPANISH_ENABLED, FITI_ENABLED } from "../config/features";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -40,18 +41,18 @@ function UpdatesModal() {
   if (!open) return null;
 
   const items = [
-    {
+    ...(FITI_ENABLED ? [{
       title: "New: Modular FITI Assessment",
       body: "A scoring interface for Gurevich and Kim's modular FITI phrase list, organised by functional importance to intelligibility. Modules stand alone, so you can administer as few or as many as time allows.",
       to: "/fiti",
       linkLabel: "Open the FITI assessment",
-    },
-    {
+    }] : []),
+    ...(SPANISH_ENABLED ? [{
       title: "Now available in Spanish",
       body: "A Chilean Spanish adaptation of the framework, developed with Sebastián Contreras Cubillos and colleagues at Universidad Santo Tomás.",
       to: "/es",
       linkLabel: "Ver en español",
-    },
+    }] : []),
     {
       title: "Redesigned for phones and tablets",
       body: "On smaller screens the tool now presents features as a scrollable list, then shows your diagnostic pattern as a compact grid. The full side-by-side matrix remains on larger screens.",
@@ -95,7 +96,7 @@ function UpdatesModal() {
           id="updates-title"
           className="text-2xl font-black text-slate-900 leading-tight mb-6 pr-8"
         >
-          Four updates to the CMSF
+          {items.length === 1 ? "One update" : `${items.length} updates`} to the CMSF
         </h2>
 
         <ul className="space-y-5 mb-8">

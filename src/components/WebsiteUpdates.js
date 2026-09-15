@@ -1,3 +1,4 @@
+import { SPANISH_ENABLED, FITI_ENABLED } from "../config/features";
 import React from 'react';
 
 const WebsiteUpdates = () => {
@@ -12,6 +13,7 @@ const WebsiteUpdates = () => {
         <div className="absolute -left-[14px] top-0 w-6 h-6 bg-white border-4 border-sky-500 rounded-full"></div>
         <h3 className="text-2xl font-bold mb-6 text-slate-900">September 2026</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {FITI_ENABLED && (
           <div>
             <h4 className="text-[10px] font-black uppercase text-sky-600 mb-4 tracking-widest">Modular FITI Assessment</h4>
             <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
@@ -22,6 +24,8 @@ const WebsiteUpdates = () => {
               <li>• Added guidance on interpreting scores against a module's functional importance, and on administering a subset of modules when time or stamina is limited.</li>
             </ul>
           </div>
+          )}
+          {SPANISH_ENABLED && (
           <div>
             <h4 className="text-[10px] font-black uppercase text-sky-600 mb-4 tracking-widest">Spanish Adaptation</h4>
             <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">
@@ -31,6 +35,7 @@ const WebsiteUpdates = () => {
               <li>• Added Spanish downloads: the CMSF SPCh assessment workbook and the Chilean reading passages, plus a link to the PEVH protocol at the Universidad de Chile repository.</li>
             </ul>
           </div>
+          )}
           <div>
             <h4 className="text-[10px] font-black uppercase text-sky-600 mb-4 tracking-widest">Mobile &amp; Tablet</h4>
             <ul className="space-y-3 text-xs text-slate-600 leading-relaxed font-medium">

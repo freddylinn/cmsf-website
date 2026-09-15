@@ -1,3 +1,4 @@
+import { SPANISH_ENABLED } from "../config/features";
 import React from "react";
 import Download from "../components/Download";
 import WebsiteUpdates from '../components/WebsiteUpdates';
@@ -61,7 +62,7 @@ function Downloads() {
           />
         </div>
 
-        {/* SPANISH (CHILE) EDITION */}
+        {SPANISH_ENABLED && (
         <div className="mb-24">
           <div className="mb-8">
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-sky-700 mb-2">
@@ -105,6 +106,7 @@ function Downloads() {
             />
           </div>
         </div>
+        )}
 
         <WebsiteUpdates />
       </div>
