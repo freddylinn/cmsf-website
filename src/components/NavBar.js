@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SPANISH_ENABLED, FITI_ENABLED } from '../config/features';
+import { SPANISH_ENABLED, FITI_ENABLED, ORIGINS_ENABLED } from '../config/features';
 
 function NavBar() {
   const location = useLocation();
@@ -23,6 +23,7 @@ function NavBar() {
         { name: 'Resources & Tutorials', path: '/resources' },
         { name: 'Patient View', path: '/patient-view' },
         ...(FITI_ENABLED ? [{ name: 'Modular FITI Assessment', path: '/fiti' }] : []),
+        ...(ORIGINS_ENABLED ? [{ name: 'Attribution & History', path: '/origins' }] : []),
         { name: 'Downloads & Updates', path: '/downloads' },
         { name: 'Audio Samples', path: '/audio' },
       ];

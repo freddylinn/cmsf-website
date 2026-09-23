@@ -21,7 +21,9 @@ const WebsiteUpdates = () => {
               <li>• Corrected the target sounds throughout. Only phonemes occurring in each module's specific positional contexts are marked as targets; every phrase was verified against the published appendix.</li>
               <li>• Each module now states its own phoneme group and positional contexts, so a single module can be documented on its own.</li>
               <li>• Added the full reference and DOI for the modular FITI paper, carried into the copyable documentation summary.</li>
-              <li>• Added guidance on interpreting scores against a module's functional importance, and on administering a subset of modules when time or stamina is limited.</li>
+              <li>• Added guidance on interpreting scores against a module's functional importance, and on administering a subset of modules when time is limited.</li>
+              <li>• Modules not administered now report NA rather than zero, in the scoring grid and in the copied documentation, so an unassessed module is not read as one in which every target was in error.</li>
+              <li>• A3 is scored out of 22 targets, correcting a published erratum in which two adjacent target pairs (/s/ and /t/ in "just", /r/ and /l/ in "world") were outlined as single elements. Correction supplied by the authors.</li>
             </ul>
           </div>
           )}

@@ -361,8 +361,12 @@
             "isTarget": true
           },
           {
-            "val": "t ʤʌs",
+            "val": "t ʤʌ",
             "isTarget": false
+          },
+          {
+            "val": "s",
+            "isTarget": true
           },
           {
             "val": "t",
@@ -410,7 +414,11 @@
             "isTarget": true
           },
           {
-            "val": "ld tɜr",
+            "val": "l",
+            "isTarget": true
+          },
+          {
+            "val": "d tɜr",
             "isTarget": false
           },
           {
@@ -457,8 +465,8 @@
         ]
       }
     ],
-    "publishedTargets": 20,
-    "availableTargets": 20,
+    "publishedTargets": 22,
+    "availableTargets": 22,
     "complete": true,
     "group": "A",
     "groupPhonemes": "/r, t, n, s, l, k/",
@@ -1171,34 +1179,42 @@
         ]
       },
       {
-        "text": "Let's begin by looking ahead, not away.",
+        "text": "After exactly a year, I learned to enjoy living in this time zone.",
         "phoneticParts": [
           {
-            "val": "lɛts bɪˈ",
+            "val": "'æftər ɪɡ",
             "isTarget": false
           },
           {
-            "val": "ɡ",
+            "val": "z",
             "isTarget": true
           },
           {
-            "val": "ɪn baɪ ˈlʊkɪŋ əˈ",
+            "val": "æktli ə ",
             "isTarget": false
           },
           {
-            "val": "h",
+            "val": "j",
             "isTarget": true
           },
           {
-            "val": "ɛd, nɑt əˈ",
+            "val": "ɪr, aɪ lɜrnd tu ɪn'",
             "isTarget": false
           },
           {
-            "val": "w",
+            "val": "ʤ",
             "isTarget": true
           },
           {
-            "val": "eɪ.",
+            "val": "ɔɪ 'lɪvɪŋ ɪn ðɪs taɪm ",
+            "isTarget": false
+          },
+          {
+            "val": "z",
+            "isTarget": true
+          },
+          {
+            "val": "oʊn.",
             "isTarget": false
           }
         ]
@@ -1294,42 +1310,34 @@
         ]
       },
       {
-        "text": "After exactly a year, I learned to enjoy living in this time zone.",
+        "text": "Let's begin by looking ahead, not away.",
         "phoneticParts": [
           {
-            "val": "'æftər ɪɡ",
+            "val": "lɛts bɪˈ",
             "isTarget": false
           },
           {
-            "val": "z",
+            "val": "ɡ",
             "isTarget": true
           },
           {
-            "val": "æktli ə ",
+            "val": "ɪn baɪ ˈlʊkɪŋ əˈ",
             "isTarget": false
           },
           {
-            "val": "j",
+            "val": "h",
             "isTarget": true
           },
           {
-            "val": "ɪr, aɪ lɜrnd tu ɪn'",
+            "val": "ɛd, nɑt əˈ",
             "isTarget": false
           },
           {
-            "val": "ʤ",
+            "val": "w",
             "isTarget": true
           },
           {
-            "val": "ɔɪ 'lɪvɪŋ ɪn ðɪs taɪm ",
-            "isTarget": false
-          },
-          {
-            "val": "z",
-            "isTarget": true
-          },
-          {
-            "val": "oʊn.",
+            "val": "eɪ.",
             "isTarget": false
           }
         ]
@@ -1572,6 +1580,39 @@
     "description": "Group E /θ, ð, ʒ/, Tier 1 (#_V, V_V, C_V)",
     "phrases": [
       {
+        "text": "His enthusiasm for the northern climate is why he left the southeast.",
+        "phoneticParts": [
+          {
+            "val": "hɪz ɪn'",
+            "isTarget": false
+          },
+          {
+            "val": "θ",
+            "isTarget": true
+          },
+          {
+            "val": "uzi,æzəm fɔr ðə 'nɔr",
+            "isTarget": false
+          },
+          {
+            "val": "ð",
+            "isTarget": true
+          },
+          {
+            "val": "ərn 'klaɪmət ɪz waɪ hi lɛft ðə saʊ'",
+            "isTarget": false
+          },
+          {
+            "val": "θ",
+            "isTarget": true
+          },
+          {
+            "val": "ist.",
+            "isTarget": false
+          }
+        ]
+      },
+      {
         "text": "Please make the decision within five minutes, then we will go.",
         "phoneticParts": [
           {
@@ -1628,39 +1669,6 @@
             "isTarget": false
           }
         ]
-      },
-      {
-        "text": "His enthusiasm for the northern climate is why he left the southeast.",
-        "phoneticParts": [
-          {
-            "val": "hɪz ɪn'",
-            "isTarget": false
-          },
-          {
-            "val": "θ",
-            "isTarget": true
-          },
-          {
-            "val": "uzi,æzəm fɔr ðə 'nɔr",
-            "isTarget": false
-          },
-          {
-            "val": "ð",
-            "isTarget": true
-          },
-          {
-            "val": "ərn 'klaɪmət ɪz waɪ hi lɛft ðə saʊ'",
-            "isTarget": false
-          },
-          {
-            "val": "θ",
-            "isTarget": true
-          },
-          {
-            "val": "ist.",
-            "isTarget": false
-          }
-        ]
       }
     ],
     "publishedTargets": 8,
@@ -1706,39 +1714,6 @@
     "description": "Group E /θ, ð, ʒ/, Tier 3 (V_C, V_#, C_C, C_#)",
     "phrases": [
       {
-        "text": "The athlete breathes smooth and slow breaths.",
-        "phoneticParts": [
-          {
-            "val": "ði ˈæ",
-            "isTarget": false
-          },
-          {
-            "val": "θ",
-            "isTarget": true
-          },
-          {
-            "val": "lit bri",
-            "isTarget": false
-          },
-          {
-            "val": "ð",
-            "isTarget": true
-          },
-          {
-            "val": "z smu",
-            "isTarget": false
-          },
-          {
-            "val": "ð",
-            "isTarget": true
-          },
-          {
-            "val": " ænd sloʊ brɛθs.",
-            "isTarget": false
-          }
-        ]
-      },
-      {
         "text": "It will take me this month and both the next two months to clean the garage.",
         "phoneticParts": [
           {
@@ -1775,6 +1750,39 @@
           },
           {
             "val": ".",
+            "isTarget": false
+          }
+        ]
+      },
+      {
+        "text": "The athlete breathes smooth and slow breaths.",
+        "phoneticParts": [
+          {
+            "val": "ði ˈæ",
+            "isTarget": false
+          },
+          {
+            "val": "θ",
+            "isTarget": true
+          },
+          {
+            "val": "lit bri",
+            "isTarget": false
+          },
+          {
+            "val": "ð",
+            "isTarget": true
+          },
+          {
+            "val": "z smu",
+            "isTarget": false
+          },
+          {
+            "val": "ð",
+            "isTarget": true
+          },
+          {
+            "val": " ænd sloʊ brɛθs.",
             "isTarget": false
           }
         ]

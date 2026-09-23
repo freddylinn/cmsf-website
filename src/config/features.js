@@ -7,6 +7,11 @@
 //   SPANISH_ENABLED  CMSF SPCh, the Spanish (Chile) edition.
 //                    Pending approval from the Chilean team.
 //
+//   ORIGINS_ENABLED  Attribution & history page (Mayo Clinic lineage, CMSF
+//                    development history, ASHA 2022 photo).
+//                    Pending review by Dr. Joseph Duffy, and photo consent
+//                    from Caitlin Cloud and Kylie Dunne-Platero.
+//
 //   FITI_ENABLED     Modular FITI Assessment.
 //                    Pending approval from Gurevich and Kim, and resolution of
 //                    the A3 target-count question in the published appendix.
@@ -16,4 +21,5 @@
 // cannot be reached by guessing a URL or by following a stale bookmark.
 
 export const SPANISH_ENABLED = false;
-export const FITI_ENABLED = false;
+export const FITI_ENABLED = true;
+export const ORIGINS_ENABLED = false;

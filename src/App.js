@@ -11,7 +11,8 @@ import PatientTasks from './pages/PatientTasks';
 import Research from "./pages/Research";
 import Resources from './pages/Resources';
 import FitiAssessment from "./pages/FitiAssessment";
-import { SPANISH_ENABLED, FITI_ENABLED } from "./config/features";
+import Origins from "./pages/Origins";
+import { SPANISH_ENABLED, FITI_ENABLED, ORIGINS_ENABLED } from "./config/features";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/research" element={<Research />} />
           <Route path="/resources" element={<Resources />} />
           {FITI_ENABLED && <Route path="/fiti" element={<FitiAssessment />} />}
+          {ORIGINS_ENABLED && <Route path="/origins" element={<Origins />} />}
 
           {/* Español (Chile) — CMSF SPCh */}
           {SPANISH_ENABLED && (

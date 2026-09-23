@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ORIGINS_ENABLED } from "../config/features";
 import UpdatesModal from "../components/UpdatesModal";
 import InstallInstructions from "../components/InstallInstructions";
 
@@ -61,6 +62,33 @@ function Intro() {
           >
             Join the CMSF Clinician Network: Research & Training Opportunities
           </Link>
+        </div>
+
+        {/* ATTRIBUTION — Mayo Clinic lineage */}
+        <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-300 mb-8 shadow-sm">
+          <p className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-3">
+            Built on the Mayo Clinic framework
+          </p>
+          <p className="text-base text-slate-700 leading-relaxed">
+            The CMSF organises, and does not replace, the perceptual
+            classification of motor speech disorders developed at the Mayo
+            Clinic by Darley, Aronson and Brown (1969a, 1969b; 1975) and carried
+            forward by Duffy (2005, 2020). The feature set and diagnostic
+            indicators draw most heavily on Duffy&rsquo;s{" "}
+            <em>Motor Speech Disorders</em>, now in its fourth edition.
+            {ORIGINS_ENABLED && (
+              <>
+                {" "}
+                <Link
+                  to="/origins"
+                  className="underline font-bold text-sky-700 hover:text-sky-900"
+                >
+                  Read the full attribution and development history
+                </Link>
+                .
+              </>
+            )}
+          </p>
         </div>
 
         {/* TUTORIALS & RESOURCES BANNER CARD */}

@@ -3,6 +3,9 @@
     {
       "date": "September 2026",
       "items": [
+        "Modules not administered report NA rather than zero, so an unassessed module is not confused with one in which every target was in error",
+        "Module A3 scored out of 22 targets, correcting a published erratum in which two adjacent target pairs were outlined as single elements",
+        "Restored the published phrase order in modules D1, E1 and E3",
         "Added the Modular FITI Assessment, a scoring interface for the 15-module functional importance to intelligibility phrase list of Gurevich and Kim (2024)",
         "Corrected the target sounds throughout: only phonemes appearing in each module's specific positional contexts are marked, verified phrase by phrase against the published appendix",
         "Each module now states its own phoneme group and positional contexts, rather than only the first module of each group or tier",

@@ -19,9 +19,14 @@ const GROUP_LABELS = {
 };
 
 function FitiAssessment() {
-  // Each target is unscored, "clear", or "unclear". Leaving a target unscored
-  // is meaningful — it may not have been elicited — so it is not the same as
-  // marking it unclear.
+  // Each target is unrated, clear, or in error.
+  //
+  // A module is either administered or not. Within a module that WAS
+  // administered, every target counts against the total, so anything left
+  // unrated is an error — modules are designed to be given in full. A module
+  // with nothing rated was not administered at all, and reports NA rather
+  // than a zero, because a zero would be indistinguishable from a module in
+  // which every single target was in error.
   const [scores, setScores] = useState({});
   const [showRef, setShowRef] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -52,6 +57,7 @@ function FitiAssessment() {
       stats[m.id] = {
         clear,
         unclear,
+        administered: clear + unclear > 0,
         scored: clear + unclear,
         available: m.availableTargets,
         published: m.publishedTargets,
@@ -78,15 +84,26 @@ function FitiAssessment() {
         .map((tier) => {
           const s = moduleStats[`${g}${tier}`];
           if (!s) return `T${tier}: —`;
-          return `T${tier}: ${s.clear}/${s.available} clear`;
+          if (!s.administered) return `T${tier}: NA/${s.available}`;
+          return `T${tier}: ${s.clear}/${s.available}`;
         })
         .join("  |  ");
       lines.push(`Group ${g} (${GROUP_LABELS[g]})  ${row}`);
     });
     lines.push("");
     lines.push(
+      "Scores reflect the clarity of phonemic production, out of the targets in each module. Each module administered is administered in full, so any target not produced clearly counts against the total."
+    );
+    lines.push(
       "Higher-priority targets appear in earlier groups and lower tiers; deficits there carry the greatest expected impact on functional intelligibility."
     );
+    const notGiven = fitiData.filter((m) => !moduleStats[m.id].administered);
+    if (notGiven.length) {
+      lines.push("");
+      lines.push(
+        `NA = not administered: ${notGiven.map((m) => m.id).join(", ")}.`
+      );
+    }
     if (incomplete.length) {
       lines.push("");
       lines.push(
@@ -175,27 +192,37 @@ function FitiAssessment() {
         <h2 className="text-[10px] font-black uppercase tracking-widest text-sky-800 mb-3">
           How to score
         </h2>
+        {/* Wording in this block is the authors' own, supplied by Gurevich and
+            Kim as tracked edits. Please keep it verbatim rather than
+            paraphrasing — the distinction between clarity of phonemic
+            production and intelligibility is the point of the framework. */}
         <p className="text-sm text-sky-900 leading-relaxed mb-4">
-          Have the person read or repeat each phrase. Tap each highlighted target
-          sound to cycle its rating. Targets left unmarked are treated as not
-          elicited rather than as errors.
+          You are scoring the clarity of phonemic production (reaching the
+          phonetic target for each phoneme). FITI helps determine where
+          production clarity is most important to intelligibility.
         </p>
         <p className="text-sm text-sky-900 leading-relaxed mb-4">
-          You do not need to administer every module. Each one stands alone, and
-          they are ordered so that the earlier modules carry the greatest
-          expected weight on intelligibility. Stopping early gives you a smaller
-          but still deliberate picture rather than an arbitrary one; each further
-          module you add fills the picture in.
+          Have the person read or repeat each phrase. Tap each highlighted
+          target sound to cycle its rating.
+        </p>
+        <p className="text-sm text-sky-900 leading-relaxed mb-4">
+          Each one stands alone, and they are ordered so that the earlier
+          modules carry the greatest expected weight on intelligibility. To get
+          meaningful data, each module should be administered in full, but you
+          do not need to administer every module. Adding modules progressively
+          builds a more complete, systematic picture of potential barriers to
+          intelligibility.
         </p>
         <div className="mb-4 rounded-xl bg-white/70 border border-sky-300 p-4">
           <p className="text-[10px] font-black uppercase tracking-widest text-sky-800 mb-2">
-            If time or stamina is short
+            Meaningful results in limited time
           </p>
           <ul className="text-sm text-sky-900 leading-relaxed space-y-1.5 list-disc pl-5">
             <li>
-              Start with <strong>A1</strong>. It holds the most frequent
-              consonants in the most salient positions, so it is the single most
-              informative module.
+              Have only 5 min? Start with <strong>A1</strong>. It holds the most
+              frequent consonants in the most salient positions, so it is the
+              single most informative module. Any errors here suggest
+              significant intelligibility deficits.
             </li>
             <li>
               If A1 comes back clean, skip ahead to <strong>E2</strong> and{" "}
@@ -204,30 +231,34 @@ function FitiAssessment() {
               where deficits are most easily missed.
             </li>
             <li>
-              If A1 shows errors, work down in order (A2, A3, B1 …) rather than
-              jumping, so the profile stays interpretable against the hierarchy.
+              If A1 shows errors, treatment for intelligibility is indicated. If
+              you have additional time, work down in order (A2, A3, B1 …) rather
+              than jumping, so the profile stays interpretable against the
+              hierarchy.
             </li>
             <li>
-              Each module can be run as full phrases when prosody matters, or as
-              the target words alone when the question is phonemic articulation.
+              Each module can be run as full phrases, particularly when prosody
+              matters, or as the target words alone to focus on phonemic
+              articulation.
             </li>
           </ul>
           <p className="text-xs text-sky-900 leading-relaxed mt-3">
             When the higher-priority modules are within normal limits,
             intelligibility is less likely to be the highest-value treatment
-            target. Scores below are always calculated against the modules you
-            actually administered.
+            target. If treating, complete the full set of modules to identify
+            treatment targets and prioritize them by modules. Scores below are
+            always calculated against the modules you actually administered.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
           <span className="px-3 py-1.5 rounded-lg border-2 border-slate-400 bg-white text-sm font-bold text-slate-800">
-            Unmarked — not elicited
+            Not evaluated
           </span>
           <span className="px-3 py-1.5 rounded-lg border-2 border-green-700 bg-green-600 text-white text-sm font-bold">
             Clear production
           </span>
           <span className="px-3 py-1.5 rounded-lg border-2 border-red-700 bg-red-600 text-white text-sm font-bold">
-            Unclear / in error
+            In error
           </span>
         </div>
       </div>
@@ -296,9 +327,18 @@ function FitiAssessment() {
                           );
                         return (
                           <td key={tier} className="p-3 border border-slate-300">
-                            <span className="text-sky-700">
-                              {s.clear}/{s.available}
-                            </span>
+                            {s.administered ? (
+                              <span className="text-sky-700">
+                                {s.clear}/{s.available}
+                              </span>
+                            ) : (
+                              <span
+                                className="text-slate-500"
+                                title="Not administered"
+                              >
+                                NA/{s.available}
+                              </span>
+                            )}
                             {!s.complete && (
                               <span
                                 className="block text-[9px] font-black uppercase text-amber-700"
@@ -333,7 +373,7 @@ function FitiAssessment() {
                     Low score in a high-priority module
                   </p>
                   <p className="text-sm text-slate-800 leading-relaxed italic">
-                    “Clear production of 40% of A1 targets. Given the high
+                    “Clarity of production for 40% of A1 targets. Given the high
                     functional importance to intelligibility of this group and
                     tier, significant intelligibility deficits are expected.”
                   </p>
@@ -343,7 +383,7 @@ function FitiAssessment() {
                     Deficits confined to low-priority modules
                   </p>
                   <p className="text-sm text-slate-800 leading-relaxed italic">
-                    “Clear production above 90% for all modules except E2 and E3.
+                    “Clarity of production above 90% for all modules except E2 and E3.
                     Overall intelligibility is not substantially reduced, but
                     given the phonetic complexity and low frequency of the sounds
                     involved, apraxia may warrant consideration.”
@@ -352,9 +392,11 @@ function FitiAssessment() {
               </div>
               <p className="text-xs text-slate-700 leading-relaxed mt-4">
                 The table above doubles as a documentation grid: each cell is the
-                clear count over the targets available in that module. Modules
-                left unadministered stay at zero scored and should be recorded as
-                not assessed rather than as errors.
+                number of targets produced clearly out of the targets in that
+                module. Modules you did not administer read NA rather than zero,
+                and carry through to the copied summary that way, so an
+                unassessed module is never read as one in which every target was
+                in error.
               </p>
             </div>
 
@@ -383,7 +425,7 @@ function FitiAssessment() {
               onClick={reset}
               className="mt-6 px-5 py-3 rounded-xl border-2 border-slate-500 text-slate-800 text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-colors"
             >
-              Clear all ratings
+              Reset all ratings
             </button>
           </div>
         )}
@@ -422,9 +464,15 @@ function FitiAssessment() {
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className="text-xl font-black text-sky-700">{s.clear}</span>
+                  <span
+                    className={`text-xl font-black ${
+                      s.administered ? "text-sky-700" : "text-slate-500"
+                    }`}
+                  >
+                    {s.administered ? s.clear : "NA"}
+                  </span>
                   <span className="text-[10px] font-black text-slate-700 uppercase ml-1">
-                    / {s.available} clear
+                    / {s.available}
                   </span>
                   {!module.complete && (
                     <span className="block text-[9px] text-slate-600 font-bold">
@@ -461,7 +509,7 @@ function FitiAssessment() {
                           <button
                             key={partIdx}
                             onClick={() => cycle(key)}
-                            aria-label={`Target ${part.val}: ${v || "not elicited"}`}
+                            aria-label={`Target ${part.val}: ${v || "not evaluated"}`}
                             className={`px-3 py-1 rounded-lg border-2 transition-all font-black text-base min-w-[36px] min-h-[36px] ${
                               v === "clear"
                                 ? "bg-green-600 border-green-700 text-white"
