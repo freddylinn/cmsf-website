@@ -14,7 +14,7 @@ function Intro() {
       <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-left">
         {/* HEADER RESTORED TO ORIGINAL DARK TEXT */}
         <h1 className="text-4xl md:text-6xl tracking-tight mb-6 leading-tight">
-          <span className="font-bold text-slate-900">CMSF</span>{" "}
+          <span className="font-bold text-slate-900">Colorado</span>{" "}
           <span className="font-normal text-slate-600">Motor Speech Framework</span>
         </h1>
 
