@@ -394,7 +394,7 @@
         ""
       ]
     ],
-    "Disminución de la intensidad": [
+    "Desvanecimiento de la intensidad": [
       [
         0,
         ""
@@ -2580,7 +2580,7 @@
     ]
   },
   "Laringe": {
-    "Tos débil*": [
+    "Tos débil": [
       [
         1,
         "(NC X)"
@@ -2610,7 +2610,7 @@
         ""
       ]
     ],
-    "Golpe glótico débil*": [
+    "Golpe glótico débil": [
       [
         1,
         "(NC X)"
@@ -2670,7 +2670,7 @@
         ""
       ]
     ],
-    "*tos débil pero golpe glótico fuerte": [
+    "Tos débil pero golpe glótico fuerte": [
       [
         0,
         "(podría indicar debilidad respiratoria)"
@@ -2700,7 +2700,7 @@
         ""
       ]
     ],
-    "*golpe débil y tos débil": [
+    "Golpe glótico débil y tos débil": [
       [
         0,
         "(podría indicar debilidad laríngea)"

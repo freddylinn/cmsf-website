@@ -1730,7 +1730,7 @@
     ]
   },
   "OME (Face)": {
-    "Drooping on entire side of face*": [
+    "Drooping on entire side of face": [
       [
         1,
         "(Bell's Palsy, CN VII)"
@@ -1760,7 +1760,7 @@
         ""
       ]
     ],
-    "Drooping on lower side of face*": [
+    "Drooping on lower side of face": [
       [
         0,
         ""
@@ -2002,7 +2002,7 @@
     ]
   },
   "OME (Lips)": {
-    "Asymmetrical movement*": [
+    "Asymmetrical movement": [
       [
         1,
         "(CN VII; ex. reduced retraction on impaired/ipsilateral side)"
@@ -2124,7 +2124,7 @@
         ""
       ]
     ],
-    "Jaw deviation to one side*": [
+    "Jaw deviation to one side": [
       [
         1,
         "(CN V unilaterally; jaw deviates to weak side)"
@@ -2306,7 +2306,7 @@
         ""
       ]
     ],
-    "Palate asymmetry*": [
+    "Palate asymmetry": [
       [
         1,
         "(CN X; hangs lower on side of lesion)"
@@ -2428,7 +2428,7 @@
         ""
       ]
     ],
-    "Deviation to one side on protrusion*": [
+    "Deviation to one side on protrusion": [
       [
         1,
         "(CN XII; deviates to weak side, towards the side of lesion)"
@@ -2458,7 +2458,7 @@
         ""
       ]
     ],
-    "Weakness*": [
+    "Weakness": [
       [
         1,
         "(CN XII)"
@@ -2488,7 +2488,7 @@
         ""
       ]
     ],
-    "Limited range of motion*": [
+    "Limited range of motion": [
       [
         1,
         "(CN XII)"

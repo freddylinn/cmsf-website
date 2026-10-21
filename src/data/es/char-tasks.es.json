@@ -12,7 +12,7 @@
   "Intensidad Vocal|Intensidad vocal reducida (<70 dB SPL)": "El volumen del habla es consistentemente mas bajo que el típico.",
   "Intensidad Vocal|Estallidos explosivos de intensidad": "Aumentos repentinos, breves y atípicamente fuertes en la intensidad vocal, que a menudo ocurren al comienzo de una expresión, y que generalmente reflejan una mala regulación del esfuerzo respiratorio o fonatorio.",
   "Intensidad Vocal|Monointensidad": "Variación reducida o ausente en el volumen vocal a través de las expresiones, lo que resulta en un habla plana o monótona que carece de énfasis natural y contraste prosódico.",
-  "Intensidad Vocal|Disminución de la intensidad": "Reducción notable de la intensidad vocal hacia el final de una emisión, que a veces resulta en una calidad suave o similar a un susurro, y que a menudo indica una alteración del soporte respiratorio o fonatorio.",
+  "Intensidad Vocal|Desvanecimiento de la intensidad": "Reducción notable de la intensidad vocal hacia el final de una emisión, que a veces resulta en una calidad suave o similar a un susurro, y que a menudo indica una alteración del soporte respiratorio o fonatorio.",
   "Intensidad Vocal|Variación excesiva de intensidad": "Cambios abruptos o exagerados en la intensidad vocal dentro o entre expresiones, donde algunas palabras se producen demasiado fuerte y otras inusualmente suavemente, interrumpiendo la prosodia natural del habla.",
   "Calidad Vocal y Respiración|Soplosidad": "Calidad vocal suave y aireada causada por el cierre glotal incompleto, lo que permite el exceso de flujo de aire durante la fonación.",
   "Calidad Vocal y Respiración|Afonía": "Ausencia total de sonido vocal debido a una pérdida total de la fonación.",
@@ -84,9 +84,9 @@
   "Lengua|Rango de movimiento limitado": "Definición no disponible actualmente.",
   "Lengua|Disminución de la capacidad para curvar la punta de la lengua.": "Disminución del control o del rango de movimiento al elevar o dar forma a la parte anterior de la lengua.",
   "Lengua|Movimientos lentos": "Movimientos lentos de la lengua al moverse.",
-  "Laringe|Tos débil*": "Una disminución de la fuerza y la eficacia del reflejo de la tos, a menudo debido a debilidad de los músculos respiratorios, deterioro del cierre glótico o disminución del impulso espiratorio.",
-  "Laringe|Golpe glótico débil*": "Una capacidad reducida para producir un sonido nítido y potente con los pliegues vocales, lo que suele indicar un cierre laríngeo deficiente o una disminución de la fuerza de los pliegues vocales.",
+  "Laringe|Tos débil": "Una disminución de la fuerza y la eficacia del reflejo de la tos, a menudo debido a debilidad de los músculos respiratorios, deterioro del cierre glótico o disminución del impulso espiratorio.",
+  "Laringe|Golpe glótico débil": "Una capacidad reducida para producir un sonido nítido y potente con los pliegues vocales, lo que suele indicar un cierre laríngeo deficiente o una disminución de la fuerza de los pliegues vocales.",
   "Laringe|Estridor inhalatorio": "Un sonido agudo, áspero o sibilante que se escucha durante la inhalación.",
-  "Laringe|*tos débil pero golpe glótico fuerte": "Un patrón en el que el cierre laríngeo voluntario (evaluado mediante un golpe glótico) es fuerte, pero la tos es débil, lo que sugiere que el impulso respiratorio o la fuerza de los músculos espiratorios están deteriorados, mientras que la función laríngea permanece intácta.",
-  "Laringe|*golpe débil y tos débil": "Disminución de la capacidad para generar tanto un fuerte golpe glótico (cierre voluntario de los pliegues vocales) como una tos eficaz, lo que indica una posible debilidad combinada de los músculos laríngeos y respiratorios."
+  "Laringe|Tos débil pero golpe glótico fuerte": "Un patrón en el que el cierre laríngeo voluntario (evaluado mediante un golpe glótico) es fuerte, pero la tos es débil, lo que sugiere que el impulso respiratorio o la fuerza de los músculos espiratorios están deteriorados, mientras que la función laríngea permanece intácta.",
+  "Laringe|Golpe glótico débil y tos débil": "Disminución de la capacidad para generar tanto un fuerte golpe glótico (cierre voluntario de los pliegues vocales) como una tos eficaz, lo que indica una posible debilidad combinada de los músculos laríngeos y respiratorios."
 }

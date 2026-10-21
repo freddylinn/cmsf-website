@@ -39,14 +39,14 @@ export const LANGS = {
     // Items where the source instrument asks the clinician to record a side.
     // Keyed "Group|Feature"; the picker only appears once the item is ticked.
     laterality: {
-      "OME (Face)|Drooping on entire side of face*": ["L", "R"],
-      "OME (Face)|Drooping on lower side of face*": ["L", "R"],
-      "OME (Lips)|Asymmetrical movement*": ["L", "R"],
-      "OME (Jaw)|Jaw deviation to one side*": ["L", "R"],
-      "OME (Soft Palate)|Palate asymmetry*": ["L", "R"],
-      "OME (Tongue)|Deviation to one side on protrusion*": ["L", "R"],
-      "OME (Tongue)|Weakness*": ["Bilateral", "L", "R"],
-      "OME (Tongue)|Limited range of motion*": ["Bilateral", "L", "R"],
+      "OME (Face)|Drooping on entire side of face": ["L", "R"],
+      "OME (Face)|Drooping on lower side of face": ["L", "R"],
+      "OME (Lips)|Asymmetrical movement": ["L", "R"],
+      "OME (Jaw)|Jaw deviation to one side": ["L", "R"],
+      "OME (Soft Palate)|Palate asymmetry": ["L", "R"],
+      "OME (Tongue)|Deviation to one side on protrusion": ["L", "R"],
+      "OME (Tongue)|Weakness": ["Bilateral", "L", "R"],
+      "OME (Tongue)|Limited range of motion": ["Bilateral", "L", "R"],
     },
 
     ui: {
@@ -277,9 +277,11 @@ export const rowKey = (group, name) => `${group}|${name}`;
 // Definitions are looked up by the namespaced key first, then by bare name so
 // the existing English definition file keeps working unchanged.
 export function lookupDefinition(definitions, group, name) {
-  // Historically an asterisk on a feature name flagged "record a side". The
-  // definition file stores those entries without it, so strip a trailing
-  // asterisk as a fallback rather than showing "unavailable".
+  // An asterisk on a feature name used to flag "record a side". That convention
+  // was removed from both editions in October 2026 — it was never explained to
+  // the user anywhere, and ticking the box reveals the side picker by itself.
+  // The strip-trailing-asterisk fallback stays as a safety net for any data
+  // still carrying one.
   const bare = name.replace(/\*+$/, "").trim();
   return (
     definitions[rowKey(group, name)] ||
