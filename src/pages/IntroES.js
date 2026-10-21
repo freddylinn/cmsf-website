@@ -124,6 +124,14 @@ function IntroES() {
               <p className="text-slate-600 mt-2 leading-relaxed">
                 Universidad Santo Tomás, Chile
               </p>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                <a
+                  href="mailto:scontreras8@santotomas.cl"
+                  className="text-sky-600 underline break-all"
+                >
+                  scontreras8@santotomas.cl
+                </a>
+              </p>
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-3">
@@ -140,6 +148,16 @@ function IntroES() {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="border-t border-slate-100 pt-12 mb-12">
+          <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-600 mb-6">
+            Financiamiento
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
+            Proyecto patrocinado por el Fondo de Apoyo a la Investigación
+            (FAI 05-25) de la Sociedad Chilena de Fonoaudiología.
+          </p>
         </div>
 
         <div className="border-t border-slate-100 pt-12">
