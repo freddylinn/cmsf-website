@@ -152,7 +152,7 @@
         ""
       ]
     ],
-    "Disfluencias similares a tatamudeos": [
+    "Disfluencias similares a tartamudeos": [
       [
         0,
         ""
@@ -242,7 +242,7 @@
         ""
       ]
     ],
-    "Intervalos prologados entre palabras": [
+    "Intervalos prolongados entre palabras": [
       [
         0,
         ""
@@ -456,7 +456,7 @@
     ]
   },
   "Calidad Vocal y Respiración": {
-    "Soplocidad": [
+    "Soplosidad": [
       [
         2,
         "(NC X o nervio periférico)"
@@ -726,7 +726,7 @@
         ""
       ]
     ],
-    "TMF <15 seg en menores de 65 años, <12 seg en mayores de 65 años": [
+    "TMF alterado": [
       [
         1,
         "(NC X o nervio frénico)"
@@ -1120,7 +1120,7 @@
         "(debido a una articulación imprecisa)"
       ]
     ],
-    "Deterioro del habla durante el habla continua": [
+    "Deterioro del habla durante el lenguaje espontáneo y mejoría con el reposo": [
       [
         2,
         "(ej. Miastenia Gravis: mejora después de reposo)"
@@ -1486,7 +1486,7 @@
     ]
   },
   "Expresión emocional": {
-    "Afecto pseudobulbar": [
+    "Afecto pseudobulbar (labilidad emocional)": [
       [
         -1,
         ""
@@ -1638,7 +1638,7 @@
         ""
       ]
     ],
-    "Temblor: inducido por acción": [
+    "Temblor: inducido por acción (Temblor esencial)": [
       [
         0,
         ""
@@ -1940,7 +1940,7 @@
         ""
       ]
     ],
-    "Sensación descendida": [
+    "Sensibilidad descendida": [
       [
         1,
         "(anote qué par craneal está afectado)"

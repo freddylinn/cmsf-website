@@ -11,10 +11,11 @@ function IntroES() {
         </p>
 
         <h1 className="text-4xl md:text-6xl tracking-tight mb-6 leading-tight">
-          <span className="font-bold text-slate-900">CMSF</span>{" "}
+          <span className="font-bold text-slate-900">Colorado</span>{" "}
           <span className="font-normal text-slate-600">
-            Marco de Habla Motora de Colorado
-          </span>
+            Motor Speech Framework
+          </span>{" "}
+          <span className="font-normal text-slate-500">— SPCh</span>
         </h1>
 
         <p className="text-xl md:text-2xl text-slate-600 max-w-3xl leading-relaxed mb-10">
@@ -112,18 +113,16 @@ function IntroES() {
                 Adaptación al español de Chile
               </p>
               <p className="font-bold text-slate-900">
-                Sebastián Contreras Cubillos
+                Sebastián Contreras Cubillos, Flgo. Mg.
               </p>
-              <p className="text-slate-600 mt-1 leading-relaxed">
-                Fonoaudiólogo
-                <br />
-                Magíster en Gerontología Clínica
-                <br />
-                Profesor Asistente, Universidad Santo Tomás — Talca, Chile
+              <p className="font-bold text-slate-900">
+                Andrea Salazar Aguayo, Flga. Mg.
               </p>
-              <p className="text-slate-600 mt-3 italic">
-                Junto al equipo de colaboradores. El listado completo se
-                publicará una vez confirmado con el grupo.
+              <p className="font-bold text-slate-900">
+                Patricia Oyarzún Díaz, Flga. Dra.
+              </p>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                Universidad Santo Tomás, Chile
               </p>
             </div>
             <div>
@@ -164,12 +163,46 @@ function IntroES() {
                 Repositorio Universidad de Chile
               </a>
             </li>
-            <li>Soto-Barba, J. et al. (2015). Texto «Inamible».</li>
             <li>
-              Piñeros (2006), citado por Fernández (2021). «El viento del norte y
-              el sol».
+              Soto-Barba, J., Díaz, E., &amp; Pereira, D. (2015). Variación
+              alofónica y diatópica del fonema /b/ en el español de profesionales
+              chilenos en situación de lectura en voz alta.{" "}
+              <em>Literatura y Lingüística, 32</em>, 201–216.{" "}
+              <a
+                className="text-sky-600 underline break-all"
+                href="https://doi.org/10.4067/S0716-58112015000200011"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://doi.org/10.4067/S0716-58112015000200011
+              </a>
             </li>
-            <li>Camargo &amp; Marín (2013). «El arcoíris».</li>
+            <li>
+              Fernández, F. (2021). Textos fonéticos de El Salvador, Nicaragua,
+              Costa Rica y Panamá (1960–2006).{" "}
+              <em>Estudios filológicos</em>, (68), 47–68.{" "}
+              <a
+                className="text-sky-600 underline break-all"
+                href="https://doi.org/10.4067/S0071-17132021000200047"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://doi.org/10.4067/S0071-17132021000200047
+              </a>
+            </li>
+            <li>
+              Camargo, M., &amp; Marín, J. (2013). ¿Es la lectura «El arco iris»
+              apropiada para evaluar desórdenes del habla?{" "}
+              <em>Revista Colombiana de Rehabilitación, 12</em>(1), 40–45.{" "}
+              <a
+                className="text-sky-600 underline break-all"
+                href="https://doi.org/10.30788/RevColReh.v12.n1.2013.42"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://doi.org/10.30788/RevColReh.v12.n1.2013.42
+              </a>
+            </li>
             <li>
               Martínez Cifuentes &amp; Torres Bustos (en prensa). Refranes
               fonológicamente equilibrados para la evaluación clínica del habla

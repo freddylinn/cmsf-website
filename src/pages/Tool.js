@@ -5,6 +5,7 @@ import Row from "../components/Row";
 import MobileFeature from "../components/MobileFeature";
 import PatternGrid from "../components/PatternGrid";
 import MobileGroupHeader from "../components/MobileGroupHeader";
+import InfoTip from "../components/InfoTip";
 import { getLang, rowKey, lookupDefinition, lookupLaterality } from "../i18n";
 
 // Helper for Google Analytics
@@ -75,6 +76,30 @@ const ModeCard = ({ showHighlights, setShowHighlights, t }) => {
     </div>
   );
 };
+
+// Renders the "{i}" placeholder in the quick-instructions string as the actual
+// info button, so the instruction shows the control instead of describing it.
+// The Chilean reviewers asked for this; the token keeps the sentence
+// translatable without hard-coding word order around the icon.
+function withInfoIcon(text) {
+  if (typeof text !== "string" || !text.includes("{i}")) return text;
+  return text.split("{i}").reduce((out, part, idx) => {
+    if (idx > 0) {
+      out.push(
+        <span
+          key={`icon-${idx}`}
+          aria-hidden="true"
+          className="inline-flex items-center justify-center align-middle mx-0.5 px-1.5 rounded bg-sky-100 text-[10px] text-sky-800 font-bold border border-sky-600"
+          style={{ minWidth: "18px", height: "18px" }}
+        >
+          i
+        </span>
+      );
+    }
+    out.push(<React.Fragment key={`txt-${idx}`}>{part}</React.Fragment>);
+    return out;
+  }, []);
+}
 
 function Tool({ lang = "en" }) {
   const L = getLang(lang);
@@ -166,7 +191,11 @@ function Tool({ lang = "en" }) {
       });
     const sp = t.sp;
     let text = `${sp.evaluation}\n`;
-    text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n\n`;
+    text += `Hilger, A., Cloud, C., & Dunne-Platero, K. (2023). Colorado Motor Speech Framework (CMSF) [Clinical assessment tool]. https://cmsf.info\n`;
+    // Present only on the Spanish edition, which credits the Chilean adaptation
+    // team alongside the authors of the original instrument.
+    if (sp.adaptation) text += `${sp.adaptation}\n`;
+    text += `\n`;
     text += `${sp.ratings}:\n- ${sp.selfRating}: ${customValues[SELF] || "N/A"}/10\n- ${sp.intelligibility}: ${customValues[INTEL] || "N/A"}%\n- ${sp.naturalness}: ${customValues[NAT]}/100\n- ${sp.efficiency}: ${customValues[EFF]}/100\n\n`;
     text += `${sp.observations}:\n` + (checked.length > 0 ? checked.map(c => `- ${c}`).join('\n') : sp.none);
     text += `\n\n${sp.differential}:\n` + headerKeys.map((k, i) => `${k}: ${sp.net} ${counts.Total[i]} (C:${counts.Yellow[i]} D:${counts.Green[i]} U:${counts.Red[i]})`).join('\n');
@@ -311,7 +340,14 @@ function Tool({ lang = "en" }) {
     return (
       <tr key={title}>
         <th className="px-6 py-4 border border-slate-700 w-48 bg-slate-50 text-center text-[10px] uppercase font-black text-slate-900 tracking-wider">
-          {title}
+          <span className="inline-flex items-center justify-center gap-2 flex-wrap">
+            {title}
+            <InfoTip
+              text={customData[title]?.tip}
+              label={t.definition}
+              missing={t.definitionMissing}
+            />
+          </span>
         </th>
         <td className="p-3 border border-slate-700 text-center">
           <div className="flex items-center justify-center gap-3">
@@ -415,13 +451,13 @@ function Tool({ lang = "en" }) {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-100 text-sky-700 font-bold text-sm border border-sky-200 mt-0.5 shrink-0">?</div>
             <div className="flex flex-col gap-4">
               <div>
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-sky-700 mb-1">{t.methodologyTitle}</h4>
+                <h4 className="text-sm font-black uppercase tracking-widest text-sky-700 mb-1.5">{t.methodologyTitle}</h4>
                 <p className="text-xs font-bold text-sky-800 leading-relaxed">{t.methodologyBody}</p>
               </div>
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 pt-3 border-t border-sky-200/60">
                 <div className="flex-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-sky-600 mb-1">{t.quickInstructionsTitle}</p>
-                  <p className="text-xs font-bold text-sky-800">{t.quickInstructionsBody}</p>
+                  <p className="text-sm font-black uppercase tracking-widest text-sky-600 mb-1.5">{t.quickInstructionsTitle}</p>
+                  <p className="text-xs font-bold text-sky-800">{withInfoIcon(t.quickInstructionsBody)}</p>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-2 bg-white/50 rounded-xl border border-sky-200/50">
                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
@@ -455,7 +491,7 @@ function Tool({ lang = "en" }) {
             <thead>
               <tr className="bg-slate-100">
                 <th rowSpan={2} className="cmsf-th sticky left-0 top-auto lg:top-16 z-40 p-3 bg-slate-100 w-64 md:w-80 text-xs font-black uppercase text-left pl-6 print:static">{t.characteristics}</th>
-                <th rowSpan={2} className="cmsf-th lg:sticky lg:top-16 z-30 p-3 bg-slate-100 w-16 text-xs font-black uppercase print:static">{t.yesNo}</th>
+                <th rowSpan={2} className="cmsf-th lg:sticky lg:top-16 z-30 p-2 bg-slate-100 w-20 text-[10px] leading-tight font-black uppercase print:static">{t.yesNo}</th>
                 {firstRow}
               </tr>
               <tr>{secondRow}</tr>
@@ -582,7 +618,7 @@ function Tool({ lang = "en" }) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-          <div className="lg:col-span-1"><table className="border border-slate-700 w-full rounded-xl overflow-hidden print:border-slate-800"><tbody>{customRows}</tbody></table></div>
+          <div className="lg:col-span-1"><table className="border border-slate-700 w-full print:border-slate-800"><tbody>{customRows}</tbody></table></div>
           <div className="lg:col-span-2"><textarea className="w-full border-2 border-slate-200 rounded-2xl p-6 min-h-[220px] outline-none print:border-slate-800" placeholder={t.observationsPlaceholder}></textarea></div>
         </div>
 

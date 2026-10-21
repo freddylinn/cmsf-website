@@ -20,6 +20,6 @@
 // navigation entries do not render, and its release notes are withheld, so it
 // cannot be reached by guessing a URL or by following a stale bookmark.
 
-export const SPANISH_ENABLED = false;
+export const SPANISH_ENABLED = true;
 export const FITI_ENABLED = true;
 export const ORIGINS_ENABLED = false;

@@ -203,7 +203,7 @@ function BodyMovement({ lang = "en" }) {
           <thead>
             <tr className="bg-slate-100">
               <th rowSpan={2} className="cmsf-th sticky left-0 top-auto lg:top-16 z-40 p-3 bg-slate-100 w-80 text-xs font-black uppercase text-slate-900 text-left pl-6 print:static">{t.characteristics}</th>
-              <th rowSpan={2} className="cmsf-th lg:sticky lg:top-16 z-30 p-3 bg-slate-100 w-16 text-xs font-black uppercase text-slate-900 print:static">{t.yesNo}</th>
+              <th rowSpan={2} className="cmsf-th lg:sticky lg:top-16 z-30 p-2 bg-slate-100 w-20 text-[10px] leading-tight font-black uppercase text-slate-900 print:static">{t.yesNo}</th>
               {firstRow}
             </tr>
             <tr>{secondRow}</tr>

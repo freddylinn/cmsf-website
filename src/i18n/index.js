@@ -55,14 +55,14 @@ export const LANGS = {
       patientName: "Patient Name",
       patientNamePlaceholder: "Enter name...",
       characteristics: "Characteristics",
-      yesNo: "Y/N",
+      yesNo: "PRESENT",
       blindMode: "Blind Mode",
       revealResults: "Reveal Results",
       methodologyTitle: "Clinical Methodology",
       methodologyBody:
         "Administer the assessment tasks, tick every deviant feature you observe, then reveal the diagnostic pattern to compare.",
       quickInstructionsTitle: "Quick Instructions",
-      quickInstructionsBody: "Hover over blue i's for tasks.",
+      quickInstructionsBody: "Hover over the {i} buttons to see the recommended tasks.",
       privacyNote: "Privacy: All data remains local to your browser.",
       keyTitle: "Diagnostic Indicator Key",
       keyCommon: "Common",
@@ -174,14 +174,14 @@ export const LANGS = {
       patientName: "Nombre de la persona",
       patientNamePlaceholder: "Escriba el nombre...",
       characteristics: "Características",
-      yesNo: "SÍ/NO",
+      yesNo: "PRESENTE",
       blindMode: "Modo ciego",
       revealResults: "Mostrar resultados",
       methodologyTitle: "Metodología clínica",
       methodologyBody:
-        "Administre las tareas de evaluación, marque cada característica desviada que observe y luego muestre el patrón diagnóstico para comparar.",
+        "Administre las tareas de evaluación y marque las características alteradas que observe. Las casillas sin marcar indican características no observadas. Después de terminar se sugiere mostrar el patrón diagnóstico para comparar.",
       quickInstructionsTitle: "Instrucciones rápidas",
-      quickInstructionsBody: "Pase el cursor sobre las i azules para ver las tareas.",
+      quickInstructionsBody: "Pase el cursor sobre los botones {i} para ver las tareas recomendadas.",
       privacyNote: "Privacidad: los datos permanecen solo en su navegador.",
       keyTitle: "Clave de indicadores diagnósticos",
       keyCommon: "Común",
@@ -243,6 +243,8 @@ export const LANGS = {
       sp: {
         evaluation:
           "Evaluación: Colorado Motor Speech Framework (CMSF) — adaptación al español de Chile",
+        adaptation:
+          "Contreras Cubillos, S., Salazar Aguayo, A., y Oyarzún Díaz, P. (2026). Colorado Motor Speech Framework — adaptación al español de Chile (CMSF SPCh). Universidad Santo Tomás, Chile. https://cmsf.info/#/es",
         ratings: "Valoraciones clínicas",
         selfRating: "Autoreporte",
         intelligibility: "Estimación de inteligibilidad",
