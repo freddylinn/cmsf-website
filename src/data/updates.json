@@ -1,6 +1,18 @@
 {
   "updates": [
     {
+      "date": "October 2026",
+      "items": [
+        "Released the Spanish edition of the CMSF, with the full feature set, task instructions, feature definitions, and patient stimuli translated",
+        "Moved 'Short phrases' from Rate of Speech to Voice Quality and Respiration, as phrase length reflects respiratory support rather than speaking rate",
+        "Moved 'Distorted substitutions or articulatory additions' from Fluency and Cadence to Articulation",
+        "Moved 'Atypical silences / pauses' from Word and Phrasal Stress to Fluency and Cadence, as the feature reflects the timing of speech rather than stress patterning",
+        "Reduced 'Articulatory groping' from a distinguishing feature (XX) to a commonly associated feature (X) for apraxia of speech, reflecting current diagnostic criteria in which groping is no longer treated as discriminative",
+        "Applied the same four changes to the Spanish edition, including the linked feature definitions",
+        "Released version 8 of the printable and Excel forms, incorporating the above changes and correcting several checkbox cell links on the Excel form"
+      ]
+    },
+    {
       "date": "September 2026",
       "items": [
         "Modules not administered report NA rather than zero, so an unassessed module is not confused with one in which every target was in error",

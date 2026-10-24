@@ -25,16 +25,16 @@ function Downloads() {
       <div className="max-w-6xl mx-auto px-6 -mt-12 md:-mt-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
           <Download
-            name="CMSF_V7.xlsx"
+            name="CMSF_V8.xlsx"
             type="excel"
             alias="CMSF Assessment (Excel)"
-            description="Full diagnostic matrix with automated differential scoring (V7 - 3/27/26)."
+            description="Full diagnostic matrix with automated differential scoring (V8 - 10/23/26)."
           />
           <Download
-            name="CMSF_V7.pdf"
+            name="CMSF_V8.pdf"
             type="pdf"
             alias="CMSF Assessment (PDF)"
-            description="Printable version of the primary diagnostic framework (V7 - 3/27/26)."
+            description="Printable version of the primary diagnostic framework (V8 - 10/23/26)."
           />
           <Download 
             name="CMSF_References.pdf" 
