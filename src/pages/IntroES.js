@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import InstallInstructions from "../components/InstallInstructions";
+import WebinarBanner from "../components/WebinarBanner";
+import WebinarModal from "../components/WebinarModal";
 
 function IntroES() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
+      <WebinarModal lang="es" />
       <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-left">
         <p className="text-xs font-black uppercase tracking-[0.3em] text-sky-600 mb-5">
           Adaptación al español de Chile · SPCh
@@ -46,6 +49,8 @@ function IntroES() {
             </Link>
           </div>
         </div>
+
+        <WebinarBanner lang="es" />
 
         <hr className="border-slate-100 mb-16" />
 

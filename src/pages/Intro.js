@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ORIGINS_ENABLED } from "../config/features";
 import UpdatesModal from "../components/UpdatesModal";
 import InstallInstructions from "../components/InstallInstructions";
+import WebinarBanner from "../components/WebinarBanner";
 
 function Intro() {
   return (
@@ -63,6 +64,8 @@ function Intro() {
             Join the CMSF Clinician Network: Research & Training Opportunities
           </Link>
         </div>
+
+        <WebinarBanner lang="en" />
 
         {/* ATTRIBUTION — Mayo Clinic lineage */}
         <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-300 mb-8 shadow-sm">
