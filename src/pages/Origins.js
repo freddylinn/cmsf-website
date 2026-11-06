@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 
 // Attribution and development history for the CMSF.
 //
-// WORDING NOTE — please read before editing this page.
-// In October 2026 Dr. Joseph Duffy asked not to be recognised personally on
-// this website, because he did not want to imply that he had a formal role in
-// the development of the CMSF. He is acknowledged in the AJSLP manuscript
-// instead. This page therefore cites the Mayo Clinic literature — including
-// Duffy (2005) and Duffy (2020) — and says nothing about his review of the
-// forms, his correspondence with the lab, or his attendance at ASHA 2022. The
-// photograph taken with him has been deleted from the repository. Please do
-// not re-add any of that material.
+// EDITORIAL NOTE — please read before editing this page.
+// The page credits the Mayo Clinic framework by citing the published
+// literature, and nothing else. By deliberate decision, agreed with the people
+// concerned, it does not describe any individual's personal involvement in
+// the development of the CMSF, and it carries no photographs of individuals.
+// Please keep it that way: cite the work, not the people behind it.
 
 const REFERENCES = [
   {

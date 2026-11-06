@@ -7,11 +7,10 @@
 //   SPANISH_ENABLED  CMSF SPCh, the Spanish (Chile) edition.
 //                    Pending approval from the Chilean team.
 //
-//   ORIGINS_ENABLED  Attribution & history page (Mayo Clinic lineage, CMSF
-//                    development history).
-//                    Dr. Duffy asked (Oct 2026) not to be recognised
-//                    personally on the site; the page now cites the Mayo
-//                    literature only and the ASHA photo has been deleted.
+//   ORIGINS_ENABLED  Attribution & history page: the Mayo Clinic lineage and
+//                    how the CMSF came about, by citation of the published
+//                    literature. See the editorial note in Origins.js before
+//                    editing its wording.
 //
 //   FITI_ENABLED     Modular FITI Assessment.
 //                    Pending approval from Gurevich and Kim, and resolution of
@@ -23,4 +22,4 @@
 
 export const SPANISH_ENABLED = true;
 export const FITI_ENABLED = true;
-export const ORIGINS_ENABLED = false;
+export const ORIGINS_ENABLED = true;
