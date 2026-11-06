@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 
 // Attribution and development history for the CMSF.
 //
-// WORDING NOTE — please read before editing the Duffy paragraphs.
-// In correspondence (Aug–Oct 2023) Dr. Duffy stated that the CMSF forms do
-// NOT require his permission or his publisher's, because they do not copy the
-// text, and that noting strong reliance on Duffy (2020) would be sufficient.
-// Elsevier holds the copyright to the textbook. This page therefore describes
-// what he actually did — reviewed the tool, gave feedback, stayed in
-// correspondence — and deliberately avoids the words "permission",
-// "endorsed", "approved" and "in partnership with", none of which he granted
-// and none of which would be accurate.
+// WORDING NOTE — please read before editing this page.
+// In October 2026 Dr. Joseph Duffy asked not to be recognised personally on
+// this website, because he did not want to imply that he had a formal role in
+// the development of the CMSF. He is acknowledged in the AJSLP manuscript
+// instead. This page therefore cites the Mayo Clinic literature — including
+// Duffy (2005) and Duffy (2020) — and says nothing about his review of the
+// forms, his correspondence with the lab, or his attendance at ASHA 2022. The
+// photograph taken with him has been deleted from the repository. Please do
+// not re-add any of that material.
 
 const REFERENCES = [
   {
@@ -57,10 +57,16 @@ function Origins() {
         </h1>
 
         <p className="text-lg text-slate-700 leading-relaxed mb-6">
-          The CMSF is not a new classification of motor speech disorders. It is a
-          clinical workflow built on top of one — the perceptual framework
-          developed at the Mayo Clinic by Frederic Darley, Arnold Aronson and
-          Joe Brown, and carried forward over five decades by Joseph Duffy.
+          The CMSF is not a new classification of motor speech disorders, and
+          the speech features it scores are not new either. It is a
+          translational tool: it takes the perceptual framework developed at
+          the Mayo Clinic by Frederic Darley, Arnold Aronson and Joe Brown, and
+          carried forward over five decades in Duffy&rsquo;s textbook, and puts
+          it into a form a clinician can work through during an evaluation.
+          What the CMSF contributes is the workflow — the organisation of
+          those features, the scoring, and the side-by-side comparison against
+          each diagnosis. The features themselves, and the patterns that
+          distinguish one dysarthria from another, come from that literature.
         </p>
 
         <p className="text-base text-slate-700 leading-relaxed mb-6">
@@ -75,11 +81,15 @@ function Origins() {
 
         <p className="text-base text-slate-700 leading-relaxed mb-10">
           Duffy&rsquo;s textbook, now in its fourth edition, is the source the
-          CMSF leans on most heavily. The feature set, the subtype columns and
-          the diagnostic indicators were assembled from it, alongside the wider
-          literature catalogued in the references for each feature. His 2005
-          retrospective on the Darley, Aronson and Brown classification is the
-          clearest short account of why the perceptual method has held up.
+          CMSF leans on most heavily. Its summary table of deviant speech
+          characteristics by dysarthria type was the explicit starting point
+          for the scoring grid: the feature rows, the diagnosis columns and the
+          indicators marking which features are common to a subtype and which
+          are highly distinguishing were assembled from that table, then
+          extended against the wider literature catalogued in the references
+          for each feature. Duffy&rsquo;s 2005 retrospective on the Darley,
+          Aronson and Brown classification is the clearest short account of why
+          the perceptual method has held up.
         </p>
 
         <h2 className="text-2xl font-bold text-slate-900 mb-4 mt-12">
@@ -92,52 +102,22 @@ function Origins() {
           observations without helping a clinician interpret them toward a
           dysarthria diagnosis. Together with Caitlin Cloud and Allison Hilger,
           she laid out the speech features as rows and the motor speech
-          diagnoses as columns, and filled the grid with indicators drawn
-          largely from Duffy (2020) and from the research literature behind each
-          feature. That grid is still the structure of the scoring tool today.
-        </p>
-
-        <p className="text-base text-slate-700 leading-relaxed mb-8">
-          Kylie and Caitlin presented the framework at the ASHA Convention in
-          November 2022. Dr. Duffy attended the session.
-        </p>
-
-        <figure className="mb-10">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/asha-2022-duffy.jpg`}
-            alt="Caitlin Cloud, Kylie Dunne-Platero and Dr. Joseph Duffy at the ASHA Convention, November 2022."
-            className="w-full max-w-xl rounded-2xl border border-slate-300 shadow-sm"
-            loading="lazy"
-          />
-          <figcaption className="text-xs text-slate-600 leading-relaxed mt-3 max-w-xl">
-            Caitlin Cloud, Kylie Dunne-Platero and Dr. Joseph Duffy following the
-            CMSF presentation at the ASHA Convention, November 2022.
-          </figcaption>
-        </figure>
-
-        <p className="text-base text-slate-700 leading-relaxed mb-6">
-          In the correspondence that followed, Dr. Duffy reviewed the assessment
-          and scoring forms and offered detailed comments. Two of them changed
-          the tool. He questioned whether &ldquo;disfluencies&rdquo; was the
-          right heading for a group of features that included distorted
-          substitutions, syllable segmentation and prolonged interword
-          intervals, which led to that section being reorganised. He also argued
-          that body movement observations, whatever their clinical interest,
-          should not contribute directly to a speech diagnosis and fall outside
-          the diagnostic scope of practice for SLPs; the body movement section
-          was separated out as a supplemental form on that basis, with
-          instructions stating that those observations are confirmatory signs
-          only.
+          diagnoses as columns, working from the summary table in Duffy (2020)
+          and from the research literature behind each feature. No feature was
+          invented for the CMSF; the work was in organising what the literature
+          already described into something usable at the bedside. That grid is
+          still the structure of the scoring tool today.
         </p>
 
         <p className="text-base text-slate-700 leading-relaxed mb-10">
-          He has remained in correspondence with the lab since, and has seen
-          subsequent versions of the framework. On the question of attribution,
-          his own view was that the forms do not require permission from him or
-          from his publisher, because they do not reproduce the text — and that
-          noting the CMSF&rsquo;s strong reliance on Duffy (2020) would be
-          sufficient. This page is that note, at greater length than a footer
-          line allows.
+          Kylie and Caitlin presented the framework at the ASHA Convention in
+          November 2022, and it has been revised steadily since. One early
+          decision still shapes how the tool is used: body movement
+          observations were separated into a supplemental form rather than
+          feeding the diagnostic grid, because they fall outside the diagnostic
+          scope of practice for speech-language pathologists and should not
+          contribute directly to a speech diagnosis. The supplemental form
+          records them as confirmatory signs only.
         </p>
 
         <h2 className="text-2xl font-bold text-slate-900 mb-4 mt-12">

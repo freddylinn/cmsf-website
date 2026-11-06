@@ -8,9 +8,10 @@
 //                    Pending approval from the Chilean team.
 //
 //   ORIGINS_ENABLED  Attribution & history page (Mayo Clinic lineage, CMSF
-//                    development history, ASHA 2022 photo).
-//                    Pending review by Dr. Joseph Duffy, and photo consent
-//                    from Caitlin Cloud and Kylie Dunne-Platero.
+//                    development history).
+//                    Dr. Duffy asked (Oct 2026) not to be recognised
+//                    personally on the site; the page now cites the Mayo
+//                    literature only and the ASHA photo has been deleted.
 //
 //   FITI_ENABLED     Modular FITI Assessment.
 //                    Pending approval from Gurevich and Kim, and resolution of
