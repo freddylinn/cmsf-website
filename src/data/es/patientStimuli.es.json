@@ -24,8 +24,14 @@
       "header": "Tarea narrativa",
       "instruction": "Haga clic en el texto para abrir la imagen en una pestaña nueva y mostrarla a la persona.",
       "sentences": [
-        { "label": "Lámina del volantín (Melanie Esver)", "imageUrl": "images/MSF-Boulder_Kite Picture for Narrative Task.jpg" },
-        { "label": "Lámina del robo de las galletas, versión revisada (Berube et al., 2019)", "imageUrl": "images/cookie theft.png" }
+        {
+          "label": "Lámina del volantín (Melanie Esver)",
+          "imageUrl": "images/MSF-Boulder_Kite Picture for Narrative Task.jpg"
+        },
+        {
+          "label": "Lámina del robo de las galletas, versión revisada (Berube et al., 2019)",
+          "imageUrl": "images/cookie theft.png"
+        }
       ]
     }
   ],
@@ -43,7 +49,10 @@
       "header": "Evaluación complementaria de prosodia",
       "instruction": "Para una evaluación más detallada de la prosodia (afirmación, pregunta, alegría, tristeza, enojo), utilice la Lámina 1 del PEVH Disartria – Formato abreviado revisado (v. 2021), de Toledo Rodríguez y Tobar Fredes, disponible en el repositorio de la Universidad de Chile.",
       "sentences": [
-        { "label": "Abrir el PEVH Disartria (Repositorio U. de Chile)", "imageUrl": "https://repositorio.uchile.cl/handle/2250/210007" }
+        {
+          "label": "Abrir el PEVH Disartria (Repositorio U. de Chile)",
+          "imageUrl": "https://repositorio.uchile.cl/handle/2250/210007"
+        }
       ]
     }
   ],
@@ -56,6 +65,22 @@
         "Carreta — Clavo — Queso — Crema — Trazo",
         "Bruja — Pase — Perro — Mata — Boda",
         "Trubol — Cuchello — Marrata — Morine — Blancose"
+      ]
+    },
+    {
+      "header": "Refranes fonológicamente equilibrados (Martínez-Cifuentes & Torres-Bustos, 2026)",
+      "instruction": "Pida a la persona que lea los diez refranes en voz alta. Si presenta dificultades para la lectura, realice la tarea por repetición.",
+      "sentences": [
+        "Quien mucho abarca, poco aprieta.",
+        "Lo que abunda, no daña.",
+        "Norte claro, sur oscuro, aguacero seguro.",
+        "En lo ajeno cae la desgracia.",
+        "Quien a buen árbol se arrima, buena sombra lo cobija.",
+        "Camarón que se duerme, se lo lleva la corriente.",
+        "Nadie nace sabiendo.",
+        "La suerte de la fea, la bonita la desea.",
+        "Hoy por ti, mañana por mí.",
+        "Quien canta, su mal espanta."
       ]
     },
     {

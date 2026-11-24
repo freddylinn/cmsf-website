@@ -227,9 +227,19 @@ function IntroES() {
               </a>
             </li>
             <li>
-              Martínez Cifuentes &amp; Torres Bustos (en prensa). Refranes
-              fonológicamente equilibrados para la evaluación clínica del habla
-              en adultos chilenos.
+              Martínez-Cifuentes, R., &amp; Torres-Bustos, V. (2026). Evaluación
+              del habla en adultos chilenos: Una propuesta de textos
+              fonológicamente equilibrados.{" "}
+              <em>Círculo de Lingüística Aplicada a la Comunicación</em>, 108,
+              241–249.{" "}
+              <a
+                className="text-sky-600 underline break-all"
+                href="https://doi.org/10.5209/clac.97852"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://doi.org/10.5209/clac.97852
+              </a>
             </li>
           </ul>
         </div>
